@@ -1,0 +1,54 @@
+<div class="uk-container uk-width-1-2">
+    <div class="uk-card uk-card-default uk-margin-top uk-margin-bottom">
+        <div class="uk-card-header">
+            <h2 class="uk-text-light">Novo contrato</h2>
+        </div>
+        <div class="uk-card-body">
+            <form [formGroup]="form" class="uk-form-stacked">
+                <div class="uk-margin">
+                    <label class="uk-form-label" for="contract-Name">Nome do contrato</label>
+                    <div class="uk-form-controls">
+                        <input class="uk-input" id="contract-Name" formControlName="contractName" type="text"
+                            placeholder="Nome do contrato">
+                    </div>
+                </div>
+
+                <div class="uk-margin">
+                    <label class="uk-form-label" for="rent-Price">Valor do aluguel</label>
+                    <div class="uk-form-controls">
+                        <input class="uk-input" id="rent-Price" formControlName="rentPrice" type="text"
+                            placeholder="Valor do aluguel">
+                    </div>
+                </div>
+
+                <div class="uk-margin">
+                    <label class="uk-form-label" for="rent-Due-Date">Data de vencimento do aluguel</label>
+                    <div class="uk-form-controls">
+                        <input class="uk-input" id="rent-Due-Date" formControlName="rentDueDate" type="date"
+                            placeholder="Data de vencimento do aluguel">
+                    </div>
+                </div>
+
+                <div class="uk-margin">
+                    <label class="uk-form-label" for="contract-Start-Date">Data de início do contrato</label>
+                    <div class="uk-form-controls">
+                        <input class="uk-input" id="contract-Start-Date" formControlName="contractStartDate" type="date"
+                            placeholder="Data de início do contrato">
+                    </div>
+                </div>
+
+                <div class="uk-margin">
+                    <label class="uk-form-label" for="contract-End-Date">Data de término do contrato</label>
+                    <div class="uk-form-controls">
+                        <input class="uk-input" id="contract-End-Date" formControlName="contractEndDate" type="date"
+                            placeholder="Data de término do contrato">
+                    </div>
+                </div>
+
+                <div class="uk-text-right">
+                    <button class="uk-button uk-button-default" (click)="createContract()">Criar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
