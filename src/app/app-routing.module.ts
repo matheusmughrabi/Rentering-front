@@ -7,10 +7,11 @@ import { CreateContractPageComponent } from './contracts/pages/create-contract-p
 import { UserContractsComponent } from './contracts/pages/user-contracts/user-contracts.component';
 import { FramePageComponent } from './shared/pages/master/frame-page.component';
 import { AuthGuard } from './routeGuards/auth.guard';
+import { LoginGuard } from './routeGuards/login.guard';
 
 const routes: Routes = [
-  {path: 'login', component: LoginPageComponent},
-  {path: 'signup', component: SignupPageComponent},
+  {path: 'login', component: LoginPageComponent, canActivate: [LoginGuard]},
+  {path: 'signup', component: SignupPageComponent, canActivate: [LoginGuard]},
 
   {path: '', component: UserContractsComponent, canActivate: [AuthGuard]},
 
