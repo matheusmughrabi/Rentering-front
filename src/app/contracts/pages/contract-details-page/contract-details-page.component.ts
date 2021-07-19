@@ -3,7 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ContractsService } from 'src/app/contracts/services/contracts.service';
 import { DetailedContractRequest, DetailedContractResponse } from '../../models/detailedContract.models';
-import { InviteParticipantRequest } from '../../models/participant.models';
+import { InviteParticipantRequest } from '../../models/inviteParticipant.models';
+import { RemoveParticipantRequest } from '../../models/removeParticipant.models';
 
 @Component({
   selector: 'app-contract-details-page',
@@ -40,6 +41,20 @@ export class ContractDetailsPageComponent implements OnInit {
         },
         (error) => console.log(error)
       );
+  }
+
+  removeParticipant(accountId: number): void{
+    let removeParticipantRequest = new RemoveParticipantRequest();
+    removeParticipantRequest.contractId = this.getContractIdFromRouteParam();
+    removeParticipantRequest.accountId = accountId;
+
+    this.contractService.removeParticipant(removeParticipantRequest)
+    .subscribe(
+      (data) => {
+        console.log(data);
+      },
+      (error) => console.log(error)
+    );
   }
 
   //#region Private helper methods

@@ -5,7 +5,8 @@ import { environment } from 'src/environments/environment';
 import { UserContractResponse } from '../models/contract.models';
 import { CreateContractRequest } from '../models/createContract.models';
 import { DetailedContractRequest, DetailedContractResponse } from '../models/detailedContract.models';
-import { InviteParticipantRequest } from '../models/participant.models';
+import { InviteParticipantRequest } from '../models/inviteParticipant.models';
+import { RemoveParticipantRequest } from '../models/removeParticipant.models';
 
 @Injectable({
   providedIn: 'root'
@@ -43,6 +44,13 @@ export class ContractsService {
 
   inviteParticipant(data: InviteParticipantRequest): Observable<any> {
     const path = environment.UrlBase + 'contracts/InviteParticipant';
+
+    var response = this.http.put<any>(path, data, { headers: this.composeHeaders() });
+    return response;
+  }
+
+  removeParticipant(data: RemoveParticipantRequest): Observable<any> {
+    const path = environment.UrlBase + 'contracts/RemoveParticipant';
 
     var response = this.http.put<any>(path, data, { headers: this.composeHeaders() });
     return response;
