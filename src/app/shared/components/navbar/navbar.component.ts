@@ -11,4 +11,9 @@ export class NavbarComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  public clear() {
+    localStorage.removeItem('token');
+    localStorage.removeItem('username');
+    localStorage.removeItem('role');
+}
 }

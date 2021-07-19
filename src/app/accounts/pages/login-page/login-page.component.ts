@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LoginResponse } from 'src/app/accounts/models/login.models';
 import { ResponseBase } from 'src/app/shared/models/responseBase';
 import { AccountsService } from 'src/app/accounts/services/accounts.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login-page',
@@ -11,7 +12,7 @@ import { AccountsService } from 'src/app/accounts/services/accounts.service';
 export class LoginPageComponent implements OnInit {
   public form: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, private accountsService: AccountsService) {
+  constructor(private formBuilder: FormBuilder, private router: Router, private accountsService: AccountsService) {
     this.form = this.formBuilder.group({
       username: ['', Validators.compose([
         Validators.minLength(3),
@@ -38,7 +39,7 @@ export class LoginPageComponent implements OnInit {
           localStorage.setItem('username', data.data.username)
           localStorage.setItem('role', data.data.role)
 
-          console.log(data);
+          this.router.navigate(['/contratos']);
         },
         (error) => console.log(error)
         );
