@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { AcceptToParticipateRequest } from '../models/acceptToParticipate.models';
 import { UserContractResponse } from '../models/contract.models';
 import { CreateContractRequest } from '../models/createContract.models';
 import { DetailedContractRequest, DetailedContractResponse } from '../models/detailedContract.models';
@@ -61,6 +62,20 @@ export class ContractsService {
     const path = environment.UrlBase + 'contracts/RemoveParticipant';
 
     var response = this.http.put<any>(path, data, { headers: this.composeHeaders() });
+    return response;
+  }
+
+  acceptToParticipate(data: AcceptToParticipateRequest): Observable<any> {
+    const path = environment.UrlBase + 'contracts/AcceptToParticipate';
+
+    var response = this.http.patch<any>(path, data, { headers: this.composeHeaders() });
+    return response;
+  }
+
+  rejectToParticipate(data: AcceptToParticipateRequest): Observable<any> {
+    const path = environment.UrlBase + 'contracts/RejectToParticipate';
+
+    var response = this.http.patch<any>(path, data, { headers: this.composeHeaders() });
     return response;
   }
 }

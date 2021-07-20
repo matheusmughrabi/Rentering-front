@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { AcceptToParticipateRequest } from '../../models/acceptToParticipate.models';
 import { PendingInvitationResponse } from '../../models/pendingInvitation.models';
+import { RejectToParticipateRequest } from '../../models/rejectToParticipate.models';
 import { ContractsService } from '../../services/contracts.service';
 
 @Component({
@@ -17,5 +19,21 @@ export class PendingInvitationsPageComponent implements OnInit {
         this.pendingInvitations = data;
         console.log(data);
       });
+  }
+
+  acceptToParticipate(contractId: number): void{
+    let acceptToParticipateRequest = new AcceptToParticipateRequest();
+    acceptToParticipateRequest.contractId = contractId;
+
+    this.contractService.acceptToParticipate(acceptToParticipateRequest)
+      .subscribe();
+  }
+
+  rejectToParticipate(contractId: number): void{
+    let rejectToParticipateRequest = new RejectToParticipateRequest();
+    rejectToParticipateRequest.contractId = contractId;
+
+    this.contractService.rejectToParticipate(rejectToParticipateRequest)
+      .subscribe();
   }
 }
