@@ -1,0 +1,38 @@
+<div class="uk-container uk-margin-top uk-margin-top uk-width-2-3@l">
+    <div class="uk-card uk-card-default">
+        <div class="uk-card-header">
+            <div class="uk-grid-small uk-flex-middle" uk-grid>
+                <div class="uk-width-expand">
+                    <h3 class="uk-card-title uk-margin-remove-bottom">Convites pendentes</h3>
+                </div>
+            </div>
+        </div>
+        <div class="uk-card-body">
+            <p *ngIf="pendingInvitations.length == 0" class="uk-text-default">Não há convites pendentes</p>
+
+            <ul *ngIf="pendingInvitations.length > 0" uk-accordion>
+                <li *ngFor="let invitation of pendingInvitations">
+                    <p class="uk-accordion-title uk-text-default">{{ invitation.contractName }}</p>
+
+                    <div class="uk-accordion-content uk-text-meta">
+                        <p>Criador do contrato: {{ invitation.contractOwner }}</p>
+                        <p>Status do contrato: {{ invitation.contractState }}</p>
+                        <p>Seu papel no contrato: {{ invitation.participantRole }}</p>
+                        <p>Valor do aluguel: {{ invitation.rentPrice | currency: 'BRL' }}</p>
+                        <p>Vencimento do aluguel: {{ invitation.rentDueDate | date }}</p>
+                        <p>Data de início: {{ invitation.contractStartDate | date }}</p>
+                        <p>Data de término: {{ invitation.contractEndDate | date }}</p>
+
+                        <button class="uk-button uk-button-default">Aceitar</button>
+                        <button class="uk-button uk-button-default uk-margin-small-left">Recusar</button>
+                        <button class="uk-button uk-button-default uk-margin-small-left">Detalhes</button>
+                    </div>
+                </li>
+            </ul>
+
+        </div>
+        <div class="uk-card-footer">
+            <a routerLink="/contratos" class="uk-button">Voltar</a>
+        </div>
+    </div>
+</div>

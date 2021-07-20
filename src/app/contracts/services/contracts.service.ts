@@ -6,6 +6,7 @@ import { UserContractResponse } from '../models/contract.models';
 import { CreateContractRequest } from '../models/createContract.models';
 import { DetailedContractRequest, DetailedContractResponse } from '../models/detailedContract.models';
 import { InviteParticipantRequest } from '../models/inviteParticipant.models';
+import { PendingInvitationResponse } from '../models/pendingInvitation.models';
 import { RemoveParticipantRequest } from '../models/removeParticipant.models';
 
 @Injectable({
@@ -32,6 +33,13 @@ export class ContractsService {
     const path = environment.UrlBase + `contracts/ContractDetailed/${param.contractId}`;
 
     var response = this.http.get<DetailedContractResponse>(path, { headers: this.composeHeaders() });
+    return response;
+  }
+
+  getPendingInvitations(): Observable<PendingInvitationResponse[]> {
+    const path = environment.UrlBase + `contracts/PendingInvitations`;
+
+    var response = this.http.get<PendingInvitationResponse[]>(path, { headers: this.composeHeaders() });
     return response;
   }
 
