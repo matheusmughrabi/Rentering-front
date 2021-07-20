@@ -23,6 +23,7 @@ export class LoginGuard implements CanActivate {
         const data = localStorage.getItem('token');
 
         if (data) {
+            this.router.navigate(['/contratos']);
             return true;
         }
 

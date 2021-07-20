@@ -24,6 +24,6 @@ export class Participant {
 export class ContractPayment {
     public month!: Date;
     public rentPrice!: number;
-    public renterPaymentStatus!: string;
-    public tenantPaymentStatus!: string;
+    public receiverPaymentStatus!: string;
+    public payerPaymentStatus!: string;
 }

@@ -101,11 +101,11 @@
                 <div *ngIf="detailedContractResponse.contractPayments.length > 0">
                     <ul uk-accordion *ngFor="let payment of detailedContractResponse.contractPayments">
                         <li class="uk-open">
-                            <p class="uk-accordion-title">{{ payment.month }}</p>
+                            <p class="uk-accordion-title">{{ payment.month | date}}</p>
                             <div class="uk-accordion-content uk-text-meta">
                                 <p>Valor: {{ payment.rentPrice }}</p>
-                                <p>Status do participante: {{ payment.renterPaymentStatus }}</p>
-                                <p>Status do participante: {{ payment.tenantPaymentStatus }}</p>
+                                <p>Status do participante: {{ payment.receiverPaymentStatus }}</p>
+                                <p>Status do participante: {{ payment.payerPaymentStatus }}</p>
                             </div>
                         </li>
                     </ul>
