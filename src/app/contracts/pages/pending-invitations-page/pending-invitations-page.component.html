@@ -25,7 +25,7 @@
 
                         <button class="uk-button uk-button-default" (click)="acceptToParticipate(invitation.id)">Aceitar</button>
                         <button class="uk-button uk-button-default uk-margin-small-left" (click)="rejectToParticipate(invitation.id)">Recusar</button>
-                        <button class="uk-button uk-button-default uk-margin-small-left">Detalhes</button>
+                        <button routerLink="/contratos/detalhes/{{invitation.id}}"  class="uk-button uk-button-default uk-margin-small-left">Detalhes</button>
                     </div>
                 </li>
             </ul>
