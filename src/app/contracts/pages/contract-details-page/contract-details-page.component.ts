@@ -14,8 +14,11 @@ export class ContractDetailsPageComponent implements OnInit {
   public form!: FormGroup;
   public detailedContractResponse: DetailedContractResponse = new DetailedContractResponse();
   private inviteParticipantRequest!: InviteParticipantRequest;
+  public isVisibleToCurrentUser!: boolean;
 
-  constructor(private activatedRoute: ActivatedRoute, private fb: FormBuilder, private contractService: ContractsService,) {}
+  constructor(private activatedRoute: ActivatedRoute, private fb: FormBuilder, private contractService: ContractsService,) {
+    this.isVisibleToCurrentUser = this.detailedContractResponse.currentUserRole == "Criador";
+  }
 
   ngOnInit(): void {
     let contractId: number = this.getContractIdFromRouteParam();
@@ -57,7 +60,6 @@ export class ContractDetailsPageComponent implements OnInit {
     );
   }
 
-  //#region Private helper methods
   private getContractIdFromRouteParam(): number{
     let contractId!: number;
 
@@ -96,5 +98,4 @@ export class ContractDetailsPageComponent implements OnInit {
       ])]
     })
   }
-  //#endregion
 }

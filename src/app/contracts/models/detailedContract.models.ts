@@ -5,6 +5,7 @@ export class DetailedContractRequest {
 export class DetailedContractResponse {
     public id!: number;
     public contractName!: string;
+    public currentUserRole!: string;
     public contractState!: string;
     public rentPrice!: number;
     public rentDueDate!: Date;

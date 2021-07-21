@@ -1,8 +1,8 @@
 export class UserContractResponse{
     public id!: number;
     public contractName!: string;
-    public contractState!: number;
-    public participantRole!: number;
+    public contractState!: string;
+    public participantRole!: string;
     public rentPrice!: number;
     public rentDueDate!: Date;
     public contractStartDate!: Date;

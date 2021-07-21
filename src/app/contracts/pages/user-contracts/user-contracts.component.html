@@ -1,36 +1,38 @@
 <div class="uk-container uk-margin-top">
-    <div uk-grid>
-        <div class="uk-width-1-2" *ngFor="let contract of userContracts">
-            <div class="uk-card uk-card-default">
-                <div class="uk-card-header">
-                    <div class="uk-grid-small uk-flex-middle" uk-grid>
-                        <div class="uk-width-expand">
-                            <h3 class="uk-card-title uk-margin-remove-bottom">{{ contract.contractName }}</h3>
-                            <p>{{ contract.participantRole }}</p>
-                            <p class="uk-text-meta uk-margin-remove-top">
-                                Data de ínicio: {{ contract.contractStartDate | date}}
-                            </p>
+    <div class="uk-margin-bottom">
+        <div uk-grid>
+            <div class="uk-width-1-2" *ngFor="let contract of userContracts">
+                <div class="uk-card uk-card-default">
+                    <div class="uk-card-header">
+                        <div class="uk-grid-small uk-flex-middle" uk-grid>
+                            <div class="uk-width-expand">
+                                <h3 class="uk-card-title uk-margin-remove-bottom">{{ contract.contractName }}</h3>
+                                <p>{{ contract.participantRole }}</p>
+                                <p class="uk-text-meta uk-margin-remove-top">
+                                    Data de ínicio: {{ contract.contractStartDate | date}}
+                                </p>
 
-                            <p class="uk-text-meta uk-margin-remove-top">
-                                Status do contrato: {{ contract.contractState}}
-                            </p>
+                                <p class="uk-text-meta uk-margin-remove-top">
+                                    Status do contrato: {{ contract.contractState}}
+                                </p>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="uk-card-body">
-                    <div uk-grid>
-                        <p class="uk-width-1-2">Valor do aluguel </p>
-                        <p class="uk-width-1-2">{{ contract.rentPrice | currency: 'BRL'}}</p>
-                    </div>
+                    <div class="uk-card-body">
+                        <div uk-grid>
+                            <p class="uk-width-1-2">Valor do aluguel </p>
+                            <p class="uk-width-1-2">{{ contract.rentPrice | currency: 'BRL'}}</p>
+                        </div>
 
-                    <div uk-grid>
-                        <p class="uk-width-1-2">Vencimento do aluguel</p>
-                        <p class="uk-width-1-2">{{ contract.rentDueDate | date}}</p>
-                    </div>
+                        <div uk-grid>
+                            <p class="uk-width-1-2">Vencimento do aluguel</p>
+                            <p class="uk-width-1-2">{{ contract.rentDueDate | date}}</p>
+                        </div>
 
-                </div>
-                <div class="uk-card-footer">
-                    <a routerLink="/contratos/detalhes/{{contract.id}}" class="uk-button">Detalhes</a>
+                    </div>
+                    <div class="uk-card-footer">
+                        <a routerLink="/contratos/detalhes/{{contract.id}}" class="uk-button">Detalhes</a>
+                    </div>
                 </div>
             </div>
         </div>

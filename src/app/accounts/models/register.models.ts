@@ -8,7 +8,8 @@ export class RegisterRequest{
 }
 
 export class RegisterResponse{
-    public email!: string;
+    public id!: number;
     public username!: string;
     public role!: string;
+    public token!: string;
 }

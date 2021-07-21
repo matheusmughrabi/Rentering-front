@@ -7,7 +7,11 @@
 
                     <div uk-grid class="uk-margin-top">
 
-                        <p class="uk-text-meta uk-margin-remove-top uk-width-1-1 uk-margin-bottom">
+                        <p class="uk-text-meta uk-margin-remove-top uk-width-1-2 uk-margin-bottom">
+                            Papel no contrato: {{ detailedContractResponse.currentUserRole }}
+                        </p>
+
+                        <p class="uk-text-meta uk-margin-remove-top uk-width-1-2 uk-margin-bottom">
                             Status do contrato: {{ detailedContractResponse.contractState }}
                         </p>
 
@@ -37,10 +41,12 @@
                 <div class="uk-flex">
                     <h3>Participantes</h3>
                     <!-- This is a button toggling the modal with the default close button -->
-                    <p class="uk-margin-remove-top uk-margin-remove-bottom">
-                        <button class="uk-button uk-button-primary uk-margin-left" type="button"
+                    <div>
+                        <p class="uk-margin-remove-top uk-margin-remove-bottom">
+                            <button class="uk-button uk-button-primary uk-margin-left" type="button"
                             uk-toggle="target: #modal-close-default">Novo participante</button>
-                    </p>
+                        </p>
+                    </div>
 
                     <!-- This is the modal with the default close button -->
                     <div id="modal-close-default" uk-modal>
@@ -80,7 +86,7 @@
                         <p class="uk-accordion-title uk-text-default">{{ participant.fullName }}</p>
 
                         <div class="uk-accordion-content uk-text-meta">
-                            <button class="uk-button uk-button-default" (click)="removeParticipant(participant.accountId)">Remover</button>
+                            <button *ngIf="isVisibleToCurrentUser == true" class="uk-button uk-button-default" (click)="removeParticipant(participant.accountId)">Remover</button>
 
                             <p>Papel do participante: {{ participant.participantRole }}</p>
                             <p>Status do participante: {{ participant.status }}</p>
@@ -100,7 +106,7 @@
 
                 <div *ngIf="detailedContractResponse.contractPayments.length > 0">
                     <ul uk-accordion *ngFor="let payment of detailedContractResponse.contractPayments">
-                        <li class="uk-open">
+                        <li>
                             <p class="uk-accordion-title">{{ payment.month | date}}</p>
                             <div class="uk-accordion-content uk-text-meta">
                                 <p>Valor: {{ payment.rentPrice }}</p>
