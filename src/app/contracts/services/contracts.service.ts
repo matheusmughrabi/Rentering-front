@@ -6,8 +6,10 @@ import { AcceptToParticipateRequest } from '../models/acceptToParticipate.models
 import { UserContractResponse } from '../models/contract.models';
 import { CreateContractRequest } from '../models/createContract.models';
 import { DetailedContractRequest, DetailedContractResponse } from '../models/detailedContract.models';
+import { ExecutePaymentRequest } from '../models/executePayment.models';
 import { InviteParticipantRequest } from '../models/inviteParticipant.models';
 import { PendingInvitationResponse } from '../models/pendingInvitation.models';
+import { RejectToParticipateRequest } from '../models/rejectToParticipate.models';
 import { RemoveParticipantRequest } from '../models/removeParticipant.models';
 
 @Injectable({
@@ -72,8 +74,15 @@ export class ContractsService {
     return response;
   }
 
-  rejectToParticipate(data: AcceptToParticipateRequest): Observable<any> {
+  rejectToParticipate(data: RejectToParticipateRequest): Observable<any> {
     const path = environment.UrlBase + 'contracts/RejectToParticipate';
+
+    var response = this.http.patch<any>(path, data, { headers: this.composeHeaders() });
+    return response;
+  }
+
+  executePayment(data: ExecutePaymentRequest): Observable<any> {
+    const path = environment.UrlBase + 'contracts/ExecutePayment';
 
     var response = this.http.patch<any>(path, data, { headers: this.composeHeaders() });
     return response;

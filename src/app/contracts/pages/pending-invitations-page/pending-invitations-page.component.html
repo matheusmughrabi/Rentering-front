@@ -23,9 +23,9 @@
                         <p>Data de início: {{ invitation.contractStartDate | date }}</p>
                         <p>Data de término: {{ invitation.contractEndDate | date }}</p>
 
-                        <button class="uk-button uk-button-default" (click)="acceptToParticipate(invitation.id)">Aceitar</button>
-                        <button class="uk-button uk-button-default uk-margin-small-left" (click)="rejectToParticipate(invitation.id)">Recusar</button>
-                        <button routerLink="/contratos/detalhes/{{invitation.id}}"  class="uk-button uk-button-default uk-margin-small-left">Detalhes</button>
+                        <button class="uk-button uk-button-default" (click)="acceptToParticipate(invitation.contractId, invitation.accountContractId)">Aceitar</button>
+                        <button class="uk-button uk-button-default uk-margin-small-left" (click)="rejectToParticipate(invitation.contractId, invitation.accountContractId)">Recusar</button>
+                        <button routerLink="/contratos/detalhes/{{invitation.contractId}}"  class="uk-button uk-button-default uk-margin-small-left">Detalhes</button>
                     </div>
                 </li>
             </ul>

@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ContractsService } from 'src/app/contracts/services/contracts.service';
 import { DetailedContractRequest, DetailedContractResponse } from '../../models/detailedContract.models';
+import { ExecutePaymentRequest } from '../../models/executePayment.models';
 import { InviteParticipantRequest } from '../../models/inviteParticipant.models';
 import { RemoveParticipantRequest } from '../../models/removeParticipant.models';
 
@@ -50,6 +51,20 @@ export class ContractDetailsPageComponent implements OnInit {
     removeParticipantRequest.accountId = accountId;
 
     this.contractService.removeParticipant(removeParticipantRequest)
+    .subscribe(
+      (data) => {
+        console.log(data);
+      },
+      (error) => console.log(error)
+    );
+  }
+
+  executePayment(month: Date): void{
+    let executePaymentRequest = new ExecutePaymentRequest();
+    executePaymentRequest.month = month;
+    executePaymentRequest.contractId = this.detailedContractResponse.id;
+
+    this.contractService.executePayment(executePaymentRequest)
     .subscribe(
       (data) => {
         console.log(data);

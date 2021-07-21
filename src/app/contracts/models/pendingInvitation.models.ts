@@ -1,5 +1,6 @@
 export class PendingInvitationResponse{
-    public id!: number;
+    public accountContractId!: number;
+    public contractId!: number;
     public contractName!: string;
     public contractOwner!: string;
     public contractState!: string;

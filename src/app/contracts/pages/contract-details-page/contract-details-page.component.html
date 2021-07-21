@@ -41,10 +41,11 @@
                 <div class="uk-flex">
                     <h3>Participantes</h3>
                     <!-- This is a button toggling the modal with the default close button -->
-                    <div *ngIf=" detailedContractResponse.currentUserRole.toLocaleLowerCase() === 'Criador'.toLocaleLowerCase()">
+                    <div
+                        *ngIf=" detailedContractResponse.currentUserRole.toLocaleLowerCase() === 'Criador'.toLocaleLowerCase()">
                         <p class="uk-margin-remove-top uk-margin-remove-bottom">
                             <button class="uk-button uk-button-primary uk-margin-left" type="button"
-                            uk-toggle="target: #modal-close-default">Novo participante</button>
+                                uk-toggle="target: #modal-close-default">Novo participante</button>
                         </p>
                     </div>
 
@@ -86,7 +87,10 @@
                         <p class="uk-accordion-title uk-text-default">{{ participant.fullName }}</p>
 
                         <div class="uk-accordion-content uk-text-meta">
-                            <button *ngIf=" detailedContractResponse.currentUserRole.toLocaleLowerCase() === 'Criador'.toLocaleLowerCase()" class="uk-button uk-button-default" (click)="removeParticipant(participant.accountId)">Remover</button>
+                            <button
+                                *ngIf=" detailedContractResponse.currentUserRole.toLocaleLowerCase() === 'Criador'.toLocaleLowerCase()"
+                                class="uk-button uk-button-default"
+                                (click)="removeParticipant(participant.accountId)">Remover</button>
 
                             <p>Papel do participante: {{ participant.participantRole }}</p>
                             <p>Status do participante: {{ participant.status }}</p>
@@ -112,6 +116,21 @@
                                 <p>Valor: {{ payment.rentPrice }}</p>
                                 <p>Status do participante: {{ payment.receiverPaymentStatus }}</p>
                                 <p>Status do participante: {{ payment.payerPaymentStatus }}</p>
+
+                                <button (click)="executePayment(payment.month)"
+                                    *ngIf="payment.payerPaymentStatus.toLocaleLowerCase() === 'Sem status'.toLocaleLowerCase() &&  detailedContractResponse.currentUserRole.toLocaleLowerCase() === 'Pagador'.toLocaleLowerCase()"
+                                    class="uk-button uk-button-default">Efetuar
+                                </button>
+
+                                <button (click)="executePayment(payment.month)"
+                                    *ngIf="payment.payerPaymentStatus.toLocaleLowerCase() === 'Pagamento realizado'.toLocaleLowerCase() && detailedContractResponse.currentUserRole.toLocaleLowerCase() === 'Recebedor'.toLocaleLowerCase()"
+                                    class="uk-button uk-button-default">Aceitar
+                                </button>
+
+                                <button (click)="executePayment(payment.month)"
+                                    *ngIf="payment.payerPaymentStatus.toLocaleLowerCase() === 'Pagamento realizado'.toLocaleLowerCase() && detailedContractResponse.currentUserRole.toLocaleLowerCase() === 'Recebedor'.toLocaleLowerCase()"
+                                    class="uk-button uk-button-default">Recusar
+                                </button>
                             </div>
                         </li>
                     </ul>

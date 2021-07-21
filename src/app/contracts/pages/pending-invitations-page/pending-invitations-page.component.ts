@@ -21,17 +21,19 @@ export class PendingInvitationsPageComponent implements OnInit {
       });
   }
 
-  acceptToParticipate(contractId: number): void{
+  acceptToParticipate(contractId: number, accountContractId: number): void{
     let acceptToParticipateRequest = new AcceptToParticipateRequest();
     acceptToParticipateRequest.contractId = contractId;
+    acceptToParticipateRequest.accountContractId = accountContractId;
 
     this.contractService.acceptToParticipate(acceptToParticipateRequest)
       .subscribe();
   }
 
-  rejectToParticipate(contractId: number): void{
+  rejectToParticipate(contractId: number, accountContractId: number): void{
     let rejectToParticipateRequest = new RejectToParticipateRequest();
     rejectToParticipateRequest.contractId = contractId;
+    rejectToParticipateRequest.accountContractId = accountContractId;
 
     this.contractService.rejectToParticipate(rejectToParticipateRequest)
       .subscribe();
