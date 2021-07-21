@@ -41,7 +41,7 @@
                 <div class="uk-flex">
                     <h3>Participantes</h3>
                     <!-- This is a button toggling the modal with the default close button -->
-                    <div>
+                    <div *ngIf=" detailedContractResponse.currentUserRole.toLocaleLowerCase() === 'Criador'.toLocaleLowerCase()">
                         <p class="uk-margin-remove-top uk-margin-remove-bottom">
                             <button class="uk-button uk-button-primary uk-margin-left" type="button"
                             uk-toggle="target: #modal-close-default">Novo participante</button>
@@ -86,7 +86,7 @@
                         <p class="uk-accordion-title uk-text-default">{{ participant.fullName }}</p>
 
                         <div class="uk-accordion-content uk-text-meta">
-                            <button *ngIf="isVisibleToCurrentUser == true" class="uk-button uk-button-default" (click)="removeParticipant(participant.accountId)">Remover</button>
+                            <button *ngIf=" detailedContractResponse.currentUserRole.toLocaleLowerCase() === 'Criador'.toLocaleLowerCase()" class="uk-button uk-button-default" (click)="removeParticipant(participant.accountId)">Remover</button>
 
                             <p>Papel do participante: {{ participant.participantRole }}</p>
                             <p>Status do participante: {{ participant.status }}</p>

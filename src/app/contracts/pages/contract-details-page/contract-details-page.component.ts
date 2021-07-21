@@ -14,10 +14,8 @@ export class ContractDetailsPageComponent implements OnInit {
   public form!: FormGroup;
   public detailedContractResponse: DetailedContractResponse = new DetailedContractResponse();
   private inviteParticipantRequest!: InviteParticipantRequest;
-  public isVisibleToCurrentUser!: boolean;
 
   constructor(private activatedRoute: ActivatedRoute, private fb: FormBuilder, private contractService: ContractsService,) {
-    this.isVisibleToCurrentUser = this.detailedContractResponse.currentUserRole == "Criador";
   }
 
   ngOnInit(): void {

@@ -11,7 +11,8 @@ import { Router } from '@angular/router';
 export class CreateContractPageComponent implements OnInit {
   public form!: FormGroup;
 
-  constructor(private formBuilder: FormBuilder,  private router: Router, private contractsService: ContractsService) { }
+  constructor(private formBuilder: FormBuilder,  private router: Router, private contractsService: ContractsService) { 
+  }
 
   ngOnInit(): void {
     this.setForm();
