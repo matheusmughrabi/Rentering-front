@@ -2,13 +2,16 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { AcceptPaymentRequest } from '../models/acceptPayment.models';
 import { AcceptToParticipateRequest } from '../models/acceptToParticipate.models';
+import { ActivateContractRequest } from '../models/activateContract.models';
 import { UserContractResponse } from '../models/contract.models';
 import { CreateContractRequest } from '../models/createContract.models';
 import { DetailedContractRequest, DetailedContractResponse } from '../models/detailedContract.models';
 import { ExecutePaymentRequest } from '../models/executePayment.models';
 import { InviteParticipantRequest } from '../models/inviteParticipant.models';
 import { PendingInvitationResponse } from '../models/pendingInvitation.models';
+import { RejectPaymentRequest } from '../models/rejectPayment.models';
 import { RejectToParticipateRequest } from '../models/rejectToParticipate.models';
 import { RemoveParticipantRequest } from '../models/removeParticipant.models';
 
@@ -81,8 +84,29 @@ export class ContractsService {
     return response;
   }
 
+  activateContract(data: ActivateContractRequest): Observable<any> {
+    const path = environment.UrlBase + 'contracts/Activate';
+
+    var response = this.http.patch<any>(path, data, { headers: this.composeHeaders() });
+    return response;
+  }
+
   executePayment(data: ExecutePaymentRequest): Observable<any> {
     const path = environment.UrlBase + 'contracts/ExecutePayment';
+
+    var response = this.http.patch<any>(path, data, { headers: this.composeHeaders() });
+    return response;
+  }
+  
+  acceptPayment(data: AcceptPaymentRequest): Observable<any> {
+    const path = environment.UrlBase + 'contracts/AcceptPayment';
+
+    var response = this.http.patch<any>(path, data, { headers: this.composeHeaders() });
+    return response;
+  }
+
+  rejectPayment(data: RejectPaymentRequest): Observable<any> {
+    const path = environment.UrlBase + 'contracts/AcceptPayment';
 
     var response = this.http.patch<any>(path, data, { headers: this.composeHeaders() });
     return response;

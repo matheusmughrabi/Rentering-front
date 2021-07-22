@@ -5,6 +5,14 @@
                 <div class="uk-width-expand">
                     <h3 class="uk-card-title uk-margin-remove-bottom">{{ detailedContractResponse.contractName }}</h3>
 
+                    <div
+                        *ngIf=" detailedContractResponse.currentUserRole.toLocaleLowerCase() === 'Criador'.toLocaleLowerCase()">
+                        <p class="uk-margin-remove-top uk-margin-remove-bottom">
+                            <button (click)="activateContract()" class="uk-button uk-button-primary uk-margin-left" type="button"
+                                uk-toggle="target: #modal-close-default">Ativar contrato</button>
+                        </p>
+                    </div>
+
                     <div uk-grid class="uk-margin-top">
 
                         <p class="uk-text-meta uk-margin-remove-top uk-width-1-2 uk-margin-bottom">
@@ -122,12 +130,12 @@
                                     class="uk-button uk-button-default">Efetuar
                                 </button>
 
-                                <button (click)="executePayment(payment.month)"
+                                <button (click)="acceptPayment(payment.month)"
                                     *ngIf="payment.payerPaymentStatus.toLocaleLowerCase() === 'Pagamento realizado'.toLocaleLowerCase() && detailedContractResponse.currentUserRole.toLocaleLowerCase() === 'Recebedor'.toLocaleLowerCase()"
                                     class="uk-button uk-button-default">Aceitar
                                 </button>
 
-                                <button (click)="executePayment(payment.month)"
+                                <button (click)="rejectPayment(payment.month)"
                                     *ngIf="payment.payerPaymentStatus.toLocaleLowerCase() === 'Pagamento realizado'.toLocaleLowerCase() && detailedContractResponse.currentUserRole.toLocaleLowerCase() === 'Recebedor'.toLocaleLowerCase()"
                                     class="uk-button uk-button-default">Recusar
                                 </button>
