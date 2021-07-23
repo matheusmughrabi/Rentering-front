@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { ContractsService } from 'src/app/contracts/services/contracts.service';
+import { ResponseBase } from 'src/app/shared/models/responseBase';
 import { AcceptPaymentRequest } from '../../models/acceptPayment.models';
 import { ActivateContractRequest } from '../../models/activateContract.models';
 import { DetailedContractRequest, DetailedContractResponse } from '../../models/detailedContract.models';
@@ -19,8 +21,11 @@ export class ContractDetailsPageComponent implements OnInit {
   public detailedContractResponse: DetailedContractResponse = new DetailedContractResponse();
   private inviteParticipantRequest!: InviteParticipantRequest;
 
-  constructor(private activatedRoute: ActivatedRoute, private fb: FormBuilder, private contractService: ContractsService,) {
-  }
+  constructor(
+    private activatedRoute: ActivatedRoute, 
+    private fb: FormBuilder, 
+    private toastr: ToastrService,
+    private contractService: ContractsService,) {}
 
   ngOnInit(): void {
     let contractId: number = this.getContractIdFromRouteParam();
@@ -37,8 +42,13 @@ export class ContractDetailsPageComponent implements OnInit {
 
     this.contractService.activateContract(activateContractRequest)
       .subscribe(
-        (data) => {
-          console.log(data);
+        (data: ResponseBase<any>) => {
+          if (data.success) {
+            this.toastr.success(data.message, 'Notificação');           
+          }
+          else{
+            data.notifications.forEach(c => this.toastr.warning(c.message, c.title));
+          }
         },
         (error) => console.log(error)
       );
@@ -54,8 +64,13 @@ export class ContractDetailsPageComponent implements OnInit {
 
     this.contractService.inviteParticipant(this.inviteParticipantRequest)
       .subscribe(
-        (data) => {
-          console.log(data);
+        (data: ResponseBase<any>) => {
+          if (data.success) {
+            this.toastr.success(data.message, 'Notificação');           
+          }
+          else{
+            data.notifications.forEach(c => this.toastr.warning(c.message, c.title));
+          }
         },
         (error) => console.log(error)
       );

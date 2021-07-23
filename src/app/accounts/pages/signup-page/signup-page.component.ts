@@ -5,6 +5,8 @@ import { ResponseBase } from 'src/app/shared/models/responseBase';
 import { AccountsService } from 'src/app/accounts/services/accounts.service';
 import { LoginResponse } from '../../models/login.models';
 import { Router } from '@angular/router';
+import { Security } from 'src/app/shared/security/security.util';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-signup-page',
@@ -13,7 +15,11 @@ import { Router } from '@angular/router';
 export class SignupPageComponent implements OnInit {
   public form!: FormGroup;
 
-  constructor(private fb: FormBuilder, private router: Router, private accountsService: AccountsService) {}
+  constructor(
+    private fb: FormBuilder,
+    private toastr: ToastrService,
+    private router: Router,
+    private accountsService: AccountsService) { }
 
   ngOnInit(): void {
     this.setFormGroup();
@@ -23,17 +29,21 @@ export class SignupPageComponent implements OnInit {
     this.accountsService.createAccount(this.form.value)
       .subscribe(
         (data: ResponseBase<RegisterResponse>) => {
-          localStorage.setItem('token', data.data.token)
-          localStorage.setItem('username', data.data.username)
-          localStorage.setItem('role', data.data.role)
+          if (data.success) {
+            Security.setLogin(data.data.username, data.data.role, data.data.token);
+            this.router.navigate(['/contratos']);
+            this.toastr.success(data.message, 'Notificação');
+          } 
+          else {
+            data.notifications.forEach(c => this.toastr.warning(c.message, c.title));
+          }
 
-          this.router.navigate(['/contratos']);
         },
         (error) => console.log(error)
       );
   }
 
-  private setFormGroup(): void{
+  private setFormGroup(): void {
     this.form = this.fb.group({
       firstName: ['', Validators.compose([
         Validators.minLength(1),

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
+import { ResponseBase } from 'src/app/shared/models/responseBase';
 import { AcceptToParticipateRequest } from '../../models/acceptToParticipate.models';
 import { PendingInvitationResponse } from '../../models/pendingInvitation.models';
 import { RejectToParticipateRequest } from '../../models/rejectToParticipate.models';
@@ -11,7 +13,9 @@ import { ContractsService } from '../../services/contracts.service';
 export class PendingInvitationsPageComponent implements OnInit {
   public pendingInvitations!: PendingInvitationResponse[];
   
-  constructor(private contractService: ContractsService) { }
+  constructor(
+    private toastr: ToastrService,
+    private contractService: ContractsService) { }
 
   ngOnInit(): void { 
     this.contractService.getPendingInvitations()
@@ -27,7 +31,17 @@ export class PendingInvitationsPageComponent implements OnInit {
     acceptToParticipateRequest.accountContractId = accountContractId;
 
     this.contractService.acceptToParticipate(acceptToParticipateRequest)
-      .subscribe();
+    .subscribe(
+      (data: ResponseBase<any>) => {
+        if (data.success) {
+          this.toastr.success(data.message, 'Notificação');           
+        }
+        else{
+          data.notifications.forEach(c => this.toastr.warning(c.message, c.title));
+        }
+      },
+      (error) => console.log(error)
+    );
   }
 
   rejectToParticipate(contractId: number, accountContractId: number): void{

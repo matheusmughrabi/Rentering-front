@@ -40,7 +40,6 @@ export class CreateContractPageComponent implements OnInit {
           }
           else{
             data.notifications.forEach(c => this.toastr.warning(c.message, c.title));
-            // this.toastr.warning(data.message, 'Não foi possível criar o contrato.');   
           }
         },
         (error) => {
