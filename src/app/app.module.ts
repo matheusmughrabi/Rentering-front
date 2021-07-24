@@ -2,6 +2,9 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { ToastrModule } from 'ngx-toastr';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -12,6 +15,7 @@ import { FramePageComponent } from './shared/pages/master/frame-page.component';
 import { UserContractsComponent } from './contracts/pages/user-contracts/user-contracts.component';
 import { CreateContractPageComponent } from './contracts/pages/create-contract-page/create-contract-page.component';
 import { ContractDetailsPageComponent } from './contracts/pages/contract-details-page/contract-details-page.component';
+import { PendingInvitationsPageComponent } from './contracts/pages/pending-invitations-page/pending-invitations-page.component';
 
 @NgModule({
   declarations: [
@@ -22,12 +26,15 @@ import { ContractDetailsPageComponent } from './contracts/pages/contract-details
     FramePageComponent,
     UserContractsComponent,
     CreateContractPageComponent,
-    ContractDetailsPageComponent
+    ContractDetailsPageComponent,
+    PendingInvitationsPageComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
-    ReactiveFormsModule,
+    ReactiveFormsModule,   
+    BrowserAnimationsModule, // required animations module
+    ToastrModule.forRoot(), // ToastrModule added
     AppRoutingModule
   ],
   providers: [],

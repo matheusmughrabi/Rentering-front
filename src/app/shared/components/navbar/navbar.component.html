@@ -2,16 +2,16 @@
     <nav class="uk-navbar-container uk-navbar-transparent uk-padding uk-padding-remove-vertical" uk-navbar>
         <div class="uk-navbar-left">
             <ul class="uk-navbar-nav">
-                <li><a [routerLink]="['/home']" routerLinkActive="uk-text-bold">Home</a></li>
                 <li><a [routerLink]="['/contratos']" routerLinkActive="uk-text-bold">Meus contratos</a></li>
                 <li><a [routerLink]="['/contratos/novo-contrato']" routerLinkActive="uk-text-bold">Novo contrato</a></li>
+                <li><a [routerLink]="['/contratos/convites-pendentes']" routerLinkActive="uk-text-bold">Convites pendentes</a></li>
             </ul>
         </div>
 
         <div class="uk-navbar-right">
             <ul class="uk-navbar-nav">
                 <li><a href="#"><span class="uk-icon" uk-icon="icon: user"></span></a></li>
-                <li><a [routerLink]="['/login']"><span class="uk-icon" uk-icon="icon: sign-out"></span></a></li>
+                <li><a [routerLink]="['/login']" (click)="clear()"><span class="uk-icon" uk-icon="icon: sign-out"></span></a></li>
             </ul>
         </div>
     </nav>

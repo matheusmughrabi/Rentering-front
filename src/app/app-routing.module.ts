@@ -6,11 +6,15 @@ import { ContractDetailsPageComponent } from './contracts/pages/contract-details
 import { CreateContractPageComponent } from './contracts/pages/create-contract-page/create-contract-page.component';
 import { UserContractsComponent } from './contracts/pages/user-contracts/user-contracts.component';
 import { FramePageComponent } from './shared/pages/master/frame-page.component';
-import { AuthGuard } from './shared/routeGuards/auth.guard';
+import { AuthGuard } from './routeGuards/auth.guard';
+import { LoginGuard } from './routeGuards/login.guard';
+import { PendingInvitationsPageComponent } from './contracts/pages/pending-invitations-page/pending-invitations-page.component';
 
 const routes: Routes = [
-  {path: 'login', component: LoginPageComponent},
-  {path: 'signup', component: SignupPageComponent},
+  {path: 'login', component: LoginPageComponent, canActivate: [LoginGuard]},
+  {path: 'signup', component: SignupPageComponent, canActivate: [LoginGuard]},
+
+  {path: '', component: UserContractsComponent, canActivate: [AuthGuard]},
 
   {
     path: 'contratos',
@@ -19,7 +23,8 @@ const routes: Routes = [
     children: [
       {path: '', component: UserContractsComponent},
       {path: 'detalhes/:contractId', component: ContractDetailsPageComponent},
-      {path: 'novo-contrato', component: CreateContractPageComponent}
+      {path: 'novo-contrato', component: CreateContractPageComponent},
+      {path: 'convites-pendentes', component: PendingInvitationsPageComponent},
     ]
   },
 ];

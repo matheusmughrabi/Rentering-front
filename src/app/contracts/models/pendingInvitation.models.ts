@@ -1,6 +1,8 @@
-export class UserContractResponse{
-    public id!: number;
+export class PendingInvitationResponse{
+    public accountContractId!: number;
+    public contractId!: number;
     public contractName!: string;
+    public contractOwner!: string;
     public contractState!: string;
     public participantRole!: string;
     public rentPrice!: number;

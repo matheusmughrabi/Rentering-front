@@ -3,15 +3,47 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RegisterResponse } from 'src/app/accounts/models/register.models';
 import { ResponseBase } from 'src/app/shared/models/responseBase';
 import { AccountsService } from 'src/app/accounts/services/accounts.service';
+import { LoginResponse } from '../../models/login.models';
+import { Router } from '@angular/router';
+import { Security } from 'src/app/shared/security/security.util';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-signup-page',
   templateUrl: './signup-page.component.html'
 })
 export class SignupPageComponent implements OnInit {
-  public form: FormGroup;
+  public form!: FormGroup;
 
-  constructor(private accountsService: AccountsService, private fb: FormBuilder) { 
+  constructor(
+    private fb: FormBuilder,
+    private toastr: ToastrService,
+    private router: Router,
+    private accountsService: AccountsService) { }
+
+  ngOnInit(): void {
+    this.setFormGroup();
+  }
+
+  signUp(): void {
+    this.accountsService.createAccount(this.form.value)
+      .subscribe(
+        (data: ResponseBase<RegisterResponse>) => {
+          if (data.success) {
+            Security.setLogin(data.data.username, data.data.role, data.data.token);
+            this.router.navigate(['/contratos']);
+            this.toastr.success(data.message, 'Notificação');
+          } 
+          else {
+            data.notifications.forEach(c => this.toastr.warning(c.message, c.title));
+          }
+
+        },
+        (error) => console.log(error)
+      );
+  }
+
+  private setFormGroup(): void {
     this.form = this.fb.group({
       firstName: ['', Validators.compose([
         Validators.minLength(1),
@@ -47,18 +79,5 @@ export class SignupPageComponent implements OnInit {
         Validators.required
       ])]
     })
-  }
-
-  ngOnInit(): void {
-  }
-
-  signUp(): void {
-    this.accountsService.createAccount(this.form.value)
-      .subscribe(
-        (data: ResponseBase<RegisterResponse>) => {
-          console.log(data);
-        },
-        (error) => console.log(error)
-        );
   }
 }

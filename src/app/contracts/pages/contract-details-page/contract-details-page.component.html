@@ -5,9 +5,21 @@
                 <div class="uk-width-expand">
                     <h3 class="uk-card-title uk-margin-remove-bottom">{{ detailedContractResponse.contractName }}</h3>
 
+                    <div *ngIf=" detailedContractResponse.currentUserRole.toLocaleLowerCase() === 'Criador'.toLocaleLowerCase()">
+                        <p class="uk-margin-remove-top uk-margin-remove-bottom">
+                            <button (click)="activateContract()" class="uk-button uk-button-primary uk-margin-left" type="button">
+                                Ativar contrato
+                            </button>
+                        </p>
+                    </div>
+
                     <div uk-grid class="uk-margin-top">
 
-                        <p class="uk-text-meta uk-margin-remove-top uk-width-1-1 uk-margin-bottom">
+                        <p class="uk-text-meta uk-margin-remove-top uk-width-1-2 uk-margin-bottom">
+                            Papel no contrato: {{ detailedContractResponse.currentUserRole }}
+                        </p>
+
+                        <p class="uk-text-meta uk-margin-remove-top uk-width-1-2 uk-margin-bottom">
                             Status do contrato: {{ detailedContractResponse.contractState }}
                         </p>
 
@@ -37,11 +49,13 @@
                 <div class="uk-flex">
                     <h3>Participantes</h3>
                     <!-- This is a button toggling the modal with the default close button -->
-                    <p class="uk-margin-remove-top uk-margin-remove-bottom">
-                        <button class="uk-button uk-button-primary uk-margin-left" type="button"
-                        uk-toggle="target: #modal-close-default">Novo participante</button>
-                    </p>
-                    
+                    <div
+                        *ngIf=" detailedContractResponse.currentUserRole.toLocaleLowerCase() === 'Criador'.toLocaleLowerCase()">
+                        <p class="uk-margin-remove-top uk-margin-remove-bottom">
+                            <button class="uk-button uk-button-primary uk-margin-left" type="button"
+                                uk-toggle="target: #modal-close-default">Novo participante</button>
+                        </p>
+                    </div>
 
                     <!-- This is the modal with the default close button -->
                     <div id="modal-close-default" uk-modal>
@@ -53,8 +67,8 @@
                                 <div class="uk-margin">
                                     <label class="uk-form-label" for="participant-email">Email do participante</label>
                                     <div class="uk-form-controls">
-                                        <input class="uk-input" id="participant-email"
-                                            formControlName="email" type="email" placeholder="Email">
+                                        <input class="uk-input" id="participant-email" formControlName="email"
+                                            type="email" placeholder="Email">
                                     </div>
                                 </div>
 
@@ -67,7 +81,8 @@
                                 </div>
 
                                 <div class="uk-text-right">
-                                    <button class="uk-button uk-button-default" (click)="inviteParticipant()">Adicionar</button>
+                                    <button class="uk-button uk-button-default"
+                                        (click)="inviteParticipant()">Adicionar</button>
                                 </div>
                             </form>
 
@@ -76,9 +91,15 @@
                 </div>
 
                 <ul uk-accordion *ngFor="let participant of detailedContractResponse.participants">
-                    <li class="uk-open">
+                    <li>
                         <p class="uk-accordion-title uk-text-default">{{ participant.fullName }}</p>
+
                         <div class="uk-accordion-content uk-text-meta">
+                            <button
+                                *ngIf=" detailedContractResponse.currentUserRole.toLocaleLowerCase() === 'Criador'.toLocaleLowerCase()"
+                                class="uk-button uk-button-default"
+                                (click)="removeParticipant(participant.accountId)">Remover</button>
+
                             <p>Papel do participante: {{ participant.participantRole }}</p>
                             <p>Status do participante: {{ participant.status }}</p>
                         </div>
@@ -97,12 +118,27 @@
 
                 <div *ngIf="detailedContractResponse.contractPayments.length > 0">
                     <ul uk-accordion *ngFor="let payment of detailedContractResponse.contractPayments">
-                        <li class="uk-open">
-                            <p class="uk-accordion-title">{{ payment.month }}</p>
+                        <li>
+                            <p class="uk-accordion-title">{{ payment.month | date}}</p>
                             <div class="uk-accordion-content uk-text-meta">
                                 <p>Valor: {{ payment.rentPrice }}</p>
-                                <p>Status do participante: {{ payment.renterPaymentStatus }}</p>
-                                <p>Status do participante: {{ payment.tenantPaymentStatus }}</p>
+                                <p>Status do participante: {{ payment.receiverPaymentStatus }}</p>
+                                <p>Status do participante: {{ payment.payerPaymentStatus }}</p>
+
+                                <button (click)="executePayment(payment.month)"
+                                    *ngIf="payment.payerPaymentStatus.toLocaleLowerCase() === 'Sem status'.toLocaleLowerCase() &&  detailedContractResponse.currentUserRole.toLocaleLowerCase() === 'Pagador'.toLocaleLowerCase()"
+                                    class="uk-button uk-button-default">Efetuar
+                                </button>
+
+                                <button (click)="acceptPayment(payment.month)"
+                                    *ngIf="payment.payerPaymentStatus.toLocaleLowerCase() === 'Pagamento realizado'.toLocaleLowerCase() && detailedContractResponse.currentUserRole.toLocaleLowerCase() === 'Recebedor'.toLocaleLowerCase()"
+                                    class="uk-button uk-button-default">Aceitar
+                                </button>
+
+                                <button (click)="rejectPayment(payment.month)"
+                                    *ngIf="payment.payerPaymentStatus.toLocaleLowerCase() === 'Pagamento realizado'.toLocaleLowerCase() && detailedContractResponse.currentUserRole.toLocaleLowerCase() === 'Recebedor'.toLocaleLowerCase()"
+                                    class="uk-button uk-button-default">Recusar
+                                </button>
                             </div>
                         </li>
                     </ul>
