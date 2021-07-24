@@ -9,6 +9,7 @@ import { FramePageComponent } from './shared/pages/master/frame-page.component';
 import { AuthGuard } from './routeGuards/auth.guard';
 import { LoginGuard } from './routeGuards/login.guard';
 import { PendingInvitationsPageComponent } from './contracts/pages/pending-invitations-page/pending-invitations-page.component';
+import { UserCorporationsPageComponent } from './corporations/pages/user-corporations-page/user-corporations-page.component';
 
 const routes: Routes = [
   {path: 'login', component: LoginPageComponent, canActivate: [LoginGuard]},
@@ -26,7 +27,7 @@ const routes: Routes = [
       {path: 'novo-contrato', component: CreateContractPageComponent},
       {path: 'convites-pendentes', component: PendingInvitationsPageComponent},
     ]
-  },
+  }
 ];
 
 @NgModule({
