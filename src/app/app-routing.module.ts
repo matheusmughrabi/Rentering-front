@@ -10,12 +10,13 @@ import { AuthGuard } from './routeGuards/auth.guard';
 import { LoginGuard } from './routeGuards/login.guard';
 import { PendingInvitationsPageComponent } from './contracts/pages/pending-invitations-page/pending-invitations-page.component';
 import { UserCorporationsPageComponent } from './corporations/pages/user-corporations-page/user-corporations-page.component';
+import { CorporationsPageComponent } from './corporations/pages/corporations-page/corporations-page.component';
 
 const routes: Routes = [
   {path: 'login', component: LoginPageComponent, canActivate: [LoginGuard]},
   {path: 'signup', component: SignupPageComponent, canActivate: [LoginGuard]},
 
-  {path: '', component: UserContractsComponent, canActivate: [AuthGuard]},
+  { path: '',   redirectTo: '/contratos', pathMatch: 'full' },
 
   {
     path: 'contratos',
@@ -26,6 +27,16 @@ const routes: Routes = [
       {path: 'detalhes/:contractId', component: ContractDetailsPageComponent},
       {path: 'novo-contrato', component: CreateContractPageComponent},
       {path: 'convites-pendentes', component: PendingInvitationsPageComponent},
+    ]
+  },
+
+  {
+    path: 'corporacao',
+    component: FramePageComponent,
+    canActivate: [AuthGuard],
+    children: [
+      {path: '', component: UserCorporationsPageComponent},
+      {path: 'dash', component: CorporationsPageComponent}
     ]
   }
 ];

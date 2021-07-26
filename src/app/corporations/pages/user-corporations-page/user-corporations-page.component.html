@@ -1,1 +1,75 @@
-<p>user-corporations-page works!</p>
+<div class="uk-container uk-margin-top">
+    <div class="uk-margin-bottom">
+        <div class="uk-margin-bottom">
+            <!-- This is a button toggling the modal with the default close button -->
+            <div>
+                <p class="uk-margin-remove-top uk-margin-remove-bottom">
+                    <button class="uk-button uk-button-primary uk-margin-left" type="button"
+                        uk-toggle="target: #modal-close-default">Nova corporação</button>
+                </p>
+            </div>
+
+            <!-- This is the modal with the default close button -->
+            <div id="modal-close-default" uk-modal>
+                <div class="uk-modal-dialog uk-modal-body">
+                    <button class="uk-modal-close-default" type="button" uk-close></button>
+                    <h2 class="uk-modal-title">Nova corporação</h2>
+
+                    <form [formGroup]="form" class="uk-form-stacked">
+                        <div class="uk-margin">
+                            <label class="uk-form-label" for="participant-email">Nome</label>
+                            <div class="uk-form-controls">
+                                <input class="uk-input" formControlName="name" type="text"
+                                    placeholder="Nome da corporação">
+                            </div>
+                        </div>
+
+                        <div class="uk-text-right">
+                            <button class="uk-button uk-button-default" [disabled]="form.invalid"
+                                (click)="createCorporation()">
+                                Criar
+                            </button>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+
+        <div uk-grid>
+            <div class="uk-width-1-2" *ngFor="let corporation of userCorporations">
+                <div class="uk-card uk-card-default">
+                    <div class="uk-card-header">
+                        <div class="uk-grid-small uk-flex-middle" uk-grid>
+                            <div class="uk-width-expand">
+                                <h3 class="uk-card-title uk-margin-remove-bottom">{{ corporation.name }}</h3>
+                                <p class="uk-text-meta">Data de criação: 01/01/2021</p>
+                                <p>{{ corporation.admin }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="uk-card-body">
+                        <div>
+                            <h2 class="uk-card-title">Participantes</h2>
+                            <p class="uk-text-meta uk-margin-remove-top">
+                                Pedro Reinaldo Campanini
+                            </p>
+
+                            <p class="uk-text-meta uk-margin-remove-top">
+                                Jóse Fernando Campanini
+                            </p>
+
+                            <p class="uk-text-meta uk-margin-remove-top">
+                                Ana
+                            </p>
+                        </div>
+
+                    </div>
+                    <div class="uk-card-footer">
+                        <a routerLink="/contratos/detalhes/1" class="uk-button">Detalhes</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

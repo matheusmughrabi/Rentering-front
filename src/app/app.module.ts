@@ -17,6 +17,7 @@ import { CreateContractPageComponent } from './contracts/pages/create-contract-p
 import { ContractDetailsPageComponent } from './contracts/pages/contract-details-page/contract-details-page.component';
 import { PendingInvitationsPageComponent } from './contracts/pages/pending-invitations-page/pending-invitations-page.component';
 import { UserCorporationsPageComponent } from './corporations/pages/user-corporations-page/user-corporations-page.component';
+import { CorporationsPageComponent } from './corporations/pages/corporations-page/corporations-page.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { UserCorporationsPageComponent } from './corporations/pages/user-corpora
     CreateContractPageComponent,
     ContractDetailsPageComponent,
     PendingInvitationsPageComponent,
-    UserCorporationsPageComponent
+    UserCorporationsPageComponent,
+    CorporationsPageComponent
   ],
   imports: [
     BrowserModule,
