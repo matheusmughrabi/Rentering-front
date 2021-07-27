@@ -25,7 +25,7 @@ export class ContractDetailsPageComponent implements OnInit {
     private activatedRoute: ActivatedRoute, 
     private fb: FormBuilder, 
     private toastr: ToastrService,
-    private contractService: ContractsService,) {}
+    private contractService: ContractsService) {}
 
   ngOnInit(): void {
     let contractId: number = this.getContractIdFromRouteParam();
@@ -57,7 +57,7 @@ export class ContractDetailsPageComponent implements OnInit {
   inviteParticipant(): void {
     console.log(`Dados enviados para o back: ${this.form.value}`)
 
-    this.inviteParticipantRequest = new InviteParticipantRequest();
+    let inviteParticipantRequest = new InviteParticipantRequest();
     this.inviteParticipantRequest.contractId = this.getContractIdFromRouteParam();
     this.inviteParticipantRequest.email = this.form.value['email'];
     this.inviteParticipantRequest.participantRole = this.form.value['participantRole'];

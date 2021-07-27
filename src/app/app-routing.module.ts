@@ -38,7 +38,7 @@ const routes: Routes = [
     children: [
       {path: '', component: UserCorporationsPageComponent},
       {path: 'dash', component: CorporationsPageComponent},
-      {path: 'detalhes', component: CorporationDetailsPagesComponent}
+      {path: 'detalhes/:id', component: CorporationDetailsPagesComponent}
     ]
   }
 ];

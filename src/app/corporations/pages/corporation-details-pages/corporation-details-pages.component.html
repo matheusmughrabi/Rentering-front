@@ -3,7 +3,7 @@
         <div class="uk-card-header">
             <div class="uk-grid-small uk-flex-middle" uk-grid>
                 <div class="uk-width-expand">
-                    <h3 class="uk-card-title uk-margin-remove-bottom">Escritório</h3>
+                    <h3 class="uk-card-title uk-margin-remove-bottom">{{ corporationResponse.name }}</h3>
 
                     <div uk-grid class="uk-margin-top">
                         <p class="uk-text-meta uk-margin-remove-top uk-width-1-2 uk-margin-bottom">
@@ -11,7 +11,7 @@
                         </p>
 
                         <p class="uk-text-meta uk-margin-remove-top uk-width-1-2 uk-margin-bottom">
-                            Administrador: Pedro
+                            Administrador: {{ corporationResponse.admin }}
                         </p>
                     </div>
                 </div>
@@ -19,13 +19,13 @@
         </div>
 
         <div class="uk-card-body">
+            <!-- <hr class="uk-divider-icon"> -->
 
             <div class="uk-margin-medium-bottom">
                 <div class="uk-flex">
                     <h3>Participantes</h3>
                     <!-- This is a button toggling the modal with the default close button -->
-                    <div
-                        *ngIf="true">
+                    <div>
                         <p class="uk-margin-remove-top uk-margin-remove-bottom">
                             <button class="uk-button uk-button-primary uk-margin-left" type="button"
                                 uk-toggle="target: #modal-close-default">Novo participante</button>
@@ -38,25 +38,26 @@
                             <button class="uk-modal-close-default" type="button" uk-close></button>
                             <h2 class="uk-modal-title">Novo participante</h2>
 
-                            <form class="uk-form-stacked">
+                            <form [formGroup]="form" class="uk-form-stacked">
                                 <div class="uk-margin">
                                     <label class="uk-form-label" for="participant-email">Email do participante</label>
                                     <div class="uk-form-controls">
-                                        <input class="uk-input" id="participant-email" formControlName="email"
+                                        <input class="uk-input" id="participant-email" formControlName="accountId"
                                             type="email" placeholder="Email">
                                     </div>
                                 </div>
 
                                 <div class="uk-margin">
-                                    <label class="uk-form-label" for="participant-role">Porcentagem do total: </label>
+                                    <label class="uk-form-label" for="participant-role">Porcentagem do total</label>
                                     <div class="uk-form-controls">
-                                        <input class="uk-input" id="participant-role" formControlName="participantRole"
-                                            type="text" placeholder="Papel do participante">
+                                        <input class="uk-input" id="participant-role" formControlName="sharedPercentage"
+                                            type="number" placeholder="Papel do participante">
                                     </div>
                                 </div>
 
                                 <div class="uk-text-right">
-                                    <button class="uk-button uk-button-default">Adicionar</button>
+                                    <button class="uk-button uk-button-default"
+                                        (click)="inviteParticipant()">Adicionar</button>
                                 </div>
                             </form>
 
@@ -64,58 +65,26 @@
                     </div>
                 </div>
 
-                <ul uk-accordion>
+                <ul uk-accordion *ngFor="let participant of corporationResponse.participants">
                     <li>
-                        <p class="uk-accordion-title uk-text-default">Pedro</p>
-
-                        <div class="uk-accordion-content uk-text-meta">
-                            <p>Porcentagem: 40%</p>
-                        </div>
-                    </li>
-                    
-                    <li>
-                        <p class="uk-accordion-title uk-text-default">Jóse Fernando Campanini</p>
-
-                        <div class="uk-accordion-content uk-text-meta">
-                            <p>Porcentagem: 40%</p>
-                        </div>
-                    </li>
-
-                    <li>
-                        <p class="uk-accordion-title uk-text-default">Ana</p>
-
-                        <div class="uk-accordion-content uk-text-meta">
-                            <p>Porcentagem: 20%</p>
-                        </div>
+                        <p class="uk-accordion-title uk-text-default">{{ participant.fullName }}</p>
                     </li>
                 </ul>
             </div>
 
-            <!-- <hr class="uk-divider-icon"> -->
-
             <div class="uk-margin-bottom">
                 <h3>Meses</h3>
 
+                <button class="uk-button uk-button-primary">Adicionar</button>
+
+                <!-- <p *ngIf="corporationResponse.monthlyBalances.length == 0">Nenhum mês para ser exibido</p> -->
+
                 <div>
                     <ul uk-accordion>
-                        <li>
-                            <p class="uk-accordion-title">Janeiro</p>
+                        <li *ngFor="let corporation of corporationResponse.monthlyBalances">
+                            <p class="uk-accordion-title">{{ corporation.month }}</p>
                             <div class="uk-accordion-content uk-text-meta">
-                                <p>Total: 100000</p>
-                            </div>
-                        </li>
-
-                        <li>
-                            <p class="uk-accordion-title">Fevereiro</p>
-                            <div class="uk-accordion-content uk-text-meta">
-                                <p>Total: 100000</p>
-                            </div>
-                        </li>
-
-                        <li>
-                            <p class="uk-accordion-title">Março</p>
-                            <div class="uk-accordion-content uk-text-meta">
-                                <p>Total: 100000</p>
+                                <p>Total: {{ corporation.totalProfit }}</p>
                             </div>
                         </li>
                     </ul>
