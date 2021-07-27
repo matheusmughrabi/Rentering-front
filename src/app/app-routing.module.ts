@@ -11,6 +11,7 @@ import { LoginGuard } from './routeGuards/login.guard';
 import { PendingInvitationsPageComponent } from './contracts/pages/pending-invitations-page/pending-invitations-page.component';
 import { UserCorporationsPageComponent } from './corporations/pages/user-corporations-page/user-corporations-page.component';
 import { CorporationsPageComponent } from './corporations/pages/corporations-page/corporations-page.component';
+import { CorporationDetailsPagesComponent } from './corporations/pages/corporation-details-pages/corporation-details-pages.component';
 
 const routes: Routes = [
   {path: 'login', component: LoginPageComponent, canActivate: [LoginGuard]},
@@ -36,7 +37,8 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     children: [
       {path: '', component: UserCorporationsPageComponent},
-      {path: 'dash', component: CorporationsPageComponent}
+      {path: 'dash', component: CorporationsPageComponent},
+      {path: 'detalhes', component: CorporationDetailsPagesComponent}
     ]
   }
 ];

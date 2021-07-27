@@ -1,0 +1,130 @@
+<div class="uk-container uk-margin-top uk-width-2-3@l">
+    <div class="uk-card uk-card-default uk-margin-bottom">
+        <div class="uk-card-header">
+            <div class="uk-grid-small uk-flex-middle" uk-grid>
+                <div class="uk-width-expand">
+                    <h3 class="uk-card-title uk-margin-remove-bottom">Escritório</h3>
+
+                    <div uk-grid class="uk-margin-top">
+                        <p class="uk-text-meta uk-margin-remove-top uk-width-1-2 uk-margin-bottom">
+                            Data de criaçãp: 01/01/2021
+                        </p>
+
+                        <p class="uk-text-meta uk-margin-remove-top uk-width-1-2 uk-margin-bottom">
+                            Administrador: Pedro
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="uk-card-body">
+
+            <div class="uk-margin-medium-bottom">
+                <div class="uk-flex">
+                    <h3>Participantes</h3>
+                    <!-- This is a button toggling the modal with the default close button -->
+                    <div
+                        *ngIf="true">
+                        <p class="uk-margin-remove-top uk-margin-remove-bottom">
+                            <button class="uk-button uk-button-primary uk-margin-left" type="button"
+                                uk-toggle="target: #modal-close-default">Novo participante</button>
+                        </p>
+                    </div>
+
+                    <!-- This is the modal with the default close button -->
+                    <div id="modal-close-default" uk-modal>
+                        <div class="uk-modal-dialog uk-modal-body">
+                            <button class="uk-modal-close-default" type="button" uk-close></button>
+                            <h2 class="uk-modal-title">Novo participante</h2>
+
+                            <form class="uk-form-stacked">
+                                <div class="uk-margin">
+                                    <label class="uk-form-label" for="participant-email">Email do participante</label>
+                                    <div class="uk-form-controls">
+                                        <input class="uk-input" id="participant-email" formControlName="email"
+                                            type="email" placeholder="Email">
+                                    </div>
+                                </div>
+
+                                <div class="uk-margin">
+                                    <label class="uk-form-label" for="participant-role">Porcentagem do total: </label>
+                                    <div class="uk-form-controls">
+                                        <input class="uk-input" id="participant-role" formControlName="participantRole"
+                                            type="text" placeholder="Papel do participante">
+                                    </div>
+                                </div>
+
+                                <div class="uk-text-right">
+                                    <button class="uk-button uk-button-default">Adicionar</button>
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+
+                <ul uk-accordion>
+                    <li>
+                        <p class="uk-accordion-title uk-text-default">Pedro</p>
+
+                        <div class="uk-accordion-content uk-text-meta">
+                            <p>Porcentagem: 40%</p>
+                        </div>
+                    </li>
+                    
+                    <li>
+                        <p class="uk-accordion-title uk-text-default">Jóse Fernando Campanini</p>
+
+                        <div class="uk-accordion-content uk-text-meta">
+                            <p>Porcentagem: 40%</p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <p class="uk-accordion-title uk-text-default">Ana</p>
+
+                        <div class="uk-accordion-content uk-text-meta">
+                            <p>Porcentagem: 20%</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- <hr class="uk-divider-icon"> -->
+
+            <div class="uk-margin-bottom">
+                <h3>Meses</h3>
+
+                <div>
+                    <ul uk-accordion>
+                        <li>
+                            <p class="uk-accordion-title">Janeiro</p>
+                            <div class="uk-accordion-content uk-text-meta">
+                                <p>Total: 100000</p>
+                            </div>
+                        </li>
+
+                        <li>
+                            <p class="uk-accordion-title">Fevereiro</p>
+                            <div class="uk-accordion-content uk-text-meta">
+                                <p>Total: 100000</p>
+                            </div>
+                        </li>
+
+                        <li>
+                            <p class="uk-accordion-title">Março</p>
+                            <div class="uk-accordion-content uk-text-meta">
+                                <p>Total: 100000</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="uk-card-footer">
+            <a href="/corporacao" class="uk-button">Voltar</a>
+        </div>
+    </div>
+</div>
