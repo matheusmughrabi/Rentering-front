@@ -12,6 +12,7 @@ import { PendingInvitationsPageComponent } from './contracts/pages/pending-invit
 import { UserCorporationsPageComponent } from './corporations/pages/user-corporations-page/user-corporations-page.component';
 import { CorporationsPageComponent } from './corporations/pages/corporations-page/corporations-page.component';
 import { CorporationDetailsPagesComponent } from './corporations/pages/corporation-details-pages/corporation-details-pages.component';
+import { InvitationsPageComponent } from './corporations/pages/invitations-page/invitations-page.component';
 
 const routes: Routes = [
   {path: 'login', component: LoginPageComponent, canActivate: [LoginGuard]},
@@ -38,7 +39,8 @@ const routes: Routes = [
     children: [
       {path: '', component: UserCorporationsPageComponent},
       {path: 'dash', component: CorporationsPageComponent},
-      {path: 'detalhes/:id', component: CorporationDetailsPagesComponent}
+      {path: 'detalhes/:id', component: CorporationDetailsPagesComponent},
+      {path: 'convites', component: InvitationsPageComponent}
     ]
   }
 ];

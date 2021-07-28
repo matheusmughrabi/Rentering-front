@@ -19,6 +19,7 @@ import { PendingInvitationsPageComponent } from './contracts/pages/pending-invit
 import { UserCorporationsPageComponent } from './corporations/pages/user-corporations-page/user-corporations-page.component';
 import { CorporationsPageComponent } from './corporations/pages/corporations-page/corporations-page.component';
 import { CorporationDetailsPagesComponent } from './corporations/pages/corporation-details-pages/corporation-details-pages.component';
+import { InvitationsPageComponent } from './corporations/pages/invitations-page/invitations-page.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { CorporationDetailsPagesComponent } from './corporations/pages/corporati
     PendingInvitationsPageComponent,
     UserCorporationsPageComponent,
     CorporationsPageComponent,
-    CorporationDetailsPagesComponent
+    CorporationDetailsPagesComponent,
+    InvitationsPageComponent
   ],
   imports: [
     BrowserModule,

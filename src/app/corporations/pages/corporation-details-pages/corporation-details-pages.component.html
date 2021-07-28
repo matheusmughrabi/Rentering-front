@@ -7,7 +7,7 @@
 
                     <div uk-grid class="uk-margin-top">
                         <p class="uk-text-meta uk-margin-remove-top uk-width-1-2 uk-margin-bottom">
-                            Data de criaçãp: 01/01/2021
+                            Data de criação: 01/01/2021
                         </p>
 
                         <p class="uk-text-meta uk-margin-remove-top uk-width-1-2 uk-margin-bottom">
@@ -40,17 +40,17 @@
 
                             <form [formGroup]="form" class="uk-form-stacked">
                                 <div class="uk-margin">
-                                    <label class="uk-form-label" for="participant-email">Email do participante</label>
+                                    <label class="uk-form-label" for="email">Email do participante</label>
                                     <div class="uk-form-controls">
-                                        <input class="uk-input" id="participant-email" formControlName="accountId"
+                                        <input class="uk-input" id="email" formControlName="email"
                                             type="email" placeholder="Email">
                                     </div>
                                 </div>
 
                                 <div class="uk-margin">
-                                    <label class="uk-form-label" for="participant-role">Porcentagem do total</label>
+                                    <label class="uk-form-label" for="sharedPercentage">Porcentagem do total</label>
                                     <div class="uk-form-controls">
-                                        <input class="uk-input" id="participant-role" formControlName="sharedPercentage"
+                                        <input class="uk-input" id="sharedPercentage" formControlName="sharedPercentage"
                                             type="number" placeholder="Papel do participante">
                                     </div>
                                 </div>
@@ -68,6 +68,11 @@
                 <ul uk-accordion *ngFor="let participant of corporationResponse.participants">
                     <li>
                         <p class="uk-accordion-title uk-text-default">{{ participant.fullName }}</p>
+
+                        <div class="uk-accordion-content uk-text-meta">
+                            <p>Status do participante: {{ participant.invitationStatus }}</p>
+                            <p>Porcentagem do total: {{ participant.sharedPercentage }}</p>
+                        </div>
                     </li>
                 </ul>
             </div>

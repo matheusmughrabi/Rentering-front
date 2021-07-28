@@ -29,7 +29,7 @@ export class CorporationDetailsPagesComponent implements OnInit {
   public inviteParticipant(): void{
     let inviteToCorporation = new InviteToCorporationRequest();
     inviteToCorporation.contractId = this.getCorporationIdFromRouteParam();
-    inviteToCorporation.accountId = this.form.value['accountId'];
+    inviteToCorporation.email = this.form.value['email'];
     inviteToCorporation.sharedPercentage = this.form.value['sharedPercentage'];
 
     this.corporationService.inviteParticipant(inviteToCorporation)
@@ -69,7 +69,7 @@ export class CorporationDetailsPagesComponent implements OnInit {
 
   private prepareForm(): void {
     this.form = this.fb.group({
-      accountId: ['', Validators.compose([
+      email: ['', Validators.compose([
         Validators.required
       ])],
 

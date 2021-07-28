@@ -1,5 +1,5 @@
 export class InviteToCorporationRequest{
     public contractId!: number;
-    public accountId!: number;
+    public email!: string;
     public sharedPercentage!: number;
 }

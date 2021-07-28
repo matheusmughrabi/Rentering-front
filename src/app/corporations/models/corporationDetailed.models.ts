@@ -10,7 +10,7 @@ export class CorporationDetailedResponse {
 export class Participant {
     public fullName!: string;
     public invitationStatus!: string;
-    public sharedPercetage!: number;
+    public sharedPercentage!: number;
 }
 
 export class MonthlyBalance {
