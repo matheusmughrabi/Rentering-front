@@ -7,7 +7,8 @@
 
                     <div>
                         <p class="uk-margin-remove-top">
-                            <button (click)="finishCreation()" class="uk-button uk-button-primary uk-margin-left" type="button">
+                            <button (click)="finishCreation()" class="uk-button uk-button-primary uk-margin-left"
+                                type="button">
                                 Finalizar criação
                             </button>
                         </p>
@@ -15,7 +16,8 @@
 
                     <div>
                         <p class="uk-margin-remove-bottom">
-                            <button (click)="activateCorporation()" class="uk-button uk-button-primary uk-margin-left" type="button">
+                            <button (click)="activateCorporation()" class="uk-button uk-button-primary uk-margin-left"
+                                type="button">
                                 Ativar corporação
                             </button>
                         </p>
@@ -62,8 +64,8 @@
                                 <div class="uk-margin">
                                     <label class="uk-form-label" for="email">Email do participante</label>
                                     <div class="uk-form-controls">
-                                        <input class="uk-input" id="email" formControlName="email"
-                                            type="email" placeholder="Email">
+                                        <input class="uk-input" id="email" formControlName="email" type="email"
+                                            placeholder="Email">
                                     </div>
                                 </div>
 
@@ -110,6 +112,12 @@
                             <p class="uk-accordion-title">{{ corporation.month | date }}</p>
                             <div class="uk-accordion-content uk-text-meta">
                                 <p>Total: {{ corporation.totalProfit }}</p>
+
+                                    <li *ngFor="let participantBalances of corporation.participantBalances">
+                                        <div class="uk-accordion-content uk-text-meta">
+                                            <p>{{ participantBalances.participantName }} : {{ participantBalances.balance | currency: 'BRL'}}</p>
+                                        </div>
+                                    </li>
                             </div>
                         </li>
                     </ul>

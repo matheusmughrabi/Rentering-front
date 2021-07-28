@@ -17,4 +17,10 @@ export class Participant {
 export class MonthlyBalance {
     public month!: Date;
     public totalProfit!: number;
+    public participantBalances!: ParticipantBalance[];
+}
+
+export class ParticipantBalance{
+    public participantName!: string;
+    public balance!: number;
 }
