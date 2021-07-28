@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { InviteParticipantRequest } from 'src/app/contracts/models/inviteParticipant.models';
 import { environment } from 'src/environments/environment';
 import { AcceptParticipationRequest } from '../models/acceptParticipation.models';
+import { ActivateCorporationRequest } from '../models/activateCorporation.models';
 import { CorporationDetailedResponse } from '../models/corporationDetailed.models';
 import { CreateCorporationRequest } from '../models/createCorporation.models';
 import { FinishCreationRequest } from '../models/finishCreation.models';
@@ -67,6 +68,13 @@ export class CorporationService {
 
   rejectParticipation(data: RejectParticipationRequest): Observable<any> {
     const path = environment.UrlBase + 'corporation/participation/reject';
+
+    var response = this.http.put<any>(path, data, { headers: this.composeHeaders() });
+    return response;
+  }
+
+  activateCorporation(data: ActivateCorporationRequest): Observable<any> {
+    const path = environment.UrlBase + 'corporation/activate';
 
     var response = this.http.put<any>(path, data, { headers: this.composeHeaders() });
     return response;

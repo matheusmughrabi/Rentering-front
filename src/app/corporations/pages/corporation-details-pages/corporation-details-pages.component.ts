@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ResponseBase } from 'src/app/shared/models/responseBase';
 import { ToastrUtils } from 'src/app/shared/utils/toastr.utils';
+import { ActivateCorporationRequest } from '../../models/activateCorporation.models';
 import { CorporationDetailedResponse } from '../../models/corporationDetailed.models';
 import { FinishCreationRequest } from '../../models/finishCreation.models';
 import { InviteToCorporationRequest } from '../../models/inviteParticipant.models';
@@ -42,6 +43,14 @@ export class CorporationDetailsPagesComponent implements OnInit {
     request.corporationId = this.getCorporationIdFromRouteParam();
 
     this.corporationService.finishCreation(request)
+      .subscribe((data: ResponseBase<any>) => this.toastrUtils.DisplayNotification(data));
+  }
+
+  public activateCorporation(): void{
+    let request = new ActivateCorporationRequest();
+    request.corporationId = this.getCorporationIdFromRouteParam();
+
+    this.corporationService.activateCorporation(request)
       .subscribe((data: ResponseBase<any>) => this.toastrUtils.DisplayNotification(data));
   }
 

@@ -6,9 +6,17 @@
                     <h3 class="uk-card-title uk-margin-remove-bottom">{{ corporationResponse.name }}</h3>
 
                     <div>
-                        <p class="uk-margin-remove-top uk-margin-remove-bottom">
+                        <p class="uk-margin-remove-top">
                             <button (click)="finishCreation()" class="uk-button uk-button-primary uk-margin-left" type="button">
                                 Finalizar criação
+                            </button>
+                        </p>
+                    </div>
+
+                    <div>
+                        <p class="uk-margin-remove-bottom">
+                            <button (click)="activateCorporation()" class="uk-button uk-button-primary uk-margin-left" type="button">
+                                Ativar corporação
                             </button>
                         </p>
                     </div>
