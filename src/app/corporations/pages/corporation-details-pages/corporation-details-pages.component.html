@@ -71,7 +71,7 @@
 
                         <div class="uk-accordion-content uk-text-meta">
                             <p>Status do participante: {{ participant.invitationStatus }}</p>
-                            <p>Porcentagem do total: {{ participant.sharedPercentage }}</p>
+                            <p>Porcentagem do total: {{ (participant.sharedPercentage/100) | percent:'1.2' }}</p>
                         </div>
                     </li>
                 </ul>
