@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ResponseBase } from 'src/app/shared/models/responseBase';
 import { ToastrUtils } from 'src/app/shared/utils/toastr.utils';
 import { CorporationDetailedResponse } from '../../models/corporationDetailed.models';
+import { FinishCreationRequest } from '../../models/finishCreation.models';
 import { InviteToCorporationRequest } from '../../models/inviteParticipant.models';
 import { CorporationService } from '../../services/corporation.service';
 
@@ -33,6 +34,14 @@ export class CorporationDetailsPagesComponent implements OnInit {
     inviteToCorporation.sharedPercentage = this.form.value['sharedPercentage'];
 
     this.corporationService.inviteParticipant(inviteToCorporation)
+      .subscribe((data: ResponseBase<any>) => this.toastrUtils.DisplayNotification(data));
+  }
+
+  public finishCreation(): void{
+    let request = new FinishCreationRequest();
+    request.corporationId = this.getCorporationIdFromRouteParam();
+
+    this.corporationService.finishCreation(request)
       .subscribe((data: ResponseBase<any>) => this.toastrUtils.DisplayNotification(data));
   }
 

@@ -5,6 +5,14 @@
                 <div class="uk-width-expand">
                     <h3 class="uk-card-title uk-margin-remove-bottom">{{ corporationResponse.name }}</h3>
 
+                    <div>
+                        <p class="uk-margin-remove-top uk-margin-remove-bottom">
+                            <button (click)="finishCreation()" class="uk-button uk-button-primary uk-margin-left" type="button">
+                                Finalizar criação
+                            </button>
+                        </p>
+                    </div>
+
                     <div uk-grid class="uk-margin-top">
                         <p class="uk-text-meta uk-margin-remove-top uk-width-1-2 uk-margin-bottom">
                             Data de criação: 01/01/2021
@@ -12,6 +20,10 @@
 
                         <p class="uk-text-meta uk-margin-remove-top uk-width-1-2 uk-margin-bottom">
                             Administrador: {{ corporationResponse.admin }}
+                        </p>
+
+                        <p class="uk-text-meta uk-margin-remove-top uk-width-1-2 uk-margin-bottom">
+                            Status: {{ corporationResponse.status }}
                         </p>
                     </div>
                 </div>

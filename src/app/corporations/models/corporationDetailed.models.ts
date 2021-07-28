@@ -3,6 +3,7 @@ export class CorporationDetailedResponse {
     public name!: string;
     public admin!: string;
     public createDate!: Date;
+    public status!: string;
     public participants!: Participant[];
     public monthlyBalances!: MonthlyBalance[];
 }

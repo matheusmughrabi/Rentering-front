@@ -6,6 +6,7 @@ import { environment } from 'src/environments/environment';
 import { AcceptParticipationRequest } from '../models/acceptParticipation.models';
 import { CorporationDetailedResponse } from '../models/corporationDetailed.models';
 import { CreateCorporationRequest } from '../models/createCorporation.models';
+import { FinishCreationRequest } from '../models/finishCreation.models';
 import { InvitationResponse } from '../models/invitations.models';
 import { InviteToCorporationRequest } from '../models/inviteParticipant.models';
 import { RejectParticipationRequest } from '../models/rejectParticipation.models';
@@ -45,6 +46,13 @@ export class CorporationService {
 
   inviteParticipant(data: InviteToCorporationRequest): Observable<any> {
     const path = environment.UrlBase + 'corporation/invite';
+
+    var response = this.http.put<any>(path, data, { headers: this.composeHeaders() });
+    return response;
+  }
+
+  finishCreation(data: FinishCreationRequest): Observable<any> {
+    const path = environment.UrlBase + 'corporation/finish-creation';
 
     var response = this.http.put<any>(path, data, { headers: this.composeHeaders() });
     return response;
