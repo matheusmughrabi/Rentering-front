@@ -100,14 +100,14 @@
             <div class="uk-margin-bottom">
                 <h3>Meses</h3>
 
-                <button class="uk-button uk-button-primary">Adicionar</button>
+                <button (click)="addMonth()" class="uk-button uk-button-primary">Adicionar</button>
 
                 <!-- <p *ngIf="corporationResponse.monthlyBalances.length == 0">Nenhum mês para ser exibido</p> -->
 
                 <div>
                     <ul uk-accordion>
                         <li *ngFor="let corporation of corporationResponse.monthlyBalances">
-                            <p class="uk-accordion-title">{{ corporation.month }}</p>
+                            <p class="uk-accordion-title">{{ corporation.month | date }}</p>
                             <div class="uk-accordion-content uk-text-meta">
                                 <p>Total: {{ corporation.totalProfit }}</p>
                             </div>

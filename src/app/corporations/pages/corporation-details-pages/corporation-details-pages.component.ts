@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ResponseBase } from 'src/app/shared/models/responseBase';
 import { ToastrUtils } from 'src/app/shared/utils/toastr.utils';
 import { ActivateCorporationRequest } from '../../models/activateCorporation.models';
+import { AddMonthRequest } from '../../models/addMonth.models';
 import { CorporationDetailedResponse } from '../../models/corporationDetailed.models';
 import { FinishCreationRequest } from '../../models/finishCreation.models';
 import { InviteToCorporationRequest } from '../../models/inviteParticipant.models';
@@ -51,6 +52,15 @@ export class CorporationDetailsPagesComponent implements OnInit {
     request.corporationId = this.getCorporationIdFromRouteParam();
 
     this.corporationService.activateCorporation(request)
+      .subscribe((data: ResponseBase<any>) => this.toastrUtils.DisplayNotification(data));
+  }
+
+  public addMonth(): void{
+    let request = new AddMonthRequest();
+    request.corporationId = this.getCorporationIdFromRouteParam();
+    request.totalProfit = 1000;
+
+    this.corporationService.addMonth(request)
       .subscribe((data: ResponseBase<any>) => this.toastrUtils.DisplayNotification(data));
   }
 
