@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
 import { ResponseBase } from 'src/app/shared/models/responseBase';
+import { ToastrUtils } from 'src/app/shared/utils/toastr.utils';
 import { CorporationDetailedResponse } from '../../models/corporationDetailed.models';
 import { InviteToCorporationRequest } from '../../models/inviteParticipant.models';
 import { CorporationService } from '../../services/corporation.service';
@@ -18,7 +18,7 @@ export class CorporationDetailsPagesComponent implements OnInit {
   constructor(
     private activatedRoute: ActivatedRoute, 
     private fb: FormBuilder,
-    private toastr: ToastrService,
+    private toastrUtils: ToastrUtils,
     private corporationService: CorporationService) { }
 
   ngOnInit(): void {
@@ -33,28 +33,14 @@ export class CorporationDetailsPagesComponent implements OnInit {
     inviteToCorporation.sharedPercentage = this.form.value['sharedPercentage'];
 
     this.corporationService.inviteParticipant(inviteToCorporation)
-      .subscribe(
-        (data: ResponseBase<any>) => {
-          if (data.success) {
-            this.toastr.success(data.message, 'Notificação');           
-          }
-          else{
-            data.notifications.forEach(c => this.toastr.warning(c.message, c.title));
-          }
-        },
-        (error) => console.log(error)
-      );
+      .subscribe((data: ResponseBase<any>) => this.toastrUtils.DisplayNotification(data));
   }
 
   private loadCorporation(): void{
     let id = this.getCorporationIdFromRouteParam();
 
     this.corporationService.getCorporationDetailed(id)
-    .subscribe(
-      (data: CorporationDetailedResponse) => {
-        this.corporationResponse = data;
-      },
-      (error) => console.log(error));
+    .subscribe((data: CorporationDetailedResponse) => this.corporationResponse = data);
   }
 
   private getCorporationIdFromRouteParam(): number{

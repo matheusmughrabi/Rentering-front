@@ -14,11 +14,7 @@ export class UserContractsComponent implements OnInit {
   ngOnInit(): void {
     this.contractService.getContractsOfUser()
       .subscribe(
-        (data: UserContractResponse[]) => {
-          this.userContracts = data;
-          console.log(data);
-        },
-        (error) => console.log(error));
+        (data: UserContractResponse[]) => this.userContracts = data);
   }
 
 }

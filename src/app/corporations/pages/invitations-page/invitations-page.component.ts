@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ToastrService } from 'ngx-toastr';
 import { ResponseBase } from 'src/app/shared/models/responseBase';
+import { ToastrUtils } from 'src/app/shared/utils/toastr.utils';
 import { AcceptParticipationRequest } from '../../models/acceptParticipation.models';
 import { InvitationResponse } from '../../models/invitations.models';
 import { RejectParticipationRequest } from '../../models/rejectParticipation.models';
@@ -13,7 +13,7 @@ import { CorporationService } from '../../services/corporation.service';
 export class InvitationsPageComponent implements OnInit {
   public invitations!: InvitationResponse[];
 
-  constructor(private toastr: ToastrService, private corporationService: CorporationService) { }
+  constructor(private toastrUtils: ToastrUtils, private corporationService: CorporationService) { }
 
   ngOnInit(): void {
     this.loadInvitations();
@@ -25,17 +25,7 @@ export class InvitationsPageComponent implements OnInit {
     request.participantId = participantId;
 
     this.corporationService.acceptParticipation(request)
-    .subscribe(
-      (data: ResponseBase<any>) => {
-        if (data.success) {
-          this.toastr.success(data.message, 'Notificação');           
-        }
-        else{
-          data.notifications.forEach(c => this.toastr.warning(c.message, c.title));
-        }
-      },
-      (error) => console.log(error)
-    );
+    .subscribe((data: ResponseBase<any>) => this.toastrUtils.DisplayNotification(data));
   }
 
   rejectParticipation(corporationId: number, participantId: number): void{
@@ -45,16 +35,7 @@ export class InvitationsPageComponent implements OnInit {
 
     this.corporationService.rejectParticipation(request)
     .subscribe(
-      (data: ResponseBase<any>) => {
-        if (data.success) {
-          this.toastr.success(data.message, 'Notificação');           
-        }
-        else{
-          data.notifications.forEach(c => this.toastr.warning(c.message, c.title));
-        }
-      },
-      (error) => console.log(error)
-    );
+      (data: ResponseBase<any>) => this.toastrUtils.DisplayNotification(data));
   }
 
   private loadInvitations(): void {

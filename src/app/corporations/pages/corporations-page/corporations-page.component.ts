@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
 import { ResponseBase } from 'src/app/shared/models/responseBase';
+import { ToastrUtils } from 'src/app/shared/utils/toastr.utils';
 import { UserCorporationResponse } from '../../models/userCorporation.models';
 import { CorporationService } from '../../services/corporation.service';
 
@@ -16,8 +16,7 @@ export class CorporationsPageComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private router: Router,
-    private toastr: ToastrService,
+    private toastrUtils: ToastrUtils,
     private corporationService: CorporationService) { }
 
   ngOnInit(): void {
@@ -36,23 +35,7 @@ export class CorporationsPageComponent implements OnInit {
 
   createCorporation(): void {
     this.corporationService.createCorporation(this.form.value)
-      .subscribe(
-        (data: ResponseBase<any>) => {
-          this.router.routeReuseStrategy.shouldReuseRoute = () => false;
-          this.router.onSameUrlNavigation = 'reload';
-          this.router.navigate(['/corporacao/dash']);
-
-          if (data.success) {
-            this.toastr.success(data.message, 'Notificação');
-          }
-          else {
-            data.notifications.forEach(c => this.toastr.warning(c.message, c.title));
-          }
-        },
-        (error) => {
-          console.log(error);
-        }
-      );
+      .subscribe((data: ResponseBase<any>) => this.toastrUtils.DisplayNotification(data));
   }
 
   private setForm(): void {
