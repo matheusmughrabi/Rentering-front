@@ -15,6 +15,7 @@ export class Participant {
 }
 
 export class MonthlyBalance {
+    public id!: number;
     public month!: Date;
     public totalProfit!: number;
     public participantBalances!: ParticipantBalance[];

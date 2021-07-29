@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ResponseBase } from 'src/app/shared/models/responseBase';
 import { ToastrUtils } from 'src/app/shared/utils/toastr.utils';
+import { AcceptBalanceRequest } from '../../models/acceptBalance.models';
 import { ActivateCorporationRequest } from '../../models/activateCorporation.models';
 import { AddMonthRequest } from '../../models/addMonth.models';
 import { CorporationDetailedResponse } from '../../models/corporationDetailed.models';
@@ -61,6 +62,13 @@ export class CorporationDetailsPagesComponent implements OnInit {
     request.totalProfit = 1000;
 
     this.corporationService.addMonth(request)
+      .subscribe((data: ResponseBase<any>) => this.toastrUtils.DisplayNotification(data));
+  }
+
+  public acceptBalance(monthlyBalanceId: number): void{
+    let request = new AcceptBalanceRequest(this.getCorporationIdFromRouteParam(), monthlyBalanceId);
+
+    this.corporationService.acceptBalance(request)
       .subscribe((data: ResponseBase<any>) => this.toastrUtils.DisplayNotification(data));
   }
 

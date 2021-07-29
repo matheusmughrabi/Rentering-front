@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { InviteParticipantRequest } from 'src/app/contracts/models/inviteParticipant.models';
 import { environment } from 'src/environments/environment';
+import { AcceptBalanceRequest } from '../models/acceptBalance.models';
 import { AcceptParticipationRequest } from '../models/acceptParticipation.models';
 import { ActivateCorporationRequest } from '../models/activateCorporation.models';
 import { AddMonthRequest } from '../models/addMonth.models';
@@ -83,6 +84,13 @@ export class CorporationService {
 
   addMonth(data: AddMonthRequest): Observable<any> {
     const path = environment.UrlBase + 'corporation/add-month';
+
+    var response = this.http.put<any>(path, data, { headers: this.composeHeaders() });
+    return response;
+  }
+
+  acceptBalance(data: AcceptBalanceRequest): Observable<any> {
+    const path = environment.UrlBase + 'corporation/balance/accept';
 
     var response = this.http.put<any>(path, data, { headers: this.composeHeaders() });
     return response;

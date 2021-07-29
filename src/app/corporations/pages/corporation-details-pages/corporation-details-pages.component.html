@@ -118,6 +118,8 @@
                                             <p>{{ participantBalances.participantName }} : {{ participantBalances.balance | currency: 'BRL'}}</p>
                                         </div>
                                     </li>
+
+                                    <button (click)="acceptBalance(corporation.id)" class="uk-button uk-button-primary">Adicionar</button>
                             </div>
                         </li>
                     </ul>
