@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ResponseBase } from 'src/app/shared/models/responseBase';
 import { ToastrUtils } from 'src/app/shared/utils/toastr.utils';
-import { AcceptParticipationRequest } from '../../models/acceptParticipation.models';
-import { InvitationResponse } from '../../models/invitations.models';
-import { RejectParticipationRequest } from '../../models/rejectParticipation.models';
+import { AcceptParticipationRequest } from '../../models/requests/acceptParticipation.request';
+import { InvitationQueryResult } from '../../models/queryResults/invitations.queryResult';
+import { RejectParticipationRequest } from '../../models/requests/rejectParticipation.request';
 import { CorporationService } from '../../services/corporation.service';
 
 @Component({
@@ -11,7 +11,7 @@ import { CorporationService } from '../../services/corporation.service';
   templateUrl: './invitations-page.component.html'
 })
 export class InvitationsPageComponent implements OnInit {
-  public invitations!: InvitationResponse[];
+  public invitations!: InvitationQueryResult[];
 
   constructor(private toastrUtils: ToastrUtils, private corporationService: CorporationService) { }
 
@@ -41,7 +41,7 @@ export class InvitationsPageComponent implements OnInit {
   private loadInvitations(): void {
     this.corporationService.getInvitations()
       .subscribe(
-        (data: InvitationResponse[]) => {
+        (data: InvitationQueryResult[]) => {
           this.invitations = data;
         });
   }

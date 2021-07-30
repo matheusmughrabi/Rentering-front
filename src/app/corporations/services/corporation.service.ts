@@ -1,19 +1,19 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { InviteParticipantRequest } from 'src/app/contracts/models/inviteParticipant.models';
+import { InviteParticipantRequest } from 'src/app/contracts/models/requests/inviteParticipant.request';
 import { environment } from 'src/environments/environment';
-import { AcceptBalanceRequest } from '../models/acceptBalance.models';
-import { AcceptParticipationRequest } from '../models/acceptParticipation.models';
-import { ActivateCorporationRequest } from '../models/activateCorporation.models';
-import { AddMonthRequest } from '../models/addMonth.models';
-import { CorporationDetailedResponse } from '../models/corporationDetailed.models';
-import { CreateCorporationRequest } from '../models/createCorporation.models';
-import { FinishCreationRequest } from '../models/finishCreation.models';
-import { InvitationResponse } from '../models/invitations.models';
-import { InviteToCorporationRequest } from '../models/inviteParticipant.models';
-import { RejectParticipationRequest } from '../models/rejectParticipation.models';
-import { UserCorporationResponse } from '../models/userCorporation.models';
+import { AcceptBalanceRequest } from '../models/requests/acceptBalance.request';
+import { AcceptParticipationRequest } from '../models/requests/acceptParticipation.request';
+import { ActivateCorporationRequest } from '../models/requests/activateCorporation.request';
+import { AddMonthRequest } from '../models/requests/addMonth.request';
+import { CorporationDetailedQueryResult } from '../models/queryResults/corporationDetailed.queryResult';
+import { CreateCorporationRequest } from '../models/requests/createCorporation.request';
+import { FinishCreationRequest } from '../models/requests/finishCreation.request';
+import { InvitationQueryResult } from '../models/queryResults/invitations.queryResult';
+import { InviteToCorporationRequest } from '../models/requests/inviteParticipant.request';
+import { RejectParticipationRequest } from '../models/requests/rejectParticipation.request';
+import { UserCorporationQueryResult } from '../models/queryResults/userCorporation.queryResult';
 
 @Injectable({
   providedIn: 'root'
@@ -28,16 +28,16 @@ export class CorporationService {
     return headers;
   }
 
-  getCorporations(): Observable<UserCorporationResponse[]> {
-    return this.http.get<UserCorporationResponse[]>(environment.UrlBase + 'corporation', { headers: this.composeHeaders() });
+  getCorporations(): Observable<UserCorporationQueryResult[]> {
+    return this.http.get<UserCorporationQueryResult[]>(environment.UrlBase + 'corporation', { headers: this.composeHeaders() });
   }
 
-  getCorporationDetailed(id: number): Observable<CorporationDetailedResponse> {
-    return this.http.get<CorporationDetailedResponse>(environment.UrlBase + `corporation/detailed/${id}`, { headers: this.composeHeaders() });
+  getCorporationDetailed(id: number): Observable<CorporationDetailedQueryResult> {
+    return this.http.get<CorporationDetailedQueryResult>(environment.UrlBase + `corporation/detailed/${id}`, { headers: this.composeHeaders() });
   }
 
-  getInvitations(): Observable<InvitationResponse[]> {
-    return this.http.get<InvitationResponse[]>(environment.UrlBase + 'corporation/invitations', { headers: this.composeHeaders() });
+  getInvitations(): Observable<InvitationQueryResult[]> {
+    return this.http.get<InvitationQueryResult[]>(environment.UrlBase + 'corporation/invitations', { headers: this.composeHeaders() });
   }
 
   createCorporation(data: CreateCorporationRequest): Observable<any> {

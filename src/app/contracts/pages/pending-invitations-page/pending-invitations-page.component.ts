@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ResponseBase } from 'src/app/shared/models/responseBase';
 import { ToastrUtils } from 'src/app/shared/utils/toastr.utils';
-import { AcceptToParticipateRequest } from '../../models/acceptToParticipate.models';
-import { PendingInvitationResponse } from '../../models/pendingInvitation.models';
-import { RejectToParticipateRequest } from '../../models/rejectToParticipate.models';
+import { AcceptToParticipateRequest } from '../../models/requests/acceptToParticipate.request';
+import { PendingInvitationQueryResult } from '../../models/queryResults/pendingInvitation.queryResult';
+import { RejectToParticipateRequest } from '../../models/requests/rejectToParticipate.request';
 import { ContractsService } from '../../services/contracts.service';
 
 @Component({
@@ -11,7 +11,7 @@ import { ContractsService } from '../../services/contracts.service';
   templateUrl: './pending-invitations-page.component.html'
 })
 export class PendingInvitationsPageComponent implements OnInit {
-  public pendingInvitations!: PendingInvitationResponse[];
+  public pendingInvitations!: PendingInvitationQueryResult[];
   
   constructor(
     private toastrUtils: ToastrUtils,

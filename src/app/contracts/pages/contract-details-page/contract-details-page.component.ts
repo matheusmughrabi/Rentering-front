@@ -4,13 +4,13 @@ import { ActivatedRoute } from '@angular/router';
 import { ContractsService } from 'src/app/contracts/services/contracts.service';
 import { ResponseBase } from 'src/app/shared/models/responseBase';
 import { ToastrUtils } from 'src/app/shared/utils/toastr.utils';
-import { AcceptPaymentRequest } from '../../models/acceptPayment.models';
-import { ActivateContractRequest } from '../../models/activateContract.models';
-import { DetailedContractRequest, DetailedContractResponse } from '../../models/detailedContract.models';
-import { ExecutePaymentRequest } from '../../models/executePayment.models';
-import { InviteParticipantRequest } from '../../models/inviteParticipant.models';
-import { RejectPaymentRequest } from '../../models/rejectPayment.models';
-import { RemoveParticipantRequest } from '../../models/removeParticipant.models';
+import { AcceptPaymentRequest } from '../../models/requests/acceptPayment.request';
+import { ActivateContractRequest } from '../../models/requests/activateContract.request';
+import { DetailedContractRequest, DetailedContractQueryResult } from '../../models/queryResults/detailedContract.queryResul';
+import { ExecutePaymentRequest } from '../../models/requests/executePayment.request';
+import { InviteParticipantRequest } from '../../models/requests/inviteParticipant.request';
+import { RejectPaymentRequest } from '../../models/requests/rejectPayment.request';
+import { RemoveParticipantRequest } from '../../models/requests/removeParticipant.request';
 
 @Component({
   selector: 'app-contract-details-page',
@@ -18,8 +18,7 @@ import { RemoveParticipantRequest } from '../../models/removeParticipant.models'
 })
 export class ContractDetailsPageComponent implements OnInit {
   public form!: FormGroup;
-  public detailedContractResponse: DetailedContractResponse = new DetailedContractResponse();
-  private inviteParticipantRequest!: InviteParticipantRequest;
+  public detailedContractResponse: DetailedContractQueryResult = new DetailedContractQueryResult();
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -49,11 +48,11 @@ export class ContractDetailsPageComponent implements OnInit {
     console.log(`Dados enviados para o back: ${this.form.value}`)
 
     let inviteParticipantRequest = new InviteParticipantRequest();
-    this.inviteParticipantRequest.contractId = this.getContractIdFromRouteParam();
-    this.inviteParticipantRequest.email = this.form.value['email'];
-    this.inviteParticipantRequest.participantRole = this.form.value['participantRole'];
+    inviteParticipantRequest.contractId = this.getContractIdFromRouteParam();
+    inviteParticipantRequest.email = this.form.value['email'];
+    inviteParticipantRequest.participantRole = this.form.value['participantRole'];
 
-    this.contractService.inviteParticipant(this.inviteParticipantRequest)
+    this.contractService.inviteParticipant(inviteParticipantRequest)
       .subscribe(
         (data: ResponseBase<any>) => this.toastrUtils.DisplayNotification(data));
   }
@@ -116,7 +115,7 @@ export class ContractDetailsPageComponent implements OnInit {
   private loadDetailedContractData(detailedContractRequest: DetailedContractRequest): void {
     this.contractService.getContractDetailed(detailedContractRequest)
       .subscribe(
-        (data: DetailedContractResponse) => this.detailedContractResponse = data);
+        (data: DetailedContractQueryResult) => this.detailedContractResponse = data);
   }
 
   private prepareForm(): void {
