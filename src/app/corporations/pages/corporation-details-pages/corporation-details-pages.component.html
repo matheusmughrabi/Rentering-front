@@ -108,18 +108,22 @@
 
                 <div>
                     <ul uk-accordion>
-                        <li *ngFor="let corporation of corporationResponse.monthlyBalances">
-                            <p class="uk-accordion-title">{{ corporation.month | date }}</p>
+                        <li *ngFor="let monthlyBalance of corporationResponse.monthlyBalances">
+                            <p class="uk-accordion-title">{{ monthlyBalance.month | date }}</p>
                             <div class="uk-accordion-content uk-text-meta">
-                                <p>Total: {{ corporation.totalProfit }}</p>
+                                <p>Status do mês: {{ monthlyBalance.status.description }}</p>
+                                <p>Total: {{ monthlyBalance.totalProfit }}</p>
 
-                                    <li *ngFor="let participantBalances of corporation.participantBalances">
+                                <div *ngFor="let participantBalances of monthlyBalance.participantBalances">
+                                    <li>
                                         <div class="uk-accordion-content uk-text-meta">
                                             <p>{{ participantBalances.participantName }} : {{ participantBalances.balance | currency: 'BRL'}}</p>
+                                            <p>Status: {{ participantBalances.status.description }}</p>
                                         </div>
                                     </li>
 
-                                    <button (click)="acceptBalance(corporation.id)" class="uk-button uk-button-primary">Aceitar</button>
+                                    <button *ngIf="participantBalances.status.value == 1 && monthlyBalance.status.value == 1" (click)="acceptBalance(monthlyBalance.id)" class="uk-button uk-button-primary">Aceitar</button>
+                                </div>
                             </div>
                         </li>
                     </ul>

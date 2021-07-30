@@ -1,10 +1,10 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
-import { LoginRequest } from "src/app/accounts/models/requests/login.models";
+import { LoginRequest } from "src/app/accounts/models/requests/login.request";
 import { environment } from "src/environments/environment";
 import { ResponseBase } from "src/app/shared/models/responseBase";
-import { RegisterRequest } from "src/app/accounts/models/requests/register.models";
+import { RegisterRequest } from "src/app/accounts/models/requests/register.request";
 import { UserInfoQueryResult } from "../models/queryResults/userInfo.queryResult";
 
 @Injectable({

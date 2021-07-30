@@ -21,10 +21,12 @@ export class MonthlyBalance {
     public id!: number;
     public month!: Date;
     public totalProfit!: number;
+    public status!: EnumResult;
     public participantBalances!: ParticipantBalance[];
 }
 
 export class ParticipantBalance{
     public participantName!: string;
     public balance!: number;
+    public status!: EnumResult;
 }
