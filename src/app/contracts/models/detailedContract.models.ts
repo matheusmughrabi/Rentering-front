@@ -1,3 +1,5 @@
+import { EnumResult } from "src/app/shared/enums/enumResult.model";
+
 export class DetailedContractRequest {
     public contractId!: number;
 }
@@ -5,8 +7,8 @@ export class DetailedContractRequest {
 export class DetailedContractResponse {
     public id!: number;
     public contractName!: string;
-    public currentUserRole!: string;
-    public contractState!: string;
+    public currentUserRole!: EnumResult;
+    public contractState!: EnumResult;
     public rentPrice!: number;
     public rentDueDate!: Date;
     public contractStartDate!: Date;
@@ -18,13 +20,13 @@ export class DetailedContractResponse {
 export class Participant {
     public accountId!: number;
     public fullName!: string;
-    public participantRole!: string;
-    public status!: number;
+    public participantRole!: EnumResult;
+    public status!: EnumResult;
 }
 
 export class ContractPayment {
     public month!: Date;
     public rentPrice!: number;
-    public receiverPaymentStatus!: string;
-    public payerPaymentStatus!: string;
+    public receiverPaymentStatus!: EnumResult;
+    public payerPaymentStatus!: EnumResult;
 }

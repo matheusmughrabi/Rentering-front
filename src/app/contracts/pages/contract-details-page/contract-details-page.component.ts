@@ -19,7 +19,6 @@ import { RemoveParticipantRequest } from '../../models/removeParticipant.models'
 export class ContractDetailsPageComponent implements OnInit {
   public form!: FormGroup;
   public detailedContractResponse: DetailedContractResponse = new DetailedContractResponse();
-  private inviteParticipantRequest!: InviteParticipantRequest;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -49,11 +48,11 @@ export class ContractDetailsPageComponent implements OnInit {
     console.log(`Dados enviados para o back: ${this.form.value}`)
 
     let inviteParticipantRequest = new InviteParticipantRequest();
-    this.inviteParticipantRequest.contractId = this.getContractIdFromRouteParam();
-    this.inviteParticipantRequest.email = this.form.value['email'];
-    this.inviteParticipantRequest.participantRole = this.form.value['participantRole'];
+    inviteParticipantRequest.contractId = this.getContractIdFromRouteParam();
+    inviteParticipantRequest.email = this.form.value['email'];
+    inviteParticipantRequest.participantRole = this.form.value['participantRole'];
 
-    this.contractService.inviteParticipant(this.inviteParticipantRequest)
+    this.contractService.inviteParticipant(inviteParticipantRequest)
       .subscribe(
         (data: ResponseBase<any>) => this.toastrUtils.DisplayNotification(data));
   }
