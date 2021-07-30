@@ -6,10 +6,3 @@ export class RegisterRequest{
     public password!: string;
     public confirmPassword!: string;
 }
-
-export class RegisterResponse{
-    public id!: number;
-    public username!: string;
-    public role!: string;
-    public token!: string;
-}

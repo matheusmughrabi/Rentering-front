@@ -4,7 +4,7 @@ export class DetailedContractRequest {
     public contractId!: number;
 }
 
-export class DetailedContractResponse {
+export class DetailedContractQueryResult {
     public id!: number;
     public contractName!: string;
     public currentUserRole!: EnumResult;

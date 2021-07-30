@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { LoginResponse } from 'src/app/accounts/models/login.models';
 import { ResponseBase } from 'src/app/shared/models/responseBase';
 import { AccountsService } from 'src/app/accounts/services/accounts.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Security } from 'src/app/shared/security/security.util';
+import { UserInfoQueryResult } from '../../models/queryResults/userInfo.queryResult';
 
 @Component({
   selector: 'app-login-page',
@@ -40,7 +40,7 @@ export class LoginPageComponent implements OnInit {
   login(): void {
     this.accountsService.login(this.form.value)
       .subscribe(
-        (data: ResponseBase<LoginResponse>) => {
+        (data: ResponseBase<UserInfoQueryResult>) => {
           if (data.success) {
             Security.setLogin(data.data.username, data.data.role, data.data.token);
             this.router.navigate(['/contratos']);

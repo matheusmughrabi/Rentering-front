@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { RegisterResponse } from 'src/app/accounts/models/register.models';
 import { ResponseBase } from 'src/app/shared/models/responseBase';
 import { AccountsService } from 'src/app/accounts/services/accounts.service';
-import { LoginResponse } from '../../models/login.models';
 import { Router } from '@angular/router';
 import { Security } from 'src/app/shared/security/security.util';
 import { ToastrService } from 'ngx-toastr';
+import { UserInfoQueryResult } from '../../models/queryResults/userInfo.queryResult';
 
 @Component({
   selector: 'app-signup-page',
@@ -28,7 +27,7 @@ export class SignupPageComponent implements OnInit {
   signUp(): void {
     this.accountsService.createAccount(this.form.value)
       .subscribe(
-        (data: ResponseBase<RegisterResponse>) => {
+        (data: ResponseBase<UserInfoQueryResult>) => {
           if (data.success) {
             Security.setLogin(data.data.username, data.data.role, data.data.token);
             this.router.navigate(['/contratos']);

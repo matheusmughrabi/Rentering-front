@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ResponseBase } from 'src/app/shared/models/responseBase';
 import { ToastrUtils } from 'src/app/shared/utils/toastr.utils';
-import { UserCorporationResponse } from '../../models/userCorporation.models';
+import { UserCorporationQueryResult } from '../../models/queryResults/userCorporation.queryResult';
 import { CorporationService } from '../../services/corporation.service';
 
 @Component({
@@ -12,7 +12,7 @@ import { CorporationService } from '../../services/corporation.service';
 })
 export class CorporationsPageComponent implements OnInit {
   public form!: FormGroup;
-  public userCorporations!: UserCorporationResponse[];
+  public userCorporations!: UserCorporationQueryResult[];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -27,7 +27,7 @@ export class CorporationsPageComponent implements OnInit {
   loadUserCorporations(): void{
     this.corporationService.getCorporations()
       .subscribe(
-        (data: UserCorporationResponse[]) => {
+        (data: UserCorporationQueryResult[]) => {
           this.userCorporations = data;
         },
         (error) => console.log(error));

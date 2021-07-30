@@ -1,6 +1,6 @@
 import { EnumResult } from "src/app/shared/enums/enumResult.model";
 
-export class PendingInvitationResponse{
+export class PendingInvitationQueryResult{
     public accountContractId!: number;
     public contractId!: number;
     public contractName!: string;

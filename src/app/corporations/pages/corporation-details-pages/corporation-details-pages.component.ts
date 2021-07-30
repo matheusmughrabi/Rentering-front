@@ -3,12 +3,12 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ResponseBase } from 'src/app/shared/models/responseBase';
 import { ToastrUtils } from 'src/app/shared/utils/toastr.utils';
-import { AcceptBalanceRequest } from '../../models/acceptBalance.models';
-import { ActivateCorporationRequest } from '../../models/activateCorporation.models';
-import { AddMonthRequest } from '../../models/addMonth.models';
-import { CorporationDetailedResponse } from '../../models/corporationDetailed.models';
-import { FinishCreationRequest } from '../../models/finishCreation.models';
-import { InviteToCorporationRequest } from '../../models/inviteParticipant.models';
+import { AcceptBalanceRequest } from '../../models/requests/acceptBalance.request';
+import { ActivateCorporationRequest } from '../../models/requests/activateCorporation.request';
+import { AddMonthRequest } from '../../models/requests/addMonth.request';
+import { CorporationDetailedQueryResult } from '../../models/queryResults/corporationDetailed.queryResult';
+import { FinishCreationRequest } from '../../models/requests/finishCreation.request';
+import { InviteToCorporationRequest } from '../../models/requests/inviteParticipant.request';
 import { CorporationService } from '../../services/corporation.service';
 
 @Component({
@@ -17,7 +17,7 @@ import { CorporationService } from '../../services/corporation.service';
 })
 export class CorporationDetailsPagesComponent implements OnInit {
   public form!: FormGroup;
-  public corporationResponse: CorporationDetailedResponse = new CorporationDetailedResponse();
+  public corporationResponse: CorporationDetailedQueryResult = new CorporationDetailedQueryResult();
 
   constructor(
     private activatedRoute: ActivatedRoute, 
@@ -76,7 +76,7 @@ export class CorporationDetailsPagesComponent implements OnInit {
     let id = this.getCorporationIdFromRouteParam();
 
     this.corporationService.getCorporationDetailed(id)
-    .subscribe((data: CorporationDetailedResponse) => this.corporationResponse = data);
+    .subscribe((data: CorporationDetailedQueryResult) => this.corporationResponse = data);
   }
 
   private getCorporationIdFromRouteParam(): number{

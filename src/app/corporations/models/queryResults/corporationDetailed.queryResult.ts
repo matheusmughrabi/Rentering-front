@@ -1,6 +1,6 @@
 import { EnumResult } from "src/app/shared/enums/enumResult.model";
 
-export class CorporationDetailedResponse {
+export class CorporationDetailedQueryResult {
     public id!: number;
     public name!: string;
     public admin!: string;
