@@ -1,21 +1,19 @@
+import { EnumResult } from "src/app/shared/enums/enumResult.model";
+
 export class CorporationDetailedResponse {
     public id!: number;
     public name!: string;
     public admin!: string;
+    public isCurrentUserAdmin!: boolean;
     public createDate!: Date;
-    public status!: e_CorporationStatus;
+    public status!: EnumResult;
     public participants!: Participant[];
     public monthlyBalances!: MonthlyBalance[];
 }
 
-export class e_CorporationStatus{
-    public value!: number;
-    public description!: string;
-}
-
 export class Participant {
     public fullName!: string;
-    public invitationStatus!: string;
+    public invitationStatus!: EnumResult;
     public sharedPercentage!: number;
 }
 

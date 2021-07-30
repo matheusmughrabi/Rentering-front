@@ -7,7 +7,7 @@
 
                     <div>
                         <p class="uk-margin-remove-top">
-                            <button [disabled]="corporationResponse.status.value != 1" (click)="finishCreation()" class="uk-button uk-button-primary uk-margin-left"
+                            <button *ngIf="corporationResponse.isCurrentUserAdmin" [disabled]="corporationResponse.status.value != 1" (click)="finishCreation()" class="uk-button uk-button-primary uk-margin-left"
                                 type="button">
                                 Finalizar criação
                             </button>
@@ -16,7 +16,7 @@
 
                     <div>
                         <p class="uk-margin-remove-bottom">
-                            <button [disabled]="corporationResponse.status.value != 3" (click)="activateCorporation()" class="uk-button uk-button-primary uk-margin-left"
+                            <button *ngIf="corporationResponse.isCurrentUserAdmin"  [disabled]="corporationResponse.status.value != 3" (click)="activateCorporation()" class="uk-button uk-button-primary uk-margin-left"
                                 type="button">
                                 Ativar corporação
                             </button>
@@ -49,7 +49,7 @@
                     <!-- This is a button toggling the modal with the default close button -->
                     <div>
                         <p class="uk-margin-remove-top uk-margin-remove-bottom">
-                            <button [disabled]="corporationResponse.status.value != 1" class="uk-button uk-button-primary uk-margin-left" type="button"
+                            <button *ngIf="corporationResponse.isCurrentUserAdmin"  [disabled]="corporationResponse.status.value != 1" class="uk-button uk-button-primary uk-margin-left" type="button"
                                 uk-toggle="target: #modal-close-default">Novo participante</button>
                         </p>
                     </div>
@@ -92,7 +92,7 @@
                         <p class="uk-accordion-title uk-text-default">{{ participant.fullName }}</p>
 
                         <div class="uk-accordion-content uk-text-meta">
-                            <p>Status do participante: {{ participant.invitationStatus }}</p>
+                            <p>Status do participante: {{ participant.invitationStatus.description }}</p>
                             <p>Porcentagem do total: {{ (participant.sharedPercentage/100) | percent:'1.2' }}</p>
                         </div>
                     </li>
@@ -102,7 +102,7 @@
             <div class="uk-margin-bottom">
                 <h3>Meses</h3>
 
-                <button [disabled]="corporationResponse.status.value != 4" (click)="addMonth()" class="uk-button uk-button-primary">Adicionar</button>
+                <button *ngIf="corporationResponse.isCurrentUserAdmin"  [disabled]="corporationResponse.status.value != 4" (click)="addMonth()" class="uk-button uk-button-primary">Adicionar</button>
 
                 <!-- <p *ngIf="corporationResponse.monthlyBalances.length == 0">Nenhum mês para ser exibido</p> -->
 
