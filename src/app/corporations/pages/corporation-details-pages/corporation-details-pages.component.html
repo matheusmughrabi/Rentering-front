@@ -7,8 +7,9 @@
 
                     <div>
                         <p class="uk-margin-remove-top">
-                            <button *ngIf="corporationResponse.isCurrentUserAdmin" [disabled]="corporationResponse.status.value != 1" (click)="finishCreation()" class="uk-button uk-button-primary uk-margin-left"
-                                type="button">
+                            <button *ngIf="corporationResponse.isCurrentUserAdmin"
+                                [disabled]="corporationResponse.status.value != 1" (click)="finishCreation()"
+                                class="uk-button uk-button-primary uk-margin-left" type="button">
                                 Finalizar criação
                             </button>
                         </p>
@@ -16,8 +17,9 @@
 
                     <div>
                         <p class="uk-margin-remove-bottom">
-                            <button *ngIf="corporationResponse.isCurrentUserAdmin"  [disabled]="corporationResponse.status.value != 3" (click)="activateCorporation()" class="uk-button uk-button-primary uk-margin-left"
-                                type="button">
+                            <button *ngIf="corporationResponse.isCurrentUserAdmin"
+                                [disabled]="corporationResponse.status.value != 3" (click)="activateCorporation()"
+                                class="uk-button uk-button-primary uk-margin-left" type="button">
                                 Ativar corporação
                             </button>
                         </p>
@@ -49,7 +51,9 @@
                     <!-- This is a button toggling the modal with the default close button -->
                     <div>
                         <p class="uk-margin-remove-top uk-margin-remove-bottom">
-                            <button *ngIf="corporationResponse.isCurrentUserAdmin"  [disabled]="corporationResponse.status.value != 1" class="uk-button uk-button-primary uk-margin-left" type="button"
+                            <button *ngIf="corporationResponse.isCurrentUserAdmin"
+                                [disabled]="corporationResponse.status.value != 1"
+                                class="uk-button uk-button-primary uk-margin-left" type="button"
                                 uk-toggle="target: #modal-close-default">Novo participante</button>
                         </p>
                     </div>
@@ -102,7 +106,44 @@
             <div class="uk-margin-bottom">
                 <h3>Meses</h3>
 
-                <button *ngIf="corporationResponse.isCurrentUserAdmin"  [disabled]="corporationResponse.status.value != 4" (click)="addMonth()" class="uk-button uk-button-primary">Adicionar</button>
+                <!-- <button *ngIf="corporationResponse.isCurrentUserAdmin"
+                    [disabled]="corporationResponse.status.value != 4" (click)="addMonth()"
+                    class="uk-button uk-button-primary">Adicionar
+                </button> -->
+
+                <div>
+                    <p class="uk-margin-remove-top uk-margin-remove-bottom">
+                        <button *ngIf="corporationResponse.isCurrentUserAdmin"
+                            [disabled]="corporationResponse.status.value != 4"
+                            class="uk-button uk-button-primary uk-margin-left" type="button"
+                            uk-toggle="target: #modal-close-total-profit">Novo mês
+                        </button>
+                    </p>
+                </div>
+
+                <!-- This is the modal with the default close button -->
+                <div id="modal-close-total-profit" uk-modal>
+                    <div class="uk-modal-dialog uk-modal-body">
+                        <button class="uk-modal-close-default" type="button" uk-close></button>
+                        <h2 class="uk-modal-title">Novo mês</h2>
+
+                        <form [formGroup]="formProfit" class="uk-form-stacked">
+                            <div class="uk-margin">
+                                <label class="uk-form-label" for="totalProfit">Valor total</label>
+                                <div class="uk-form-controls">
+                                    <input class="uk-input" id="totalProfit" formControlName="totalProfit"
+                                        type="number" placeholder="Valor total">
+                                </div>
+                            </div>
+
+                            <div class="uk-text-right">
+                                <button class="uk-button uk-button-default"
+                                    (click)="addMonth()">Adicionar</button>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
 
                 <!-- <p *ngIf="corporationResponse.monthlyBalances.length == 0">Nenhum mês para ser exibido</p> -->
 
@@ -115,24 +156,27 @@
                                 <p>Total: {{ monthlyBalance.totalProfit }}</p>
 
                                 <div *ngFor="let participantBalances of monthlyBalance.participantBalances">
-                                    <li>
-                                        <div class="uk-accordion-content uk-text-meta">
-                                            <p>{{ participantBalances.participantName }} : {{ participantBalances.balance | currency: 'BRL'}}</p>
-                                            <p>Status: {{ participantBalances.status.description }}</p>
-                                        </div>
-                                    </li>
-
-                                    <button *ngIf="participantBalances.status.value == 1 && monthlyBalance.status.value == 1" (click)="acceptBalance(monthlyBalance.id)" class="uk-button uk-button-primary">Aceitar</button>
-                                </div>
+                        <li>
+                            <div class="uk-accordion-content uk-text-meta">
+                                <p>{{ participantBalances.participantName }} : {{ participantBalances.balance |
+                                    currency: 'BRL'}}</p>
+                                <p>Status: {{ participantBalances.status.description }}</p>
                             </div>
                         </li>
-                    </ul>
+
+                        <button *ngIf="participantBalances.status.value == 1 && monthlyBalance.status.value == 1"
+                            (click)="acceptBalance(monthlyBalance.id)" class="uk-button uk-button-primary">Aceitar
+                        </button>
                 </div>
             </div>
-        </div>
-
-        <div class="uk-card-footer">
-            <a href="/corporacao" class="uk-button">Voltar</a>
+            </li>
+            </ul>
         </div>
     </div>
+</div>
+
+<div class="uk-card-footer">
+    <a href="/corporacao" class="uk-button">Voltar</a>
+</div>
+</div>
 </div>

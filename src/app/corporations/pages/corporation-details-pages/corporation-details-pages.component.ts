@@ -17,6 +17,7 @@ import { CorporationService } from '../../services/corporation.service';
 })
 export class CorporationDetailsPagesComponent implements OnInit {
   public form!: FormGroup;
+  public formProfit!: FormGroup;
   public corporationResponse: CorporationDetailedQueryResult = new CorporationDetailedQueryResult();
 
   constructor(
@@ -28,6 +29,7 @@ export class CorporationDetailsPagesComponent implements OnInit {
   ngOnInit(): void {
     this.loadCorporation();
     this.prepareForm();
+    this.prepareFormProfit()
   }
 
   public inviteParticipant(): void{
@@ -59,7 +61,7 @@ export class CorporationDetailsPagesComponent implements OnInit {
   public addMonth(): void{
     let request = new AddMonthRequest();
     request.corporationId = this.getCorporationIdFromRouteParam();
-    request.totalProfit = 1000;
+    request.totalProfit = this.formProfit.value['totalProfit'];
 
     this.corporationService.addMonth(request)
       .subscribe((data: ResponseBase<any>) => this.toastrUtils.DisplayNotification(data));
@@ -96,6 +98,14 @@ export class CorporationDetailsPagesComponent implements OnInit {
       ])],
 
       sharedPercentage: ['', Validators.compose([
+        Validators.required
+      ])]
+    })
+  }
+
+  private prepareFormProfit(): void {
+    this.formProfit = this.fb.group({
+      totalProfit: ['', Validators.compose([
         Validators.required
       ])]
     })
