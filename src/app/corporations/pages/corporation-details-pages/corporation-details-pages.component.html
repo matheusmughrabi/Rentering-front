@@ -7,7 +7,7 @@
 
                     <div>
                         <p class="uk-margin-remove-top">
-                            <button (click)="finishCreation()" class="uk-button uk-button-primary uk-margin-left"
+                            <button [disabled]="corporationResponse.status.value != 1" (click)="finishCreation()" class="uk-button uk-button-primary uk-margin-left"
                                 type="button">
                                 Finalizar criação
                             </button>
@@ -16,7 +16,7 @@
 
                     <div>
                         <p class="uk-margin-remove-bottom">
-                            <button (click)="activateCorporation()" class="uk-button uk-button-primary uk-margin-left"
+                            <button [disabled]="corporationResponse.status.value != 3" (click)="activateCorporation()" class="uk-button uk-button-primary uk-margin-left"
                                 type="button">
                                 Ativar corporação
                             </button>
@@ -33,7 +33,7 @@
                         </p>
 
                         <p class="uk-text-meta uk-margin-remove-top uk-width-1-2 uk-margin-bottom">
-                            Status: {{ corporationResponse.status }}
+                            Status: {{ corporationResponse.status.description }}
                         </p>
                     </div>
                 </div>
@@ -49,7 +49,7 @@
                     <!-- This is a button toggling the modal with the default close button -->
                     <div>
                         <p class="uk-margin-remove-top uk-margin-remove-bottom">
-                            <button class="uk-button uk-button-primary uk-margin-left" type="button"
+                            <button [disabled]="corporationResponse.status.value != 1" class="uk-button uk-button-primary uk-margin-left" type="button"
                                 uk-toggle="target: #modal-close-default">Novo participante</button>
                         </p>
                     </div>
@@ -102,7 +102,7 @@
             <div class="uk-margin-bottom">
                 <h3>Meses</h3>
 
-                <button (click)="addMonth()" class="uk-button uk-button-primary">Adicionar</button>
+                <button [disabled]="corporationResponse.status.value != 4" (click)="addMonth()" class="uk-button uk-button-primary">Adicionar</button>
 
                 <!-- <p *ngIf="corporationResponse.monthlyBalances.length == 0">Nenhum mês para ser exibido</p> -->
 

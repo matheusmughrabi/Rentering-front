@@ -3,9 +3,14 @@ export class CorporationDetailedResponse {
     public name!: string;
     public admin!: string;
     public createDate!: Date;
-    public status!: string;
+    public status!: e_CorporationStatus;
     public participants!: Participant[];
     public monthlyBalances!: MonthlyBalance[];
+}
+
+export class e_CorporationStatus{
+    public value!: number;
+    public description!: string;
 }
 
 export class Participant {
