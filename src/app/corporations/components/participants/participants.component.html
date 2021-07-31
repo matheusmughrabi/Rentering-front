@@ -1,0 +1,55 @@
+<div class="uk-margin-medium-bottom">
+    <div class="uk-flex">
+        <h3>Participantes</h3>
+
+        <div>
+            <p class="uk-margin-remove-top uk-margin-remove-bottom">
+                <button *ngIf="corporationResponse.isCurrentUserAdmin"
+                    [disabled]="corporationResponse.status.value != 1"
+                    class="uk-button uk-button-primary uk-margin-left" type="button"
+                    uk-toggle="target: #modal-close-default">Novo participante</button>
+            </p>
+        </div>
+
+        <!-- This is the modal with the default close button -->
+        <div id="modal-close-default" uk-modal>
+            <div class="uk-modal-dialog uk-modal-body">
+                <button class="uk-modal-close-default" type="button" uk-close></button>
+                <h2 class="uk-modal-title">Novo participante</h2>
+
+                <form [formGroup]="inviteParticipantForm" class="uk-form-stacked">
+                    <div class="uk-margin">
+                        <label class="uk-form-label" for="email">Email do participante</label>
+                        <div class="uk-form-controls">
+                            <input class="uk-input" id="email" formControlName="email" type="email" placeholder="Email">
+                        </div>
+                    </div>
+
+                    <div class="uk-margin">
+                        <label class="uk-form-label" for="sharedPercentage">Porcentagem do total</label>
+                        <div class="uk-form-controls">
+                            <input class="uk-input" id="sharedPercentage" formControlName="sharedPercentage"
+                                type="number" placeholder="Porcentagem do total">
+                        </div>
+                    </div>
+
+                    <div class="uk-text-right">
+                        <button class="uk-button uk-button-default" (click)="inviteParticipant()">Adicionar</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+    <ul uk-accordion *ngFor="let participant of corporationResponse.participants">
+        <li>
+            <p class="uk-accordion-title uk-text-default">{{ participant.fullName }}</p>
+
+            <div class="uk-accordion-content uk-text-meta">
+                <p>Status do participante: {{ participant.invitationStatus.description }}</p>
+                <p>Porcentagem do total: {{ (participant.sharedPercentage/100) | percent:'1.2' }}</p>
+            </div>
+        </li>
+    </ul>
+</div>
