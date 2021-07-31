@@ -3,26 +3,30 @@
         <div class="uk-card-header">
             <div class="uk-grid-small uk-flex-middle" uk-grid>
                 <div class="uk-width-expand">
-                    <h3 class="uk-card-title uk-margin-remove-bottom">{{ corporationResponse.name }}</h3>
+                    <div class="uk-flex">
+                        <h3 class="uk-card-title uk-margin-remove-bottom">{{ corporationResponse.name }}</h3>
 
-                    <div>
-                        <p class="uk-margin-remove-top">
-                            <button *ngIf="corporationResponse.isCurrentUserAdmin"
-                                [disabled]="corporationResponse.status.value != 1" (click)="finishCreation()"
-                                class="uk-button uk-button-primary uk-margin-left" type="button">
-                                Finalizar criação
-                            </button>
-                        </p>
-                    </div>
+                        <div>
+                            <p class="uk-margin-remove-top">
+                                <button
+                                    *ngIf="corporationResponse.isCurrentUserAdmin && corporationResponse.status.value == 1"
+                                    (click)="finishCreation()" class="uk-button uk-button-primary uk-margin-left"
+                                    type="button">
+                                    Finalizar criação
+                                </button>
+                            </p>
+                        </div>
 
-                    <div>
-                        <p class="uk-margin-remove-bottom">
-                            <button *ngIf="corporationResponse.isCurrentUserAdmin"
-                                [disabled]="corporationResponse.status.value != 3" (click)="activateCorporation()"
-                                class="uk-button uk-button-primary uk-margin-left" type="button">
-                                Ativar corporação
-                            </button>
-                        </p>
+                        <div>
+                            <p class="uk-margin-remove-bottom">
+                                <button
+                                    *ngIf="corporationResponse.isCurrentUserAdmin && (corporationResponse.status.value == 2 || corporationResponse.status.value == 3)"
+                                    [disabled]="corporationResponse.status.value != 3" (click)="activateCorporation()"
+                                    class="uk-button uk-button-primary uk-margin-left" type="button">
+                                    Ativar corporação
+                                </button>
+                            </p>
+                        </div>
                     </div>
 
                     <div uk-grid class="uk-margin-top">
@@ -104,14 +108,8 @@
             </div>
 
             <div class="uk-margin-bottom">
-                <h3>Meses</h3>
-
-                <!-- <button *ngIf="corporationResponse.isCurrentUserAdmin"
-                    [disabled]="corporationResponse.status.value != 4" (click)="addMonth()"
-                    class="uk-button uk-button-primary">Adicionar
-                </button> -->
-
-                <div>
+                <div class="uk-flex">
+                    <h3>Meses</h3>
                     <p class="uk-margin-remove-top uk-margin-remove-bottom">
                         <button *ngIf="corporationResponse.isCurrentUserAdmin"
                             [disabled]="corporationResponse.status.value != 4"
@@ -131,14 +129,13 @@
                             <div class="uk-margin">
                                 <label class="uk-form-label" for="totalProfit">Valor total</label>
                                 <div class="uk-form-controls">
-                                    <input class="uk-input" id="totalProfit" formControlName="totalProfit"
-                                        type="number" placeholder="Valor total">
+                                    <input class="uk-input" id="totalProfit" formControlName="totalProfit" type="number"
+                                        placeholder="Valor total">
                                 </div>
                             </div>
 
                             <div class="uk-text-right">
-                                <button class="uk-button uk-button-default"
-                                    (click)="addMonth()">Adicionar</button>
+                                <button class="uk-button uk-button-default" (click)="addMonth()">Adicionar</button>
                             </div>
                         </form>
 
@@ -163,10 +160,13 @@
                                 <p>Status: {{ participantBalances.status.description }}</p>
                             </div>
                         </li>
+                </div>
 
-                        <button *ngIf="participantBalances.status.value == 1 && monthlyBalance.status.value == 1"
-                            (click)="acceptBalance(monthlyBalance.id)" class="uk-button uk-button-primary">Aceitar
-                        </button>
+                <div class="uk-margin-top">
+                    <button (click)="acceptBalance(monthlyBalance.id)"
+                        class="uk-button uk-button-primary uk-margin-right">Aceitar</button>
+                    <button (click)="rejectBalance(monthlyBalance.id)"
+                        class="uk-button uk-button-primary">Contestar</button>
                 </div>
             </div>
             </li>

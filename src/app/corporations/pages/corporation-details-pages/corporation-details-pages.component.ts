@@ -10,6 +10,7 @@ import { CorporationDetailedQueryResult } from '../../models/queryResults/corpor
 import { FinishCreationRequest } from '../../models/requests/finishCreation.request';
 import { InviteToCorporationRequest } from '../../models/requests/inviteParticipant.request';
 import { CorporationService } from '../../services/corporation.service';
+import { RejectBalanceRequest } from '../../models/requests/rejectBalance.request';
 
 @Component({
   selector: 'app-corporation-details-pages',
@@ -71,6 +72,13 @@ export class CorporationDetailsPagesComponent implements OnInit {
     let request = new AcceptBalanceRequest(this.getCorporationIdFromRouteParam(), monthlyBalanceId);
 
     this.corporationService.acceptBalance(request)
+      .subscribe((data: ResponseBase<any>) => this.toastrUtils.DisplayNotification(data));
+  }
+
+  public rejectBalance(monthlyBalanceId: number): void{
+    let request = new RejectBalanceRequest(this.getCorporationIdFromRouteParam(), monthlyBalanceId);
+
+    this.corporationService.rejectBalance(request)
       .subscribe((data: ResponseBase<any>) => this.toastrUtils.DisplayNotification(data));
   }
 

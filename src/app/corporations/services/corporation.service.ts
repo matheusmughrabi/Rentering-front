@@ -14,6 +14,7 @@ import { InvitationQueryResult } from '../models/queryResults/invitations.queryR
 import { InviteToCorporationRequest } from '../models/requests/inviteParticipant.request';
 import { RejectParticipationRequest } from '../models/requests/rejectParticipation.request';
 import { UserCorporationQueryResult } from '../models/queryResults/userCorporation.queryResult';
+import { RejectBalanceRequest } from '../models/requests/rejectBalance.request';
 
 @Injectable({
   providedIn: 'root'
@@ -91,6 +92,13 @@ export class CorporationService {
 
   acceptBalance(data: AcceptBalanceRequest): Observable<any> {
     const path = environment.UrlBase + 'corporation/balance/accept';
+
+    var response = this.http.put<any>(path, data, { headers: this.composeHeaders() });
+    return response;
+  }
+
+  rejectBalance(data: RejectBalanceRequest): Observable<any> {
+    const path = environment.UrlBase + 'corporation/balance/reject';
 
     var response = this.http.put<any>(path, data, { headers: this.composeHeaders() });
     return response;
