@@ -1,6 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
 import { ResponseBase } from 'src/app/shared/models/responseBase';
 import { ToastrUtils } from 'src/app/shared/utils/toastr.utils';
 import { CorporationDetailedQueryResult } from '../../models/queryResults/corporationDetailed.queryResult';
@@ -17,7 +16,6 @@ export class ParticipantsComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private activatedRoute: ActivatedRoute,
     private toastrUtils: ToastrUtils,
     private corporationService: CorporationService) { }
 
@@ -27,22 +25,12 @@ export class ParticipantsComponent implements OnInit {
 
   public inviteParticipant(): void{
     let inviteToCorporation = new InviteToCorporationRequest();
-    inviteToCorporation.contractId = this.getCorporationIdFromRouteParam();
+    inviteToCorporation.corporationId = this.corporationResponse.id;
     inviteToCorporation.email = this.inviteParticipantForm.value['email'];
     inviteToCorporation.sharedPercentage = this.inviteParticipantForm.value['sharedPercentage'];
 
     this.corporationService.inviteParticipant(inviteToCorporation)
       .subscribe((data: ResponseBase<any>) => this.toastrUtils.DisplayNotification(data));
-  }
-
-  private getCorporationIdFromRouteParam(): number{
-    let id!: number;
-
-    this.activatedRoute.params.subscribe(paramsId => {
-      id = paramsId.id;
-    });
-
-    return id;
   }
 
   private prepareForm(): void {

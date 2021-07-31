@@ -1,6 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
 import { ResponseBase } from 'src/app/shared/models/responseBase';
 import { ToastrUtils } from 'src/app/shared/utils/toastr.utils';
 import { CorporationDetailedQueryResult } from '../../models/queryResults/corporationDetailed.queryResult';
@@ -19,7 +18,6 @@ export class MonthlyBalancesComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private activatedRoute: ActivatedRoute,
     private toastrUtils: ToastrUtils,
     private corporationService: CorporationService) { }
 
@@ -29,7 +27,7 @@ export class MonthlyBalancesComponent implements OnInit {
 
   public addMonth(): void{
     let request = new AddMonthRequest();
-    request.corporationId = this.getCorporationIdFromRouteParam();
+    request.corporationId = this.corporationResponse.id;
     request.totalProfit = this.formProfit.value['totalProfit'];
 
     this.corporationService.addMonth(request)
@@ -37,27 +35,17 @@ export class MonthlyBalancesComponent implements OnInit {
   }
 
   public acceptBalance(monthlyBalanceId: number): void{
-    let request = new AcceptBalanceRequest(this.getCorporationIdFromRouteParam(), monthlyBalanceId);
+    let request = new AcceptBalanceRequest(this.corporationResponse.id, monthlyBalanceId);
 
     this.corporationService.acceptBalance(request)
       .subscribe((data: ResponseBase<any>) => this.toastrUtils.DisplayNotification(data));
   }
 
   public rejectBalance(monthlyBalanceId: number): void{
-    let request = new RejectBalanceRequest(this.getCorporationIdFromRouteParam(), monthlyBalanceId);
+    let request = new RejectBalanceRequest(this.corporationResponse.id, monthlyBalanceId);
 
     this.corporationService.rejectBalance(request)
       .subscribe((data: ResponseBase<any>) => this.toastrUtils.DisplayNotification(data));
-  }
-
-  private getCorporationIdFromRouteParam(): number{
-    let id!: number;
-
-    this.activatedRoute.params.subscribe(paramsId => {
-      id = paramsId.id;
-    });
-
-    return id;
   }
 
   private prepareFormProfit(): void {
