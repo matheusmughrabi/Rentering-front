@@ -20,8 +20,8 @@ import { UserCorporationsPageComponent } from './corporations/pages/user-corpora
 import { CorporationsPageComponent } from './corporations/pages/corporations-page/corporations-page.component';
 import { CorporationDetailsPagesComponent } from './corporations/pages/corporation-details-pages/corporation-details-pages.component';
 import { InvitationsPageComponent } from './corporations/pages/invitations-page/invitations-page.component';
-import { AddParticipantComponent } from './corporations/components/add-participant/add-participant.component';
 import { MonthlyBalancesComponent } from './corporations/components/monthly-balances/monthly-balances.component';
+import { ParticipantsComponent } from './corporations/components/participants/participants.component';
 
 @NgModule({
   declarations: [
@@ -38,8 +38,8 @@ import { MonthlyBalancesComponent } from './corporations/components/monthly-bala
     CorporationsPageComponent,
     CorporationDetailsPagesComponent,
     InvitationsPageComponent,
-    AddParticipantComponent,
-    MonthlyBalancesComponent
+    MonthlyBalancesComponent,
+    ParticipantsComponent
   ],
   imports: [
     BrowserModule,

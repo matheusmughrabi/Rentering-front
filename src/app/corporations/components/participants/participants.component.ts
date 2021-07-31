@@ -8,10 +8,10 @@ import { InviteToCorporationRequest } from '../../models/requests/inviteParticip
 import { CorporationService } from '../../services/corporation.service';
 
 @Component({
-  selector: 'app-add-participant',
-  templateUrl: './add-participant.component.html'
+  selector: 'app-participants',
+  templateUrl: './participants.component.html'
 })
-export class AddParticipantComponent implements OnInit {
+export class ParticipantsComponent implements OnInit {
   public inviteParticipantForm!: FormGroup;
   @Input() corporationResponse: CorporationDetailedQueryResult = new CorporationDetailedQueryResult();
 
