@@ -36,11 +36,13 @@ export class ParticipantsComponent implements OnInit {
   private prepareForm(): void {
     this.inviteParticipantForm = this.fb.group({
       email: ['', Validators.compose([
-        Validators.required
+        Validators.required,
+        Validators.email
       ])],
 
       sharedPercentage: ['', Validators.compose([
-        Validators.required
+        Validators.required,
+        Validators.min(0.01)
       ])]
     })
   }

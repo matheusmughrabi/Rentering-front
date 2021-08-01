@@ -2,8 +2,7 @@
     <div class="uk-flex">
         <h3>Meses</h3>
         <p class="uk-margin-remove-top uk-margin-remove-bottom">
-            <button *ngIf="corporationResponse.isCurrentUserAdmin"
-                [disabled]="corporationResponse.status.value != 4"
+            <button *ngIf="corporationResponse.isCurrentUserAdmin" [disabled]="corporationResponse.status.value != 4"
                 class="uk-button uk-button-primary uk-margin-left" type="button"
                 uk-toggle="target: #modal-close-total-profit">Novo mês
             </button>
@@ -21,12 +20,13 @@
                     <label class="uk-form-label" for="totalProfit">Valor total</label>
                     <div class="uk-form-controls">
                         <input class="uk-input" id="totalProfit" formControlName="totalProfit" type="number"
-                            placeholder="Valor total">
+                            placeholder="Valor total"
+                            [ngClass]="{'uk-form-danger': (!formProfit.controls.totalProfit.valid && !formProfit.controls.totalProfit.pristine) }">
                     </div>
                 </div>
 
                 <div class="uk-text-right">
-                    <button class="uk-button uk-button-default" (click)="addMonth()">Adicionar</button>
+                    <button class="uk-button uk-button-default" [disabled]="formProfit.invalid" (click)="addMonth()">Adicionar</button>
                 </div>
             </form>
 
@@ -56,8 +56,7 @@
     <div class="uk-margin-top">
         <button (click)="acceptBalance(monthlyBalance.id)"
             class="uk-button uk-button-primary uk-margin-right">Aceitar</button>
-        <button (click)="rejectBalance(monthlyBalance.id)"
-            class="uk-button uk-button-primary">Contestar</button>
+        <button (click)="rejectBalance(monthlyBalance.id)" class="uk-button uk-button-primary">Contestar</button>
     </div>
 </div>
 </li>
