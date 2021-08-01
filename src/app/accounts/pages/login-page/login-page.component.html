@@ -1,4 +1,8 @@
-<div class="uk-position-center uk-overlay uk-box-shadow-xlarge">
+<div *ngIf="busy" class="uk-position-center uk-overlay">
+    <app-loading [ratio] = 3></app-loading>
+</div>
+
+<div *ngIf="!busy" class="uk-position-center uk-overlay uk-box-shadow-xlarge">
     <div class="uk-card uk-card-body">
         <h3 class="uk-card-title uk-text-center uk-text-light">Fazer login</h3>
         <form [formGroup]="form">

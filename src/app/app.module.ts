@@ -21,6 +21,7 @@ import { CorporationDetailsPagesComponent } from './corporations/pages/corporati
 import { InvitationsPageComponent } from './corporations/pages/invitations-page/invitations-page.component';
 import { MonthlyBalancesComponent } from './corporations/components/monthly-balances/monthly-balances.component';
 import { ParticipantsComponent } from './corporations/components/participants/participants.component';
+import { LoadingComponent } from './shared/components/loading/loading.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { ParticipantsComponent } from './corporations/components/participants/pa
     CorporationDetailsPagesComponent,
     InvitationsPageComponent,
     MonthlyBalancesComponent,
-    ParticipantsComponent
+    ParticipantsComponent,
+    LoadingComponent
   ],
   imports: [
     BrowserModule,

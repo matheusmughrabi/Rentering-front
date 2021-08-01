@@ -1,4 +1,8 @@
-<div class="uk-container uk-margin-top uk-width-2-3@l">
+<div *ngIf="busy" class="uk-position-center uk-overlay">
+    <app-loading></app-loading>
+</div>
+
+<div *ngIf="!busy" class="uk-container uk-margin-top uk-width-2-3@l">
     <div class="uk-card uk-card-default uk-margin-bottom">
         <div class="uk-card-header">
             <div class="uk-grid-small uk-flex-middle" uk-grid>

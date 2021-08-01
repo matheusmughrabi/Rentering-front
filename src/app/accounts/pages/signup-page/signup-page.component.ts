@@ -13,6 +13,7 @@ import { UserInfoQueryResult } from '../../models/queryResults/userInfo.queryRes
 })
 export class SignupPageComponent implements OnInit {
   public form!: FormGroup;
+  public busy: boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -25,6 +26,8 @@ export class SignupPageComponent implements OnInit {
   }
 
   signUp(): void {
+    this.busy = true;
+
     this.accountsService.createAccount(this.form.value)
       .subscribe(
         (data: ResponseBase<UserInfoQueryResult>) => {
@@ -37,6 +40,7 @@ export class SignupPageComponent implements OnInit {
             data.notifications.forEach(c => this.toastr.warning(c.message, c.title));
           }
 
+          this.busy = false;
         },
         (error) => console.log(error)
       );

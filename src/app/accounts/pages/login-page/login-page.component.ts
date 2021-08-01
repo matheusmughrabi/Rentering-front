@@ -13,6 +13,7 @@ import { UserInfoQueryResult } from '../../models/queryResults/userInfo.queryRes
 })
 export class LoginPageComponent implements OnInit {
   public form!: FormGroup;
+  public busy: boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -25,12 +26,15 @@ export class LoginPageComponent implements OnInit {
   }
 
   login(): void {
+    this.busy = true;
+
     this.accountsService.login(this.form.value)
       .subscribe(
         (data: ResponseBase<UserInfoQueryResult>) => {
           if (data.success) {
             Security.setLogin(data.data.username, data.data.role, data.data.token);
             this.router.navigate(['/contratos']);
+            this.busy = false;
           }
           else {
             data.notifications.forEach(c => this.toastr.warning(c.message, c.title));

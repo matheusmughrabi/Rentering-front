@@ -15,6 +15,7 @@ import { CorporationService } from '../../services/corporation.service';
 export class MonthlyBalancesComponent implements OnInit {
   public formProfit!: FormGroup;
   @Input() corporationResponse: CorporationDetailedQueryResult = new CorporationDetailedQueryResult();
+  public busy: boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -25,23 +26,28 @@ export class MonthlyBalancesComponent implements OnInit {
     this.prepareFormProfit();
   }
 
-  public addMonth(): void{
+  public addMonth(): void {
+    this.busy = true;
+
     let request = new AddMonthRequest();
     request.corporationId = this.corporationResponse.id;
     request.totalProfit = this.formProfit.value['totalProfit'];
 
     this.corporationService.addMonth(request)
-      .subscribe((data: ResponseBase<any>) => this.toastrUtils.DisplayNotification(data));
+      .subscribe((data: ResponseBase<any>) => {
+        this.toastrUtils.DisplayNotification(data);
+        this.busy = false;
+      });
   }
 
-  public acceptBalance(monthlyBalanceId: number): void{
+  public acceptBalance(monthlyBalanceId: number): void {
     let request = new AcceptBalanceRequest(this.corporationResponse.id, monthlyBalanceId);
 
     this.corporationService.acceptBalance(request)
       .subscribe((data: ResponseBase<any>) => this.toastrUtils.DisplayNotification(data));
   }
 
-  public rejectBalance(monthlyBalanceId: number): void{
+  public rejectBalance(monthlyBalanceId: number): void {
     let request = new RejectBalanceRequest(this.corporationResponse.id, monthlyBalanceId);
 
     this.corporationService.rejectBalance(request)

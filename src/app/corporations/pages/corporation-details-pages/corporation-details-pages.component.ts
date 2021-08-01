@@ -13,9 +13,10 @@ import { CorporationService } from '../../services/corporation.service';
 })
 export class CorporationDetailsPagesComponent implements OnInit {
   public corporationResponse: CorporationDetailedQueryResult = new CorporationDetailedQueryResult();
+  public busy: boolean = false;
 
   constructor(
-    private activatedRoute: ActivatedRoute, 
+    private activatedRoute: ActivatedRoute,
     private toastrUtils: ToastrUtils,
     private corporationService: CorporationService) { }
 
@@ -23,7 +24,7 @@ export class CorporationDetailsPagesComponent implements OnInit {
     this.loadCorporation();
   }
 
-  public finishCreation(): void{
+  public finishCreation(): void {
     let request = new FinishCreationRequest();
     request.corporationId = this.getCorporationIdFromRouteParam();
 
@@ -31,7 +32,7 @@ export class CorporationDetailsPagesComponent implements OnInit {
       .subscribe((data: ResponseBase<any>) => this.toastrUtils.DisplayNotification(data));
   }
 
-  public activateCorporation(): void{
+  public activateCorporation(): void {
     let request = new ActivateCorporationRequest();
     request.corporationId = this.getCorporationIdFromRouteParam();
 
@@ -39,14 +40,17 @@ export class CorporationDetailsPagesComponent implements OnInit {
       .subscribe((data: ResponseBase<any>) => this.toastrUtils.DisplayNotification(data));
   }
 
-  private loadCorporation(): void{
-    let id = this.getCorporationIdFromRouteParam();
+  private loadCorporation(): void {
+    this.busy = true;
 
-    this.corporationService.getCorporationDetailed(id)
-    .subscribe((data: CorporationDetailedQueryResult) => this.corporationResponse = data);
+    this.corporationService.getCorporationDetailed(this.getCorporationIdFromRouteParam())
+      .subscribe((data: CorporationDetailedQueryResult) => {
+        this.corporationResponse = data;
+        this.busy = false;
+      });
   }
 
-  private getCorporationIdFromRouteParam(): number{
+  private getCorporationIdFromRouteParam(): number {
     let id!: number;
 
     this.activatedRoute.params.subscribe(paramsId => {

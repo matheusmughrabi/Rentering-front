@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
 import { ResponseBase } from 'src/app/shared/models/responseBase';
 import { ToastrUtils } from 'src/app/shared/utils/toastr.utils';
 import { UserCorporationQueryResult } from '../../models/queryResults/userCorporation.queryResult';
@@ -13,6 +12,7 @@ import { CorporationService } from '../../services/corporation.service';
 export class CorporationsPageComponent implements OnInit {
   public form!: FormGroup;
   public userCorporations!: UserCorporationQueryResult[];
+  public busy: boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -25,10 +25,13 @@ export class CorporationsPageComponent implements OnInit {
   }
 
   loadUserCorporations(): void{
+    this.busy = true;
+
     this.corporationService.getCorporations()
       .subscribe(
         (data: UserCorporationQueryResult[]) => {
           this.userCorporations = data;
+          this.busy = false;
         });
   }
 

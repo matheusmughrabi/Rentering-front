@@ -13,7 +13,10 @@
     <div id="modal-close-total-profit" uk-modal>
         <div class="uk-modal-dialog uk-modal-body">
             <button class="uk-modal-close-default" type="button" uk-close></button>
-            <h2 class="uk-modal-title">Novo mês</h2>
+            <div class="uk-flex">
+                <h2 class="uk-modal-title uk-margin-medium-right">Novo mês</h2>
+                <app-loading *ngIf="busy" [ratio]="1"></app-loading>
+            </div>
 
             <form [formGroup]="formProfit" class="uk-form-stacked">
                 <div class="uk-margin">
@@ -26,7 +29,8 @@
                 </div>
 
                 <div class="uk-text-right">
-                    <button class="uk-button uk-button-default" [disabled]="formProfit.invalid" (click)="addMonth()">Adicionar</button>
+                    <button class="uk-button uk-button-default" [disabled]="formProfit.invalid"
+                        (click)="addMonth()">Adicionar</button>
                 </div>
             </form>
 

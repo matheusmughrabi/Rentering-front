@@ -13,6 +13,7 @@ import { CorporationService } from '../../services/corporation.service';
 export class ParticipantsComponent implements OnInit {
   public inviteParticipantForm!: FormGroup;
   @Input() corporationResponse: CorporationDetailedQueryResult = new CorporationDetailedQueryResult();
+  public busy: boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -23,14 +24,19 @@ export class ParticipantsComponent implements OnInit {
     this.prepareForm()
   }
 
-  public inviteParticipant(): void{
+  public inviteParticipant(): void {
+    this.busy = true;
+
     let inviteToCorporation = new InviteToCorporationRequest();
     inviteToCorporation.corporationId = this.corporationResponse.id;
     inviteToCorporation.email = this.inviteParticipantForm.value['email'];
     inviteToCorporation.sharedPercentage = this.inviteParticipantForm.value['sharedPercentage'];
 
     this.corporationService.inviteParticipant(inviteToCorporation)
-      .subscribe((data: ResponseBase<any>) => this.toastrUtils.DisplayNotification(data));
+      .subscribe((data: ResponseBase<any>) => {
+        this.toastrUtils.DisplayNotification(data);
+        this.busy = false
+      });
   }
 
   private prepareForm(): void {
