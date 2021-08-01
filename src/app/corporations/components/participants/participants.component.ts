@@ -28,14 +28,20 @@ export class ParticipantsComponent implements OnInit {
     this.busy = true;
 
     let inviteToCorporation = new InviteToCorporationRequest(
-      this.corporationResponse.id, 
-      this.inviteParticipantForm.value['email'], 
+      this.corporationResponse.id,
+      this.inviteParticipantForm.value['email'],
       this.inviteParticipantForm.value['sharedPercentage']);
 
     this.corporationService.inviteParticipant(inviteToCorporation)
       .subscribe((data: ResponseBase<any>) => {
         this.toastrUtils.DisplayNotification(data);
-        this.busy = false
+
+        this.corporationService.getCorporationDetailed(this.corporationResponse.id)
+          .subscribe((data: CorporationDetailedQueryResult) => {
+            this.corporationResponse = data;
+          });
+
+          this.busy = false
       });
   }
 

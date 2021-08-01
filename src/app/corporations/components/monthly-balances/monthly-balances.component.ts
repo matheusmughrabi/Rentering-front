@@ -33,6 +33,13 @@ export class MonthlyBalancesComponent implements OnInit {
     this.corporationService.addMonth(request)
       .subscribe((data: ResponseBase<any>) => {
         this.toastrUtils.DisplayNotification(data);
+
+        this.corporationService.getCorporationDetailed(this.corporationResponse.id)
+        .subscribe((data: CorporationDetailedQueryResult) => {
+          this.corporationResponse = data;
+          this.busy = false;
+        });
+
         this.busy = false;
       });
   }

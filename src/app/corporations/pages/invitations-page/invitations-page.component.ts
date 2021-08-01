@@ -25,7 +25,7 @@ export class InvitationsPageComponent implements OnInit {
     request.participantId = participantId;
 
     this.corporationService.acceptParticipation(request)
-    .subscribe((data: ResponseBase<any>) => this.toastrUtils.DisplayNotification(data));
+    .subscribe((data: ResponseBase<any>) =>{this.toastrUtils.DisplayNotification(data); this.loadInvitations();});
   }
 
   rejectParticipation(corporationId: number, participantId: number): void{
@@ -35,7 +35,7 @@ export class InvitationsPageComponent implements OnInit {
 
     this.corporationService.rejectParticipation(request)
     .subscribe(
-      (data: ResponseBase<any>) => this.toastrUtils.DisplayNotification(data));
+      (data: ResponseBase<any>) => {this.toastrUtils.DisplayNotification(data); this.loadInvitations();});
   }
 
   private loadInvitations(): void {

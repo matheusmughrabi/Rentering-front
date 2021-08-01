@@ -38,6 +38,8 @@ export class CorporationsPageComponent implements OnInit {
   createCorporation(): void {
     this.corporationService.createCorporation(this.form.value)
       .subscribe((data: ResponseBase<any>) => this.toastrUtils.DisplayNotification(data));
+
+      this.loadUserCorporations();
   }
 
   private setForm(): void {
