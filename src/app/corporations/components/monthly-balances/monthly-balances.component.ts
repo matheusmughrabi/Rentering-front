@@ -51,7 +51,8 @@ export class MonthlyBalancesComponent implements OnInit {
   private prepareFormProfit(): void {
     this.formProfit = this.fb.group({
       totalProfit: ['', Validators.compose([
-        Validators.required
+        Validators.required,
+        Validators.min(0.01)
       ])]
     })
   }

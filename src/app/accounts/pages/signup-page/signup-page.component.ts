@@ -45,36 +45,35 @@ export class SignupPageComponent implements OnInit {
   private setFormGroup(): void {
     this.form = this.fb.group({
       firstName: ['', Validators.compose([
-        Validators.minLength(1),
+        Validators.minLength(3),
         Validators.required
       ])],
 
       lastName: ['', Validators.compose([
-        Validators.minLength(1),
+        Validators.minLength(3),
         Validators.required
       ])],
 
       email: ['', Validators.compose([
-        Validators.minLength(3),
-        Validators.maxLength(60),
-        Validators.required
+        Validators.required,
+        Validators.email,
       ])],
 
       username: ['', Validators.compose([
         Validators.minLength(3),
-        Validators.maxLength(60),
+        Validators.maxLength(40),
         Validators.required
       ])],
 
       password: ['', Validators.compose([
         Validators.minLength(3),
-        Validators.maxLength(60),
+        Validators.maxLength(40),
         Validators.required
       ])],
 
       confirmPassword: ['', Validators.compose([
         Validators.minLength(3),
-        Validators.maxLength(60),
+        Validators.maxLength(40),
         Validators.required
       ])]
     })

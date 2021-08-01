@@ -21,7 +21,9 @@
                     <div class="uk-margin">
                         <label class="uk-form-label" for="email">Email do participante</label>
                         <div class="uk-form-controls">
-                            <input class="uk-input" id="email" formControlName="email" type="email" placeholder="Email">
+                            <input class="uk-input" id="email" formControlName="email" type="email" placeholder="Email"
+                                [ngClass]="{'uk-form-danger': (!inviteParticipantForm.controls.email.valid 
+                                                                && !inviteParticipantForm.controls.email.pristine) }">
                         </div>
                     </div>
 
@@ -29,12 +31,15 @@
                         <label class="uk-form-label" for="sharedPercentage">Porcentagem do total</label>
                         <div class="uk-form-controls">
                             <input class="uk-input" id="sharedPercentage" formControlName="sharedPercentage"
-                                type="number" placeholder="Porcentagem do total">
+                                type="number" placeholder="Porcentagem do total"
+                                [ngClass]="{'uk-form-danger': (!inviteParticipantForm.controls.sharedPercentage.valid 
+                                                                && !inviteParticipantForm.controls.sharedPercentage.pristine) }">
                         </div>
                     </div>
 
                     <div class="uk-text-right">
-                        <button class="uk-button uk-button-default" (click)="inviteParticipant()">Adicionar</button>
+                        <button class="uk-button uk-button-default" [disabled]="inviteParticipantForm.invalid" 
+                        (click)="inviteParticipant()">Adicionar</button>
                     </div>
                 </form>
 
