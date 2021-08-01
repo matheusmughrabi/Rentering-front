@@ -27,10 +27,10 @@ export class ParticipantsComponent implements OnInit {
   public inviteParticipant(): void {
     this.busy = true;
 
-    let inviteToCorporation = new InviteToCorporationRequest();
-    inviteToCorporation.corporationId = this.corporationResponse.id;
-    inviteToCorporation.email = this.inviteParticipantForm.value['email'];
-    inviteToCorporation.sharedPercentage = this.inviteParticipantForm.value['sharedPercentage'];
+    let inviteToCorporation = new InviteToCorporationRequest(
+      this.corporationResponse.id, 
+      this.inviteParticipantForm.value['email'], 
+      this.inviteParticipantForm.value['sharedPercentage']);
 
     this.corporationService.inviteParticipant(inviteToCorporation)
       .subscribe((data: ResponseBase<any>) => {

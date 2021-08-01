@@ -28,10 +28,7 @@ export class MonthlyBalancesComponent implements OnInit {
 
   public addMonth(): void {
     this.busy = true;
-
-    let request = new AddMonthRequest();
-    request.corporationId = this.corporationResponse.id;
-    request.totalProfit = this.formProfit.value['totalProfit'];
+    let request = new AddMonthRequest(this.corporationResponse.id, this.formProfit.value['totalProfit']);
 
     this.corporationService.addMonth(request)
       .subscribe((data: ResponseBase<any>) => {
