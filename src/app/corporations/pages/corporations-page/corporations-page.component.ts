@@ -42,7 +42,7 @@ export class CorporationsPageComponent implements OnInit {
     this.form = this.formBuilder.group({
       name: ['', Validators.compose([
         Validators.minLength(3),
-        Validators.maxLength(30),
+        Validators.maxLength(20),
         Validators.required
       ])],
     })
