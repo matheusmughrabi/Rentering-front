@@ -29,7 +29,10 @@ export class CorporationDetailsPagesComponent implements OnInit {
     request.corporationId = this.getCorporationIdFromRouteParam();
 
     this.corporationService.finishCreation(request)
-      .subscribe((data: ResponseBase<any>) => this.toastrUtils.DisplayNotification(data));
+      .subscribe((data: ResponseBase<any>) => {
+        this.toastrUtils.DisplayNotification(data);
+        this.loadCorporation();
+      });
   }
 
   public activateCorporation(): void {
@@ -37,7 +40,10 @@ export class CorporationDetailsPagesComponent implements OnInit {
     request.corporationId = this.getCorporationIdFromRouteParam();
 
     this.corporationService.activateCorporation(request)
-      .subscribe((data: ResponseBase<any>) => this.toastrUtils.DisplayNotification(data));
+      .subscribe((data: ResponseBase<any>) => {
+        this.toastrUtils.DisplayNotification(data);
+        this.loadCorporation();
+      });
   }
 
   private loadCorporation(): void {
