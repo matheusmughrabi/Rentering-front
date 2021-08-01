@@ -5,14 +5,16 @@
             <div class="uk-margin">
                 <div class="uk-inline">
                     <span class="uk-form-icon uk-form-icon-flip" uk-icon="icon: user"></span>
-                    <input class="uk-input" formControlName="username" type="text" placeholder="Usuário">
+                    <input class="uk-input" formControlName="username" type="text" placeholder="Usuário"
+                    [ngClass]="{'uk-form-danger': (!form.controls.username.valid && !form.controls.username.pristine) }">
                 </div>
             </div>
 
             <div class="uk-margin">
                 <div class="uk-inline">
                     <span class="uk-form-icon uk-form-icon-flip" uk-icon="icon: lock"></span>
-                    <input class="uk-input" formControlName="password" type="password" placeholder="Senha">
+                    <input class="uk-input" formControlName="password" type="password" placeholder="Senha"
+                    [ngClass]="{'uk-form-danger': (form.controls.password.invalid && !form.controls.password.pristine) }">
                 </div>
             </div>
 

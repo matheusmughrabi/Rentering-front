@@ -12,29 +12,16 @@ import { UserInfoQueryResult } from '../../models/queryResults/userInfo.queryRes
   templateUrl: './login-page.component.html'
 })
 export class LoginPageComponent implements OnInit {
-  public form: FormGroup;
+  public form!: FormGroup;
 
   constructor(
     private formBuilder: FormBuilder,
     private toastr: ToastrService,
     private router: Router,
-    private accountsService: AccountsService) {
-    this.form = this.formBuilder.group({
-      username: ['', Validators.compose([
-        Validators.minLength(3),
-        Validators.maxLength(60),
-        Validators.required
-      ])],
-
-      password: ['', Validators.compose([
-        Validators.minLength(3),
-        Validators.maxLength(60),
-        Validators.required
-      ])]
-    })
-  }
+    private accountsService: AccountsService) {}
 
   ngOnInit(): void {
+    this.prepareLoginForm();
   }
 
   login(): void {
@@ -53,5 +40,21 @@ export class LoginPageComponent implements OnInit {
           console.log(error);
         }
       );
+  }
+
+  private prepareLoginForm(){
+    this.form = this.formBuilder.group({
+      username: ['', Validators.compose([
+        Validators.minLength(3),
+        Validators.maxLength(40),
+        Validators.required
+      ])],
+
+      password: ['', Validators.compose([
+        Validators.minLength(3),
+        Validators.maxLength(40),
+        Validators.required
+      ])]
+    })
   }
 }
