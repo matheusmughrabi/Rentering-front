@@ -16,7 +16,6 @@ import { UserContractsComponent } from './contracts/pages/user-contracts/user-co
 import { CreateContractPageComponent } from './contracts/pages/create-contract-page/create-contract-page.component';
 import { ContractDetailsPageComponent } from './contracts/pages/contract-details-page/contract-details-page.component';
 import { PendingInvitationsPageComponent } from './contracts/pages/pending-invitations-page/pending-invitations-page.component';
-import { UserCorporationsPageComponent } from './corporations/pages/user-corporations-page/user-corporations-page.component';
 import { CorporationsPageComponent } from './corporations/pages/corporations-page/corporations-page.component';
 import { CorporationDetailsPagesComponent } from './corporations/pages/corporation-details-pages/corporation-details-pages.component';
 import { InvitationsPageComponent } from './corporations/pages/invitations-page/invitations-page.component';
@@ -34,7 +33,6 @@ import { ParticipantsComponent } from './corporations/components/participants/pa
     CreateContractPageComponent,
     ContractDetailsPageComponent,
     PendingInvitationsPageComponent,
-    UserCorporationsPageComponent,
     CorporationsPageComponent,
     CorporationDetailsPagesComponent,
     InvitationsPageComponent,
