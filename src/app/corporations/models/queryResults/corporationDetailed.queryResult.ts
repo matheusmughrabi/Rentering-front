@@ -22,6 +22,7 @@ export class MonthlyBalance {
     public month!: Date;
     public totalProfit!: number;
     public status!: EnumResult;
+    public currentUserBalanceStatus!: EnumResult;
     public participantBalances!: ParticipantBalance[];
 }
 
