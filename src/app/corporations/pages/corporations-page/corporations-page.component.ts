@@ -29,8 +29,7 @@ export class CorporationsPageComponent implements OnInit {
       .subscribe(
         (data: UserCorporationQueryResult[]) => {
           this.userCorporations = data;
-        },
-        (error) => console.log(error));
+        });
   }
 
   createCorporation(): void {
