@@ -16,6 +16,7 @@ import { RejectParticipationRequest } from '../models/requests/rejectParticipati
 import { UserCorporationQueryResult } from '../models/queryResults/userCorporation.queryResult';
 import { RejectBalanceRequest } from '../models/requests/rejectBalance.request';
 import { BaseService } from 'src/app/shared/services/base.service';
+import { PaginatedQueryResult } from 'src/app/shared/queryResults/paginated.queryResult';
 
 @Injectable({
   providedIn: 'root'
@@ -32,8 +33,8 @@ export class CorporationService extends BaseService {
     return headers;
   }
 
-  getCorporations(): Observable<UserCorporationQueryResult[]> {
-    return this.http.get<UserCorporationQueryResult[]>(environment.UrlBase + 'corporation', { headers: this.composeHeaders() });
+  getCorporations(): Observable<PaginatedQueryResult<UserCorporationQueryResult>> {
+    return this.http.get<PaginatedQueryResult<UserCorporationQueryResult>>(environment.UrlBase + 'corporation', { headers: this.composeHeaders() });
   }
 
   getCorporationDetailed(id: number): Observable<CorporationDetailedQueryResult> {

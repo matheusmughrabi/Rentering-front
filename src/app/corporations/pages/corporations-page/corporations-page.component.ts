@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ResponseBase } from 'src/app/shared/models/responseBase';
+import { PaginatedQueryResult } from 'src/app/shared/queryResults/paginated.queryResult';
 import { ToastrUtils } from 'src/app/shared/utils/toastr.utils';
 import { UserCorporationQueryResult } from '../../models/queryResults/userCorporation.queryResult';
 import { CorporationService } from '../../services/corporation.service';
@@ -29,8 +30,8 @@ export class CorporationsPageComponent implements OnInit {
 
     this.corporationService.getCorporations()
       .subscribe(
-        (data: UserCorporationQueryResult[]) => {
-          this.userCorporations = data;
+        (queryResult: PaginatedQueryResult<UserCorporationQueryResult>) => {
+          this.userCorporations = queryResult.data;
           this.busy = false;
         });
   }
