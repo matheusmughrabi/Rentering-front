@@ -33,7 +33,7 @@ export class MonthlyBalancesComponent implements OnInit {
     this.corporationService.addMonth(request)
       .subscribe((data: ResponseBase<any>) => {
         this.toastrUtils.DisplayNotification(data);
-        this.busy = false;
+        this.realoadData();
       });
   }
 
@@ -41,14 +41,28 @@ export class MonthlyBalancesComponent implements OnInit {
     let request = new AcceptBalanceRequest(this.corporationResponse.id, monthlyBalanceId);
 
     this.corporationService.acceptBalance(request)
-      .subscribe((data: ResponseBase<any>) => this.toastrUtils.DisplayNotification(data));
+      .subscribe((data: ResponseBase<any>) => {
+        this.toastrUtils.DisplayNotification(data);
+        this.realoadData();
+      });
   }
 
   public rejectBalance(monthlyBalanceId: number): void {
     let request = new RejectBalanceRequest(this.corporationResponse.id, monthlyBalanceId);
 
     this.corporationService.rejectBalance(request)
-      .subscribe((data: ResponseBase<any>) => this.toastrUtils.DisplayNotification(data));
+      .subscribe((data: ResponseBase<any>) => {
+        this.toastrUtils.DisplayNotification(data);
+        this.realoadData();
+      });
+  }
+
+  private realoadData(): void {
+    this.corporationService.getCorporationDetailed(this.corporationResponse.id)
+      .subscribe((data: CorporationDetailedQueryResult) => {
+        this.corporationResponse = data;
+        this.busy = false;
+      });
   }
 
   private prepareFormProfit(): void {

@@ -15,13 +15,16 @@ import { InviteToCorporationRequest } from '../models/requests/inviteParticipant
 import { RejectParticipationRequest } from '../models/requests/rejectParticipation.request';
 import { UserCorporationQueryResult } from '../models/queryResults/userCorporation.queryResult';
 import { RejectBalanceRequest } from '../models/requests/rejectBalance.request';
+import { BaseService } from 'src/app/shared/services/base.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class CorporationService {
+export class CorporationService extends BaseService {
 
-  constructor(private http: HttpClient) { }
+  constructor(http: HttpClient) {
+    super(http);
+  }
 
   public composeHeaders() {
     const token: string = localStorage.getItem('token') as string;

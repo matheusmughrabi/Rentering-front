@@ -29,8 +29,8 @@
                 </div>
 
                 <div class="uk-text-right">
-                    <button class="uk-button uk-button-default" [disabled]="formProfit.invalid"
-                        (click)="addMonth()">Adicionar</button>
+                    <button class="uk-button uk-button-default" [disabled]="formProfit.invalid" (click)="addMonth()"
+                        uk-toggle="target: #modal-close-total-profit">Adicionar</button>
                 </div>
             </form>
 
@@ -58,9 +58,9 @@
     </div>
 
     <div class="uk-margin-top">
-        <button (click)="acceptBalance(monthlyBalance.id)"
+        <button *ngIf="monthlyBalance.currentUserBalanceStatus.value == 1 || monthlyBalance.currentUserBalanceStatus.value == 3" (click)="acceptBalance(monthlyBalance.id)"
             class="uk-button uk-button-primary uk-margin-right">Aceitar</button>
-        <button (click)="rejectBalance(monthlyBalance.id)" class="uk-button uk-button-primary">Contestar</button>
+        <button *ngIf="monthlyBalance.currentUserBalanceStatus.value == 1" (click)="rejectBalance(monthlyBalance.id)" class="uk-button uk-button-primary">Contestar</button>
     </div>
 </div>
 </li>

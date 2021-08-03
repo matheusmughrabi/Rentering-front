@@ -14,18 +14,15 @@ import { PendingInvitationQueryResult } from '../models/queryResults/pendingInvi
 import { RejectPaymentRequest } from '../models/requests/rejectPayment.request';
 import { RejectToParticipateRequest } from '../models/requests/rejectToParticipate.request';
 import { RemoveParticipantRequest } from '../models/requests/removeParticipant.request';
+import { BaseService } from 'src/app/shared/services/base.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ContractsService {
+export class ContractsService extends BaseService {
 
-  constructor(private http: HttpClient) { }
-
-  public composeHeaders() {
-    const token: string = localStorage.getItem('token') as string;
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return headers;
+  constructor(http: HttpClient) {
+    super(http);
   }
 
   getContractsOfUser(): Observable<UserContractQueryResult[]> {
@@ -97,7 +94,7 @@ export class ContractsService {
     var response = this.http.patch<any>(path, data, { headers: this.composeHeaders() });
     return response;
   }
-  
+
   acceptPayment(data: AcceptPaymentRequest): Observable<any> {
     const path = environment.UrlBase + 'contracts/AcceptPayment';
 
