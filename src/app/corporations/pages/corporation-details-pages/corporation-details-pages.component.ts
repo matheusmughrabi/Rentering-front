@@ -6,6 +6,7 @@ import { ActivateCorporationRequest } from '../../models/requests/activateCorpor
 import { CorporationDetailedQueryResult } from '../../models/queryResults/corporationDetailed.queryResult';
 import { FinishCreationRequest } from '../../models/requests/finishCreation.request';
 import { CorporationService } from '../../services/corporation.service';
+import { SingleQueryResult } from 'src/app/shared/queryResults/single.queryResult';
 
 @Component({
   selector: 'app-corporation-details-pages',
@@ -50,8 +51,8 @@ export class CorporationDetailsPagesComponent implements OnInit {
     this.busy = true;
 
     this.corporationService.getCorporationDetailed(this.getCorporationIdFromRouteParam())
-      .subscribe((data: CorporationDetailedQueryResult) => {
-        this.corporationResponse = data;
+      .subscribe((queryResult: SingleQueryResult<CorporationDetailedQueryResult>) => {
+        this.corporationResponse = queryResult.data;
         this.busy = false;
       });
   }

@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ResponseBase } from 'src/app/shared/models/responseBase';
+import { SingleQueryResult } from 'src/app/shared/queryResults/single.queryResult';
 import { ToastrUtils } from 'src/app/shared/utils/toastr.utils';
 import { CorporationDetailedQueryResult } from '../../models/queryResults/corporationDetailed.queryResult';
 import { InviteToCorporationRequest } from '../../models/requests/inviteParticipant.request';
@@ -37,8 +38,8 @@ export class ParticipantsComponent implements OnInit {
         this.toastrUtils.DisplayNotification(data);
 
         this.corporationService.getCorporationDetailed(this.corporationResponse.id)
-          .subscribe((data: CorporationDetailedQueryResult) => {
-            this.corporationResponse = data;
+          .subscribe((queryResult: SingleQueryResult<CorporationDetailedQueryResult>) => {
+            this.corporationResponse = queryResult.data;
           });
 
           this.busy = false
