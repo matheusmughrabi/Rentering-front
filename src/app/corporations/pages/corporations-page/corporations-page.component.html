@@ -3,67 +3,80 @@
 </div>
 
 <div *ngIf="!busy" class="uk-container uk-margin-top">
-    <div class="uk-margin-bottom">
-        <!-- This is a button toggling the modal with the default close button -->
-        <div>
-            <p class="uk-margin-remove-top uk-margin-remove-bottom">
-                <button class="uk-button uk-button-primary uk-margin-left" type="button"
-                    uk-toggle="target: #modal-close-default">Nova corporação</button>
-            </p>
-        </div>
-
-        <!-- This is the modal with the default close button -->
-        <div id="modal-close-default" uk-modal>
-            <div class="uk-modal-dialog uk-modal-body">
-                <button class="uk-modal-close-default" type="button" uk-close></button>
-                <h2 class="uk-modal-title">Nova corporação</h2>
-
-                <form [formGroup]="form" class="uk-form-stacked">
-                    <div class="uk-margin">
-                        <label class="uk-form-label" for="participant-email">Nome</label>
-                        <div class="uk-form-controls">
-                            <input class="uk-input" formControlName="name" type="text"
-                                placeholder="Nome da corporação"
-                                [ngClass]="{'uk-form-danger': (!form.controls.name.valid && !form.controls.name.pristine) }">
-                        </div>
-                    </div>
-
-                    <div class="uk-text-right">
-                        <button class="uk-button uk-button-default" [disabled]="form.invalid"
-                            (click)="createCorporation()" uk-toggle="target: #modal-close-default">
-                            Criar
+    <div class="uk-card uk-card-default uk-margin-bottom">
+        <div class="uk-card-header">
+            <div class="uk-flex">
+                <h3 class="uk-card-title uk-margin-remove-bottom">Minhas corporações</h3>
+                
+                <div>
+                    <p class="uk-margin-remove-top">
+                        <button class="uk-button uk-button-primary uk-margin-left" type="button" uk-toggle="target: #modal-close-default">
+                            <span class="uk-icon uk-margin-small-right" uk-icon="icon: plus"></span>
+                            Adicionar
                         </button>
-                    </div>
-                </form>
+                    </p>
+                </div>
+            </div>
 
+            <!-- This is the modal with the default close button -->
+            <div id="modal-close-default" uk-modal>
+                <div class="uk-modal-dialog uk-modal-body">
+                    <button class="uk-modal-close-default" type="button" uk-close></button>
+                    <h2 class="uk-modal-title">Nova corporação</h2>
+
+                    <form [formGroup]="form" class="uk-form-stacked">
+                        <div class="uk-margin">
+                            <label class="uk-form-label" for="participant-email">Nome</label>
+                            <div class="uk-form-controls">
+                                <input class="uk-input" formControlName="name" type="text"
+                                    placeholder="Nome da corporação"
+                                    [ngClass]="{'uk-form-danger': (!form.controls.name.valid && !form.controls.name.pristine) }">
+                            </div>
+                        </div>
+
+                        <div class="uk-text-right">
+                            <button class="uk-button uk-button-default" [disabled]="form.invalid"
+                                (click)="createCorporation()" uk-toggle="target: #modal-close-default">
+                                Criar
+                            </button>
+                        </div>
+                    </form>
+
+                </div>
             </div>
         </div>
-    </div>
 
-    <div class="uk-background-default uk-overflow-auto">
-        <table class="uk-table uk-table-hover uk-table-middle uk-table-divider">
-            <thead>
-                <tr>
-                    <th class="uk-table-expand">Nome</th>
-                    <th class="uk-table-expand">Administrador</th>
-                    <th class="uk-table-expand">Data de criação</th>
-                </tr>
-            </thead>
-            <tbody *ngFor="let corporation of userCorporationsPaginated.data 
+
+        <div class="uk-card-body uk-padding-remove-bottom">
+            <div class=" uk-overflow-auto">
+                <table class="uk-table uk-table-hover uk-table-middle uk-table-divider">
+                    <thead>
+                        <tr>
+                            <th class="uk-table-expand">Nome</th>
+                            <th class="uk-table-expand">Administrador</th>
+                            <th class="uk-table-expand">Data de criação</th>
+                        </tr>
+                    </thead>
+                    <tbody *ngFor="let corporation of userCorporationsPaginated.data 
             | paginate: { 
                 itemsPerPage: paginationResult.recordsPerPage, 
                 currentPage: paginationResult.page, 
                 totalItems: paginationResult.totalRecords }">
-                <tr>
-                    <td class="uk-text-truncate">{{ corporation.name }}</td>
-                    <td class="uk-table-link">
-                        <a class="uk-link-reset" routerLink="/corporacao/detalhes/{{corporation.id}}">{{ corporation.admin }}</a>
-                    </td>
-                    <td class="uk-text-truncate">01/01/2021</td>
-                </tr>
-            </tbody>
-        </table>
+                        <tr>
+                            <td class="uk-text-truncate">{{ corporation.name }}</td>
+                            <td class="uk-table-link">
+                                <a class="uk-link-reset" routerLink="/corporacao/detalhes/{{corporation.id}}">{{
+                                    corporation.admin }}</a>
+                            </td>
+                            <td class="uk-text-truncate">01/01/2021</td>
+                        </tr>
+                    </tbody>
+                </table>
 
-        <pagination-controls (pageChange)="paginationResult.page = $event"></pagination-controls>
+                <div class="uk-text-center uk-margin-medium-top uk-margin-medium-bottom">
+                    <pagination-controls  (pageChange)="paginationResult.page = $event"></pagination-controls>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
