@@ -1,5 +1,5 @@
 <div class="uk-margin-bottom">
-    <div class="uk-flex">
+    <div class="uk-flex uk-flex-wrap uk-flex-wrap-around">
         <h3>Meses</h3>
         <p class="uk-margin-remove-top uk-margin-remove-bottom">
             <button *ngIf="corporationResponse.isCurrentUserAdmin" [disabled]="corporationResponse.status.value != 4"
@@ -21,6 +21,15 @@
             </div>
 
             <form [formGroup]="formProfit" class="uk-form-stacked">
+                <div class="uk-margin">
+                    <label class="uk-form-label" for="month">Mês</label>
+                    <div class="uk-form-controls">
+                        <input class="uk-input" id="month" formControlName="month" type="date"
+                            placeholder="Novo mês"
+                            [ngClass]="{'uk-form-danger': (!formProfit.controls.month.valid && !formProfit.controls.month.pristine) }">
+                    </div>
+                </div>
+
                 <div class="uk-margin">
                     <label class="uk-form-label" for="totalProfit">Valor total</label>
                     <div class="uk-form-controls">
@@ -47,7 +56,7 @@
                 itemsPerPage: 5, 
                 currentPage: paginationResult.page, 
                 totalItems: paginationResult.totalRecords }">
-                <p class="uk-accordion-title">{{ monthlyBalance.month | date }}</p>
+                <p class="uk-accordion-title">{{ monthlyBalance.month | date:'longDate' }}</p>
                 <div class="uk-accordion-content uk-text-meta">
                     <p>Status do mês: {{ monthlyBalance.status.description }}</p>
                     <p>Total: {{ monthlyBalance.totalProfit }}</p>
