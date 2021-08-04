@@ -36,7 +36,7 @@ export class CorporationsPageComponent implements OnInit {
           this.userCorporationsPaginated = queryResult;
 
           this.paginationResult.page = 1;
-          this.paginationResult.recordsPerPage = 5;
+          this.paginationResult.recordsPerPage = 10;
           this.paginationResult.totalRecords = queryResult.data.length;
 
           this.busy = false;

@@ -59,7 +59,7 @@
                     </thead>
                     <tbody *ngFor="let corporation of userCorporationsPaginated.data 
             | paginate: { 
-                itemsPerPage: 10, 
+                itemsPerPage: paginationResult.recordsPerPage, 
                 currentPage: paginationResult.page }">
                         <tr>
                             <td class="uk-text-truncate">{{ corporation.name }}</td>
