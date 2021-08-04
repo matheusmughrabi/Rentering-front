@@ -1,7 +1,6 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { InviteParticipantRequest } from 'src/app/contracts/models/requests/inviteParticipant.request';
 import { environment } from 'src/environments/environment';
 import { AcceptBalanceRequest } from '../models/requests/acceptBalance.request';
 import { AcceptParticipationRequest } from '../models/requests/acceptParticipation.request';
@@ -16,8 +15,8 @@ import { RejectParticipationRequest } from '../models/requests/rejectParticipati
 import { UserCorporationQueryResult } from '../models/queryResults/userCorporation.queryResult';
 import { RejectBalanceRequest } from '../models/requests/rejectBalance.request';
 import { BaseService } from 'src/app/shared/services/base.service';
-import { PaginatedQueryResult } from 'src/app/shared/queryResults/paginated.queryResult';
 import { SingleQueryResult } from 'src/app/shared/queryResults/single.queryResult';
+import { ListQueryResult } from 'src/app/shared/queryResults/list.queryResult';
 
 @Injectable({
   providedIn: 'root'
@@ -34,14 +33,8 @@ export class CorporationService extends BaseService {
     return headers;
   }
 
-  getCorporations(): Observable<PaginatedQueryResult<UserCorporationQueryResult>> {
-    let params = new HttpParams();
-    params = params.append("page", 1);
-    params = params.append("recordsPerPage", 5);
-
-
-    return this.http.get<PaginatedQueryResult<UserCorporationQueryResult>>(environment.UrlBase + 'corporation',
-      { headers: this.composeHeaders(), params: params });
+  getCorporations(page: number): Observable<ListQueryResult<UserCorporationQueryResult>> {
+    return this.http.get<ListQueryResult<UserCorporationQueryResult>>(environment.UrlBase + 'corporation', { headers: this.composeHeaders()});
   }
 
   getCorporationDetailed(id: number): Observable<SingleQueryResult<CorporationDetailedQueryResult>> {

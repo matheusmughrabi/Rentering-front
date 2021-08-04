@@ -1,7 +1,7 @@
 import { ListQueryResult } from "./list.queryResult";
 
 export class PaginatedQueryResult<TData> extends ListQueryResult<TData>{
-    public pagination!: PaginationResult;
+    public pagination: PaginationResult = new PaginationResult();
 }
 
 export class PaginationResult{

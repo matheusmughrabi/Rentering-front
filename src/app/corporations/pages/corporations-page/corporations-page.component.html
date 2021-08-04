@@ -49,7 +49,11 @@
                     <th class="uk-table-expand">Data de criação</th>
                 </tr>
             </thead>
-            <tbody *ngFor="let corporation of userCorporations">
+            <tbody *ngFor="let corporation of userCorporationsPaginated.data 
+            | paginate: { 
+                itemsPerPage: paginationResult.recordsPerPage, 
+                currentPage: paginationResult.page, 
+                totalItems: paginationResult.totalRecords }">
                 <tr>
                     <td class="uk-text-truncate">{{ corporation.name }}</td>
                     <td class="uk-table-link">
@@ -59,5 +63,7 @@
                 </tr>
             </tbody>
         </table>
+
+        <pagination-controls (pageChange)="paginationResult.page = $event"></pagination-controls>
     </div>
 </div>
