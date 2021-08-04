@@ -16,9 +16,23 @@
 
                     <div class="uk-accordion-content uk-text-meta">
                         <p>Criador do contrato: {{ invitation.admin }}</p>
-                        <button class="uk-button uk-button-default" (click)="acceptParticipation(invitation.corporationId, invitation.participantId)">Aceitar</button>
-                        <button class="uk-button uk-button-default" (click)="rejectParticipation(invitation.corporationId, invitation.participantId)">Recusar</button>
-                        <button routerLink="/corporacao/detalhes/{{invitation.corporationId}}"  class="uk-button uk-button-default uk-margin-small-left">Detalhes</button>
+                        <button class="uk-button uk-button-default"
+                            (click)="acceptParticipation(invitation.corporationId, invitation.participantId)">
+                            <span class="uk-icon uk-margin-small-right" uk-icon="icon: check"></span>
+                            Aceitar
+                        </button>
+
+                        <button class="uk-button uk-button-default"
+                            (click)="rejectParticipation(invitation.corporationId, invitation.participantId)">
+                            <span class="uk-icon uk-margin-small-right" uk-icon="icon: minus"></span>
+                            Recusar
+                        </button>
+
+                        <button class="uk-button uk-button-default uk-margin-small-left"
+                            routerLink="/corporacao/detalhes/{{invitation.corporationId}}">
+                            <span class="uk-icon uk-margin-small-right" uk-icon="icon: info"></span>
+                            Detalhes
+                        </button>
                     </div>
                 </li>
             </ul>

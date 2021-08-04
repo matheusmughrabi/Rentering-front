@@ -16,6 +16,7 @@
                                     *ngIf="corporationResponse.isCurrentUserAdmin && corporationResponse.status.value == 1"
                                     (click)="finishCreation()" class="uk-button uk-button-primary uk-margin-left"
                                     type="button">
+                                    <span class="uk-icon uk-margin-small-right" uk-icon="icon: check"></span>
                                     Finalizar criação
                                 </button>
                             </p>
@@ -27,6 +28,7 @@
                                     *ngIf="corporationResponse.isCurrentUserAdmin && (corporationResponse.status.value == 2 || corporationResponse.status.value == 3)"
                                     [disabled]="corporationResponse.status.value != 3" (click)="activateCorporation()"
                                     class="uk-button uk-button-primary uk-margin-left" type="button">
+                                    <span class="uk-icon uk-margin-small-right" uk-icon="icon: check"></span>
                                     Ativar corporação
                                 </button>
                             </p>
