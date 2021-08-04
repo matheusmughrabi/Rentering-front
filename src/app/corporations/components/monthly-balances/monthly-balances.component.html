@@ -24,8 +24,7 @@
                 <div class="uk-margin">
                     <label class="uk-form-label" for="month">Mês</label>
                     <div class="uk-form-controls">
-                        <input class="uk-input" id="month" formControlName="month" type="date"
-                            placeholder="Novo mês"
+                        <input class="uk-input" id="month" formControlName="month" type="date" placeholder="Novo mês"
                             [ngClass]="{'uk-form-danger': (!formProfit.controls.month.valid && !formProfit.controls.month.pristine) }">
                     </div>
                 </div>
@@ -51,45 +50,54 @@
     <!-- <p *ngIf="corporationResponse.monthlyBalances.length == 0">Nenhum mês para ser exibido</p> -->
 
     <div>
-        <ul uk-accordion>
-            <li *ngFor="let monthlyBalance of corporationResponse.monthlyBalances | paginate: { 
+        <p *ngIf="corporationResponse.monthlyBalances.length == 0" class="uk-text-default uk-margin-large-bottom">
+            Nenhum mês para ser exibido
+        </p>
+
+        <div *ngIf="corporationResponse.monthlyBalances.length > 0">
+            <ul uk-accordion>
+                <li *ngFor="let monthlyBalance of corporationResponse.monthlyBalances | paginate: { 
                 itemsPerPage: 5, 
                 currentPage: paginationResult.page, 
                 totalItems: paginationResult.totalRecords }">
-                <p class="uk-accordion-title">{{ monthlyBalance.month | date:'longDate' }}</p>
-                <div class="uk-accordion-content uk-text-meta">
-                    <p>Status do mês: {{ monthlyBalance.status.description }}</p>
-                    <p>Total: {{ monthlyBalance.totalProfit }}</p>
+                    <p class="uk-accordion-title">{{ monthlyBalance.month | date:'longDate' }}</p>
+                    <div class="uk-accordion-content uk-text-meta">
+                        <p>Status do mês: {{ monthlyBalance.status.description }}</p>
+                        <p>Total: {{ monthlyBalance.totalProfit }}</p>
 
-                    <div *ngFor="let participantBalances of monthlyBalance.participantBalances">
-            <li>
-                <div class="uk-accordion-content uk-text-meta">
-                    <p>{{ participantBalances.participantName }} : {{ participantBalances.balance |
-                        currency: 'BRL'}}</p>
-                    <p>Status: {{ participantBalances.status.description }}</p>
-                </div>
-            </li>
+                        <div *ngFor="let participantBalances of monthlyBalance.participantBalances">
+                <li>
+                    <div class="uk-accordion-content uk-text-meta">
+                        <p>{{ participantBalances.participantName }} : {{ participantBalances.balance |
+                            currency: 'BRL'}}</p>
+                        <p>Status: {{ participantBalances.status.description }}</p>
+                    </div>
+                </li>
+        </div>
+
+        <div class="uk-margin-top">
+            <button
+                *ngIf="monthlyBalance.currentUserBalanceStatus.value == 1 || monthlyBalance.currentUserBalanceStatus.value == 3"
+                (click)="acceptBalance(monthlyBalance.id)" class="uk-button uk-button-primary uk-margin-right">
+                <span class="uk-icon uk-margin-small-right" uk-icon="icon: check"></span>
+                Aceitar
+            </button>
+
+            <button *ngIf="monthlyBalance.currentUserBalanceStatus.value == 1"
+                (click)="rejectBalance(monthlyBalance.id)" class="uk-button uk-button-primary">
+                <span class="uk-icon uk-margin-small-right" uk-icon="icon: ban"></span>
+                Contestar
+            </button>
+        </div>
+    </div>
+    </li>
+    </ul>
+
+    <div class="uk-text-center uk-margin-medium-top uk-margin-medium-bottom">
+        <pagination-controls (pageChange)="paginationResult.page = $event"></pagination-controls>
     </div>
 
-    <div class="uk-margin-top">
-        <button
-            *ngIf="monthlyBalance.currentUserBalanceStatus.value == 1 || monthlyBalance.currentUserBalanceStatus.value == 3"
-            (click)="acceptBalance(monthlyBalance.id)" class="uk-button uk-button-primary uk-margin-right">
-            <span class="uk-icon uk-margin-small-right" uk-icon="icon: check"></span>
-            Aceitar
-        </button>
+</div>
 
-        <button *ngIf="monthlyBalance.currentUserBalanceStatus.value == 1" (click)="rejectBalance(monthlyBalance.id)"
-            class="uk-button uk-button-primary">
-            <span class="uk-icon uk-margin-small-right" uk-icon="icon: ban"></span>
-            Contestar
-        </button>
-    </div>
-</div>
-</li>
-</ul>
-<div class="uk-text-center uk-margin-medium-top uk-margin-medium-bottom">
-    <pagination-controls (pageChange)="paginationResult.page = $event"></pagination-controls>
-</div>
 </div>
 </div>
