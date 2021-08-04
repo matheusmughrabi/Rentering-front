@@ -42,8 +42,8 @@ export class CorporationService extends BaseService {
     { headers: this.composeHeaders() });
   }
 
-  getInvitations(): Observable<InvitationQueryResult[]> {
-    return this.http.get<InvitationQueryResult[]>(environment.UrlBase + 'corporation/invitations', { headers: this.composeHeaders() });
+  getInvitations(): Observable<ListQueryResult<InvitationQueryResult>> {
+    return this.http.get<ListQueryResult<InvitationQueryResult>>(environment.UrlBase + 'corporation/invitations', { headers: this.composeHeaders() });
   }
 
   createCorporation(data: CreateCorporationRequest): Observable<any> {

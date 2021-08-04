@@ -8,10 +8,10 @@
             </div>
         </div>
         <div class="uk-card-body">
-            <p *ngIf="invitations.length == 0" class="uk-text-default">Não há convites pendentes</p>
+            <p *ngIf="invitations.data.length == 0" class="uk-text-default">Não há convites pendentes</p>
 
-            <ul *ngIf="invitations.length > 0" uk-accordion>
-                <li *ngFor="let invitation of invitations">
+            <ul *ngIf="invitations.data.length > 0" uk-accordion>
+                <li *ngFor="let invitation of invitations.data">
                     <p class="uk-accordion-title uk-text-default">{{ invitation.name }}</p>
 
                     <div class="uk-accordion-content uk-text-meta">

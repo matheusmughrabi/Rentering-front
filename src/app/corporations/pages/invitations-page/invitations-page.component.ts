@@ -5,13 +5,14 @@ import { AcceptParticipationRequest } from '../../models/requests/acceptParticip
 import { InvitationQueryResult } from '../../models/queryResults/invitations.queryResult';
 import { RejectParticipationRequest } from '../../models/requests/rejectParticipation.request';
 import { CorporationService } from '../../services/corporation.service';
+import { ListQueryResult } from 'src/app/shared/queryResults/list.queryResult';
 
 @Component({
   selector: 'app-invitations-page',
   templateUrl: './invitations-page.component.html'
 })
 export class InvitationsPageComponent implements OnInit {
-  public invitations!: InvitationQueryResult[];
+  public invitations!: ListQueryResult<InvitationQueryResult>;
 
   constructor(private toastrUtils: ToastrUtils, private corporationService: CorporationService) { }
 
@@ -41,8 +42,8 @@ export class InvitationsPageComponent implements OnInit {
   private loadInvitations(): void {
     this.corporationService.getInvitations()
       .subscribe(
-        (data: InvitationQueryResult[]) => {
-          this.invitations = data;
+        (queryResult: ListQueryResult<InvitationQueryResult>) => {
+          this.invitations = queryResult;
         });
   }
 }
