@@ -1,7 +1,6 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { InviteParticipantRequest } from 'src/app/contracts/models/requests/inviteParticipant.request';
 import { environment } from 'src/environments/environment';
 import { AcceptBalanceRequest } from '../models/requests/acceptBalance.request';
 import { AcceptParticipationRequest } from '../models/requests/acceptParticipation.request';
@@ -16,6 +15,8 @@ import { RejectParticipationRequest } from '../models/requests/rejectParticipati
 import { UserCorporationQueryResult } from '../models/queryResults/userCorporation.queryResult';
 import { RejectBalanceRequest } from '../models/requests/rejectBalance.request';
 import { BaseService } from 'src/app/shared/services/base.service';
+import { SingleQueryResult } from 'src/app/shared/queryResults/single.queryResult';
+import { ListQueryResult } from 'src/app/shared/queryResults/list.queryResult';
 
 @Injectable({
   providedIn: 'root'
@@ -32,16 +33,17 @@ export class CorporationService extends BaseService {
     return headers;
   }
 
-  getCorporations(): Observable<UserCorporationQueryResult[]> {
-    return this.http.get<UserCorporationQueryResult[]>(environment.UrlBase + 'corporation', { headers: this.composeHeaders() });
+  getCorporations(page: number): Observable<ListQueryResult<UserCorporationQueryResult>> {
+    return this.http.get<ListQueryResult<UserCorporationQueryResult>>(environment.UrlBase + 'corporation', { headers: this.composeHeaders()});
   }
 
-  getCorporationDetailed(id: number): Observable<CorporationDetailedQueryResult> {
-    return this.http.get<CorporationDetailedQueryResult>(environment.UrlBase + `corporation/detailed/${id}`, { headers: this.composeHeaders() });
+  getCorporationDetailed(id: number): Observable<SingleQueryResult<CorporationDetailedQueryResult>> {
+    return this.http.get<SingleQueryResult<CorporationDetailedQueryResult>>(environment.UrlBase + `corporation/detailed/${id}`, 
+    { headers: this.composeHeaders() });
   }
 
-  getInvitations(): Observable<InvitationQueryResult[]> {
-    return this.http.get<InvitationQueryResult[]>(environment.UrlBase + 'corporation/invitations', { headers: this.composeHeaders() });
+  getInvitations(): Observable<ListQueryResult<InvitationQueryResult>> {
+    return this.http.get<ListQueryResult<InvitationQueryResult>>(environment.UrlBase + 'corporation/invitations', { headers: this.composeHeaders() });
   }
 
   createCorporation(data: CreateCorporationRequest): Observable<any> {

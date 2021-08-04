@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ResponseBase } from 'src/app/shared/models/responseBase';
+import { ListQueryResult } from 'src/app/shared/queryResults/list.queryResult';
+import { PaginationResult } from 'src/app/shared/queryResults/paginated.queryResult';
 import { ToastrUtils } from 'src/app/shared/utils/toastr.utils';
 import { UserCorporationQueryResult } from '../../models/queryResults/userCorporation.queryResult';
 import { CorporationService } from '../../services/corporation.service';
@@ -11,8 +13,9 @@ import { CorporationService } from '../../services/corporation.service';
 })
 export class CorporationsPageComponent implements OnInit {
   public form!: FormGroup;
-  public userCorporations!: UserCorporationQueryResult[];
+  public userCorporationsPaginated: ListQueryResult<UserCorporationQueryResult> = new ListQueryResult<UserCorporationQueryResult>();
   public busy: boolean = false;
+  public paginationResult: PaginationResult = new PaginationResult();
 
   constructor(
     private formBuilder: FormBuilder,
@@ -27,10 +30,15 @@ export class CorporationsPageComponent implements OnInit {
   loadUserCorporations(): void {
     this.busy = true;
 
-    this.corporationService.getCorporations()
+    this.corporationService.getCorporations(1)
       .subscribe(
-        (data: UserCorporationQueryResult[]) => {
-          this.userCorporations = data;
+        (queryResult: ListQueryResult<UserCorporationQueryResult>) => {
+          this.userCorporationsPaginated = queryResult;
+
+          this.paginationResult.page = 1;
+          this.paginationResult.recordsPerPage = 10;
+          this.paginationResult.totalRecords = queryResult.data.length;
+
           this.busy = false;
         });
   }
