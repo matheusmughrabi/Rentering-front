@@ -68,8 +68,7 @@
                         <div *ngFor="let participantBalances of monthlyBalance.participantBalances">
                 <li>
                     <div class="uk-accordion-content uk-text-meta">
-                        <p>{{ participantBalances.participantName }} : {{ participantBalances.balance |
-                            currency: 'BRL'}}</p>
+                        <p>{{ participantBalances.participantName }} : {{ participantBalances.balance | currency: 'BRL'}}</p>
                         <p>Status: {{ participantBalances.status.description }}</p>
                     </div>
                 </li>
@@ -77,13 +76,13 @@
 
         <div class="uk-margin-top">
             <button
-                *ngIf="monthlyBalance.currentUserBalanceStatus.value == 1 || monthlyBalance.currentUserBalanceStatus.value == 3"
+                *ngIf="monthlyBalance.currentUserBalanceStatus?.value == 1 || monthlyBalance.currentUserBalanceStatus?.value == 3"
                 (click)="acceptBalance(monthlyBalance.id)" class="uk-button uk-button-primary uk-margin-right">
                 <span class="uk-icon uk-margin-small-right" uk-icon="icon: check"></span>
                 Aceitar
             </button>
 
-            <button *ngIf="monthlyBalance.currentUserBalanceStatus.value == 1"
+            <button *ngIf="monthlyBalance.currentUserBalanceStatus?.value == 1"
                 (click)="rejectBalance(monthlyBalance.id)" class="uk-button uk-button-primary">
                 <span class="uk-icon uk-margin-small-right" uk-icon="icon: ban"></span>
                 Contestar

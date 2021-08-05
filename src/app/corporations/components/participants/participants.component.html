@@ -7,7 +7,7 @@
                 <button *ngIf="corporationResponse.isCurrentUserAdmin"
                     [disabled]="corporationResponse.status.value != 1"
                     class="uk-button uk-button-primary uk-margin-left" type="button"
-                    uk-toggle="target: #modal-close-default">
+                    uk-toggle="target: #invite-participant-modal">
                     <span class="uk-icon uk-margin-small-right" uk-icon="icon: plus"></span>
                     Novo participante
                 </button>
@@ -15,7 +15,7 @@
         </div>
 
         <!-- This is the modal with the default close button -->
-        <div id="modal-close-default" uk-modal>
+        <div id="invite-participant-modal" uk-modal>
             <div class="uk-modal-dialog uk-modal-body">
                 <button class="uk-modal-close-default" type="button" uk-close></button>
                 
@@ -46,7 +46,7 @@
 
                     <div class="uk-text-right">
                         <button class="uk-button uk-button-default" [disabled]="inviteParticipantForm.invalid" 
-                        (click)="inviteParticipant()" uk-toggle="target: #modal-close-default">Adicionar</button>
+                        (click)="inviteParticipant()" uk-toggle="target: #invite-participant-modal">Adicionar</button>
                     </div>
                 </form>
 
