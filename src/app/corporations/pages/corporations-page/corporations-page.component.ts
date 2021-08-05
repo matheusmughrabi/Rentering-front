@@ -49,6 +49,8 @@ export class CorporationsPageComponent implements OnInit {
         this.toastrUtils.DisplayNotification(data);
         this.loadUserCorporations();
       });
+
+      this.form.reset();
   }
 
   private setForm(): void {
