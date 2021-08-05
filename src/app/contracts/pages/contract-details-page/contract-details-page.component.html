@@ -1,0 +1,153 @@
+<div class="uk-container uk-margin-top uk-width-2-3@l">
+    <div class="uk-card uk-card-default uk-margin-bottom">
+        <div class="uk-card-header">
+            <div class="uk-grid-small uk-flex-middle" uk-grid>
+                <div class="uk-width-expand">
+                    <h3 class="uk-card-title uk-margin-remove-bottom">{{ detailedContractResponse.contractName }}</h3>
+
+                    <div *ngIf=" detailedContractResponse.currentUserRole.value === 1">
+                        <p class="uk-margin-remove-top uk-margin-remove-bottom">
+                            <button (click)="activateContract()" class="uk-button uk-button-primary uk-margin-left" type="button">
+                                Ativar contrato
+                            </button>
+                        </p>
+                    </div>
+
+                    <div uk-grid class="uk-margin-top">
+
+                        <p class="uk-text-meta uk-margin-remove-top uk-width-1-2 uk-margin-bottom">
+                            Papel no contrato: {{ detailedContractResponse.currentUserRole.description }}
+                        </p>
+
+                        <p class="uk-text-meta uk-margin-remove-top uk-width-1-2 uk-margin-bottom">
+                            Status do contrato: {{ detailedContractResponse.contractState.description }}
+                        </p>
+
+                        <p class="uk-text-meta uk-margin-remove-top uk-width-1-2 uk-margin-bottom">
+                            Data de início: {{ detailedContractResponse.contractStartDate | date }}
+                        </p>
+
+                        <p class="uk-text-meta uk-margin-remove-top uk-width-1-2">
+                            Data de término: {{ detailedContractResponse.contractEndDate | date }}
+                        </p>
+
+                        <p class="uk-text-meta uk-margin-remove-top uk-width-1-2">
+                            Valor do aluguel: {{ detailedContractResponse.rentPrice | currency: 'BRL' }}
+                        </p>
+
+                        <p class="uk-text-meta uk-margin-remove-top uk-width-1-2">
+                            Vencimento do aluguel: {{ detailedContractResponse.rentDueDate | date }}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="uk-card-body">
+
+            <div class="uk-margin-medium-bottom">
+                <div class="uk-flex">
+                    <h3>Participantes</h3>
+                    <!-- This is a button toggling the modal with the default close button -->
+                    <div
+                        *ngIf=" detailedContractResponse.currentUserRole.value === 1">
+                        <p class="uk-margin-remove-top uk-margin-remove-bottom">
+                            <button class="uk-button uk-button-primary uk-margin-left" type="button"
+                                uk-toggle="target: #modal-close-default">Novo participante</button>
+                        </p>
+                    </div>
+
+                    <!-- This is the modal with the default close button -->
+                    <div id="modal-close-default" uk-modal>
+                        <div class="uk-modal-dialog uk-modal-body">
+                            <button class="uk-modal-close-default" type="button" uk-close></button>
+                            <h2 class="uk-modal-title">Novo participante</h2>
+
+                            <form [formGroup]="form" class="uk-form-stacked">
+                                <div class="uk-margin">
+                                    <label class="uk-form-label" for="participant-email">Email do participante</label>
+                                    <div class="uk-form-controls">
+                                        <input class="uk-input" id="participant-email" formControlName="email"
+                                            type="email" placeholder="Email">
+                                    </div>
+                                </div>
+
+                                <div class="uk-margin">
+                                    <label class="uk-form-label" for="participant-role">Papel do participante</label>
+                                    <div class="uk-form-controls">
+                                        <input class="uk-input" id="participant-role" formControlName="participantRole"
+                                            type="text" placeholder="Papel do participante">
+                                    </div>
+                                </div>
+
+                                <div class="uk-text-right">
+                                    <button class="uk-button uk-button-default"
+                                        (click)="inviteParticipant()">Adicionar</button>
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+
+                <ul uk-accordion *ngFor="let participant of detailedContractResponse.participants">
+                    <li>
+                        <p class="uk-accordion-title uk-text-default">{{ participant.fullName }}</p>
+
+                        <div class="uk-accordion-content uk-text-meta">
+                            <button
+                                *ngIf=" detailedContractResponse.currentUserRole.value === 1"
+                                class="uk-button uk-button-default"
+                                (click)="removeParticipant(participant.accountId)">Remover</button>
+
+                            <p>Papel do participante: {{ participant.participantRole.description }}</p>
+                            <p>Status do participante: {{ participant.status.description }}</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- <hr class="uk-divider-icon"> -->
+
+            <div class="uk-margin-bottom">
+                <h3>Pagamentos</h3>
+                <p class="uk-text-meta" *ngIf="detailedContractResponse.contractPayments.length == 0">
+                    O ciclo de pagamento será criado automaticamente quando todos os participantes aceitarem participar
+                    do contrato.
+                </p>
+
+                <div *ngIf="detailedContractResponse.contractPayments.length > 0">
+                    <ul uk-accordion *ngFor="let payment of detailedContractResponse.contractPayments">
+                        <li>
+                            <p class="uk-accordion-title">{{ payment.month | date}}</p>
+                            <div class="uk-accordion-content uk-text-meta">
+                                <p>Valor: {{ payment.rentPrice }}</p>
+                                <p>Status do participante: {{ payment.receiverPaymentStatus.description }}</p>
+                                <p>Status do participante: {{ payment.payerPaymentStatus.description }}</p>
+
+                                <button (click)="executePayment(payment.month)"
+                                    *ngIf="payment.payerPaymentStatus.value === 0 &&  detailedContractResponse.currentUserRole.value === 3"
+                                    class="uk-button uk-button-default">Efetuar
+                                </button>
+
+                                <button (click)="acceptPayment(payment.month)"
+                                    *ngIf="payment.payerPaymentStatus.value === 1 && detailedContractResponse.currentUserRole.value === 2"
+                                    class="uk-button uk-button-default">Aceitar
+                                </button>
+
+                                <button (click)="rejectPayment(payment.month)"
+                                    *ngIf="payment.payerPaymentStatus.value === 1 && detailedContractResponse.currentUserRole.value === 2"
+                                    class="uk-button uk-button-default">Recusar
+                                </button>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="uk-card-footer">
+            <a href="/contratos" class="uk-button">Voltar</a>
+        </div>
+    </div>
+</div>

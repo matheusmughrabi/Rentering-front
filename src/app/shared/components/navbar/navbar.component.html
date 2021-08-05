@@ -1,0 +1,35 @@
+<div class="uk-background-primary uk-light">
+    <nav class="uk-navbar-container uk-navbar-transparent uk-padding uk-padding-remove-vertical" uk-navbar>
+        <div class="uk-navbar-left">
+            <ul class="uk-navbar-nav">
+                <li>
+                    <a [routerLink]="['/contratos']">Contratos</a>
+                    <div class="uk-navbar-dropdown">
+                        <ul class="uk-nav uk-navbar-dropdown-nav">
+                            <li class="uk-active"><a [routerLink]="['/contratos']">Meus contratos</a></li>
+                            <li class="uk-active"><a [routerLink]="['/contratos/novo-contrato']">Novo contrato</a></li>
+                            <li class="uk-active"><a [routerLink]="['/contratos/convites-pendentes']">Convites pendentes</a></li>
+                        </ul>
+                    </div>
+                </li>
+
+                <li>
+                    <a [routerLink]="['/corporacao']">Corporações</a>
+                    <div class="uk-navbar-dropdown">
+                        <ul class="uk-nav uk-navbar-dropdown-nav">
+                            <li class="uk-active"><a [routerLink]="['/corporacao']">Minhas corporações</a></li>
+                            <li class="uk-active"><a [routerLink]="['/corporacao/convites']">Convites pendentes</a></li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <div class="uk-navbar-right">
+            <ul class="uk-navbar-nav">
+                <li><a href="#"><span class="uk-icon" uk-icon="icon: user"></span></a></li>
+                <li><a [routerLink]="['/login']" (click)="clear()"><span class="uk-icon" uk-icon="icon: sign-out"></span></a></li>
+            </ul>
+        </div>
+    </nav>
+</div>

@@ -1,0 +1,69 @@
+<div *ngIf="busy" class="uk-position-center uk-overlay">
+    <app-loading></app-loading>
+</div>
+
+<div *ngIf="!busy" class="uk-position-center uk-overlay uk-box-shadow-xlarge">
+    <div class="uk-card uk-card-body">
+        <h3 class="uk-card-title uk-text-center uk-text-light">Criar conta</h3>
+        <form [formGroup]="form">
+            <div class="uk-margin">
+                <div class="uk-inline">
+                    <span class="uk-form-icon uk-form-icon-flip"></span>
+                    <input class="uk-input" formControlName="firstName" type="text" placeholder="Primeiro nome"
+                    [ngClass]="{'uk-form-danger': (form.controls.firstName.invalid && !form.controls.firstName.pristine) }">
+                </div>
+            </div>
+
+            <div class="uk-margin">
+                <div class="uk-inline">
+                    <span class="uk-form-icon uk-form-icon-flip"></span>
+                    <input class="uk-input" formControlName="lastName" type="text" placeholder="Sobrenome"
+                    [ngClass]="{'uk-form-danger': (form.controls.lastName.invalid && !form.controls.lastName.pristine) }">
+                </div>
+            </div>
+
+            <div class="uk-margin">
+                <div class="uk-inline">
+                    <span class="uk-form-icon uk-form-icon-flip" uk-icon="icon: mail"></span>
+                    <input class="uk-input" formControlName="email" type="email" placeholder="Email"
+                    [ngClass]="{'uk-form-danger': (form.controls.email.invalid && !form.controls.email.pristine) }">
+                </div>
+            </div>
+
+            <div class="uk-margin">
+                <div class="uk-inline">
+                    <span class="uk-form-icon uk-form-icon-flip" uk-icon="icon: user"></span>
+                    <input class="uk-input" formControlName="username" type="text" placeholder="Usuário"
+                    [ngClass]="{'uk-form-danger': (form.controls.username.invalid && !form.controls.username.pristine) }">
+                </div>
+            </div>
+
+            <div class="uk-margin">
+                <div class="uk-inline">
+                    <span class="uk-form-icon uk-form-icon-flip" uk-icon="icon: lock"></span>
+                    <input class="uk-input" formControlName="password" type="password" placeholder="Senha"
+                    [ngClass]="{'uk-form-danger': (form.controls.password.invalid && !form.controls.password.pristine) }">
+                </div>
+            </div>
+
+            <div class="uk-margin">
+                <div class="uk-inline">
+                    <span class="uk-form-icon uk-form-icon-flip" uk-icon="icon: lock"></span>
+                    <input class="uk-input" formControlName="confirmPassword" type="password" placeholder="Confirmar senha"
+                    [ngClass]="{'uk-form-danger': (form.controls.confirmPassword.invalid && !form.controls.confirmPassword.pristine) }">
+                </div>
+            </div>
+
+            <div class="uk-grid">
+                <div class="uk-text-right uk-width-1-2">
+                    <button class="uk-button uk-button-default" (click)="signUp()">Criar</button>
+                </div>
+            </div>
+            
+        </form>
+
+        <div class="uk-margin uk-width-1-2">
+            <a href="/login">Voltar</a>
+        </div>
+    </div>
+</div>
