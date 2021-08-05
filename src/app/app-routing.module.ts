@@ -9,12 +9,15 @@ import { FramePageComponent } from './shared/pages/master/frame-page.component';
 import { AuthGuard } from './routeGuards/auth.guard';
 import { LoginGuard } from './routeGuards/login.guard';
 import { PendingInvitationsPageComponent } from './contracts/pages/pending-invitations-page/pending-invitations-page.component';
+import { CorporationsPageComponent } from './corporations/pages/corporations-page/corporations-page.component';
+import { CorporationDetailsPagesComponent } from './corporations/pages/corporation-details-pages/corporation-details-pages.component';
+import { InvitationsPageComponent } from './corporations/pages/invitations-page/invitations-page.component';
 
 const routes: Routes = [
   {path: 'login', component: LoginPageComponent, canActivate: [LoginGuard]},
   {path: 'signup', component: SignupPageComponent, canActivate: [LoginGuard]},
 
-  {path: '', component: UserContractsComponent, canActivate: [AuthGuard]},
+  { path: '',   redirectTo: '/contratos', pathMatch: 'full' },
 
   {
     path: 'contratos',
@@ -27,6 +30,17 @@ const routes: Routes = [
       {path: 'convites-pendentes', component: PendingInvitationsPageComponent},
     ]
   },
+
+  {
+    path: 'corporacao',
+    component: FramePageComponent,
+    canActivate: [AuthGuard],
+    children: [
+      {path: '', component: CorporationsPageComponent},
+      {path: 'detalhes/:id', component: CorporationDetailsPagesComponent},
+      {path: 'convites', component: InvitationsPageComponent}
+    ]
+  }
 ];
 
 @NgModule({

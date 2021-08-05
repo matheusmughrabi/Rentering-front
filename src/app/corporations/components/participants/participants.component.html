@@ -1,0 +1,67 @@
+<div class="uk-margin-medium-bottom">
+    <div class="uk-flex">
+        <h3>Participantes</h3>
+
+        <div>
+            <p class="uk-margin-remove-top uk-margin-remove-bottom">
+                <button *ngIf="corporationResponse.isCurrentUserAdmin"
+                    [disabled]="corporationResponse.status.value != 1"
+                    class="uk-button uk-button-primary uk-margin-left" type="button"
+                    uk-toggle="target: #invite-participant-modal">
+                    <span class="uk-icon uk-margin-small-right" uk-icon="icon: plus"></span>
+                    Novo participante
+                </button>
+            </p>
+        </div>
+
+        <!-- This is the modal with the default close button -->
+        <div id="invite-participant-modal" uk-modal>
+            <div class="uk-modal-dialog uk-modal-body">
+                <button class="uk-modal-close-default" type="button" uk-close></button>
+                
+                <div class="uk-flex">
+                    <h2 class="uk-modal-title uk-margin-medium-right">Novo participante</h2>
+                    <app-loading *ngIf="busy" [ratio]="1"></app-loading>
+                </div>
+
+                <form [formGroup]="inviteParticipantForm" class="uk-form-stacked">
+                    <div class="uk-margin">
+                        <label class="uk-form-label" for="email">Email do participante</label>
+                        <div class="uk-form-controls">
+                            <input class="uk-input" id="email" formControlName="email" type="email" placeholder="Email"
+                                [ngClass]="{'uk-form-danger': (!inviteParticipantForm.controls.email.valid 
+                                                                && !inviteParticipantForm.controls.email.pristine) }">
+                        </div>
+                    </div>
+
+                    <div class="uk-margin">
+                        <label class="uk-form-label" for="sharedPercentage">Porcentagem do total</label>
+                        <div class="uk-form-controls">
+                            <input class="uk-input" id="sharedPercentage" formControlName="sharedPercentage"
+                                type="number" placeholder="Porcentagem do total"
+                                [ngClass]="{'uk-form-danger': (!inviteParticipantForm.controls.sharedPercentage.valid 
+                                                                && !inviteParticipantForm.controls.sharedPercentage.pristine) }">
+                        </div>
+                    </div>
+
+                    <div class="uk-text-right">
+                        <button class="uk-button uk-button-default" [disabled]="inviteParticipantForm.invalid" 
+                        (click)="inviteParticipant()" uk-toggle="target: #invite-participant-modal">Adicionar</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+    <ul uk-accordion *ngFor="let participant of corporationResponse.participants">
+        <li>
+            <p class="uk-accordion-title uk-text-default">{{ participant.fullName }}</p>
+
+            <div class="uk-accordion-content uk-text-meta">
+                <p>Status do participante: {{ participant.invitationStatus.description }}</p>
+                <p>Porcentagem do total: {{ (participant.sharedPercentage/100) | percent:'1.2' }}</p>
+            </div>
+        </li>
+    </ul>
+</div>

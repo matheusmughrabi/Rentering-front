@@ -1,0 +1,67 @@
+<div *ngIf="busy" class="uk-position-center uk-overlay">
+    <app-loading></app-loading>
+</div>
+
+<div *ngIf="!busy" class="uk-container uk-margin-top uk-width-2-3@l">
+    <div class="uk-card uk-card-default uk-margin-bottom">
+        <div class="uk-card-header">
+            <div class="uk-grid-small uk-flex-middle" uk-grid>
+                <div class="uk-width-expand">
+                    <div class="uk-flex">
+                        <h3 class="uk-card-title uk-margin-remove-bottom">{{ corporationResponse.name }}</h3>
+
+                        <div>
+                            <p class="uk-margin-remove-top">
+                                <button
+                                    *ngIf="corporationResponse.isCurrentUserAdmin && corporationResponse.status.value == 1"
+                                    (click)="finishCreation()" class="uk-button uk-button-primary uk-margin-left"
+                                    type="button">
+                                    <span class="uk-icon uk-margin-small-right" uk-icon="icon: check"></span>
+                                    Finalizar criação
+                                </button>
+                            </p>
+                        </div>
+
+                        <div>
+                            <p class="uk-margin-remove-bottom">
+                                <button
+                                    *ngIf="corporationResponse.isCurrentUserAdmin && (corporationResponse.status.value == 2 || corporationResponse.status.value == 3)"
+                                    [disabled]="corporationResponse.status.value != 3" (click)="activateCorporation()"
+                                    class="uk-button uk-button-primary uk-margin-left" type="button">
+                                    <span class="uk-icon uk-margin-small-right" uk-icon="icon: check"></span>
+                                    Ativar corporação
+                                </button>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div uk-grid class="uk-margin-top">
+                        <p class="uk-text-meta uk-margin-remove-top uk-width-1-2 uk-margin-bottom">
+                            Data de criação: 01/01/2021
+                        </p>
+
+                        <p class="uk-text-meta uk-margin-remove-top uk-width-1-2 uk-margin-bottom">
+                            Administrador: {{ corporationResponse.admin }}
+                        </p>
+
+                        <p class="uk-text-meta uk-margin-remove-top uk-width-1-2 uk-margin-bottom">
+                            Status: {{ corporationResponse.status.description }}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="uk-card-body">
+            <!-- <hr class="uk-divider-icon"> -->
+
+            <app-participants [corporationResponse]="corporationResponse"></app-participants>
+
+            <app-monthly-balances [corporationResponse]="corporationResponse"></app-monthly-balances>
+        </div>
+
+        <div class="uk-card-footer">
+            <a href="/corporacao" class="uk-button">Voltar</a>
+        </div>
+    </div>
+</div>

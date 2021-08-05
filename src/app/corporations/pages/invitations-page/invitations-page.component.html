@@ -1,0 +1,45 @@
+<div class="uk-container uk-margin-top uk-margin-top uk-width-2-3@l">
+    <div class="uk-card uk-card-default">
+        <div class="uk-card-header">
+            <div class="uk-grid-small uk-flex-middle" uk-grid>
+                <div class="uk-width-expand">
+                    <h3 class="uk-card-title uk-margin-remove-bottom">Convites pendentes</h3>
+                </div>
+            </div>
+        </div>
+        <div class="uk-card-body">
+            <p *ngIf="invitations.data.length == 0" class="uk-text-default">Não há convites pendentes</p>
+
+            <ul *ngIf="invitations.data.length > 0" uk-accordion>
+                <li *ngFor="let invitation of invitations.data">
+                    <p class="uk-accordion-title uk-text-default">{{ invitation.name }}</p>
+
+                    <div class="uk-accordion-content uk-text-meta">
+                        <p>Criador do contrato: {{ invitation.admin }}</p>
+                        <button class="uk-button uk-button-default"
+                            (click)="acceptParticipation(invitation.corporationId, invitation.participantId)">
+                            <span class="uk-icon uk-margin-small-right" uk-icon="icon: check"></span>
+                            Aceitar
+                        </button>
+
+                        <button class="uk-button uk-button-default"
+                            (click)="rejectParticipation(invitation.corporationId, invitation.participantId)">
+                            <span class="uk-icon uk-margin-small-right" uk-icon="icon: minus"></span>
+                            Recusar
+                        </button>
+
+                        <button class="uk-button uk-button-default uk-margin-small-left"
+                            routerLink="/corporacao/detalhes/{{invitation.corporationId}}">
+                            <span class="uk-icon uk-margin-small-right" uk-icon="icon: info"></span>
+                            Detalhes
+                        </button>
+                    </div>
+                </li>
+            </ul>
+
+        </div>
+        <div class="uk-card-footer">
+            <a routerLink="/corporacao" class="uk-button">Voltar</a>
+        </div>
+    </div>
+</div>

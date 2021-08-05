@@ -2,50 +2,47 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { AcceptPaymentRequest } from '../models/acceptPayment.models';
-import { AcceptToParticipateRequest } from '../models/acceptToParticipate.models';
-import { ActivateContractRequest } from '../models/activateContract.models';
-import { UserContractResponse } from '../models/contract.models';
-import { CreateContractRequest } from '../models/createContract.models';
-import { DetailedContractRequest, DetailedContractResponse } from '../models/detailedContract.models';
-import { ExecutePaymentRequest } from '../models/executePayment.models';
-import { InviteParticipantRequest } from '../models/inviteParticipant.models';
-import { PendingInvitationResponse } from '../models/pendingInvitation.models';
-import { RejectPaymentRequest } from '../models/rejectPayment.models';
-import { RejectToParticipateRequest } from '../models/rejectToParticipate.models';
-import { RemoveParticipantRequest } from '../models/removeParticipant.models';
+import { AcceptPaymentRequest } from '../models/requests/acceptPayment.request';
+import { AcceptToParticipateRequest } from '../models/requests/acceptToParticipate.request';
+import { ActivateContractRequest } from '../models/requests/activateContract.request';
+import { UserContractQueryResult } from '../models/queryResults/contract.queryResult';
+import { CreateContractRequest } from '../models/requests/createContract.request';
+import { DetailedContractRequest, DetailedContractQueryResult } from '../models/queryResults/detailedContract.queryResul';
+import { ExecutePaymentRequest } from '../models/requests/executePayment.request';
+import { InviteParticipantRequest } from '../models/requests/inviteParticipant.request';
+import { PendingInvitationQueryResult } from '../models/queryResults/pendingInvitation.queryResult';
+import { RejectPaymentRequest } from '../models/requests/rejectPayment.request';
+import { RejectToParticipateRequest } from '../models/requests/rejectToParticipate.request';
+import { RemoveParticipantRequest } from '../models/requests/removeParticipant.request';
+import { BaseService } from 'src/app/shared/services/base.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ContractsService {
+export class ContractsService extends BaseService {
 
-  constructor(private http: HttpClient) { }
-
-  public composeHeaders() {
-    const token: string = localStorage.getItem('token') as string;
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return headers;
+  constructor(http: HttpClient) {
+    super(http);
   }
 
-  getContractsOfUser(): Observable<UserContractResponse[]> {
+  getContractsOfUser(): Observable<UserContractQueryResult[]> {
     const path = environment.UrlBase + 'contracts/UserContracts';
 
-    var response = this.http.get<UserContractResponse[]>(path, { headers: this.composeHeaders() });
+    var response = this.http.get<UserContractQueryResult[]>(path, { headers: this.composeHeaders() });
     return response;
   }
 
-  getContractDetailed(param: DetailedContractRequest): Observable<DetailedContractResponse> {
+  getContractDetailed(param: DetailedContractRequest): Observable<DetailedContractQueryResult> {
     const path = environment.UrlBase + `contracts/ContractDetailed/${param.contractId}`;
 
-    var response = this.http.get<DetailedContractResponse>(path, { headers: this.composeHeaders() });
+    var response = this.http.get<DetailedContractQueryResult>(path, { headers: this.composeHeaders() });
     return response;
   }
 
-  getPendingInvitations(): Observable<PendingInvitationResponse[]> {
+  getPendingInvitations(): Observable<PendingInvitationQueryResult[]> {
     const path = environment.UrlBase + `contracts/PendingInvitations`;
 
-    var response = this.http.get<PendingInvitationResponse[]>(path, { headers: this.composeHeaders() });
+    var response = this.http.get<PendingInvitationQueryResult[]>(path, { headers: this.composeHeaders() });
     return response;
   }
 
@@ -97,7 +94,7 @@ export class ContractsService {
     var response = this.http.patch<any>(path, data, { headers: this.composeHeaders() });
     return response;
   }
-  
+
   acceptPayment(data: AcceptPaymentRequest): Observable<any> {
     const path = environment.UrlBase + 'contracts/AcceptPayment';
 

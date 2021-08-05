@@ -1,9 +1,11 @@
-export class PendingInvitationResponse{
+import { EnumResult } from "src/app/shared/enums/enumResult.model";
+
+export class PendingInvitationQueryResult{
     public accountContractId!: number;
     public contractId!: number;
     public contractName!: string;
     public contractOwner!: string;
-    public contractState!: string;
+    public contractState!: EnumResult;
     public participantRole!: string;
     public rentPrice!: number;
     public rentDueDate!: Date;

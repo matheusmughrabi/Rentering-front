@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ResponseBase } from 'src/app/shared/models/responseBase';
 import { ContractsService } from 'src/app/contracts/services/contracts.service';
 import { Router } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
+import { ToastrUtils } from 'src/app/shared/utils/toastr.utils';
 
 @Component({
   selector: 'app-create-contract-page',
@@ -15,16 +15,12 @@ export class CreateContractPageComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder, 
     private router: Router, 
-    private toastr: ToastrService, 
+    private toastrUtils: ToastrUtils, 
     private contractsService: ContractsService) {
   }
 
   ngOnInit(): void {
     this.setForm();
-  }
-
-  showMessage(){
-    this.toastr.success('mensagem de teste', 'título teste');
   }
 
   createContract(): void {
@@ -35,17 +31,8 @@ export class CreateContractPageComponent implements OnInit {
           this.router.onSameUrlNavigation = 'reload';
           this.router.navigate(['/contratos/novo-contrato']);
 
-          if (data.success) {
-            this.toastr.success(data.message, 'Notificação');           
-          }
-          else{
-            data.notifications.forEach(c => this.toastr.warning(c.message, c.title));
-          }
-        },
-        (error) => {
-          console.log(error);
-        }
-      );
+          this.toastrUtils.DisplayNotification(data);
+        });
   }
 
   private setForm(): void {

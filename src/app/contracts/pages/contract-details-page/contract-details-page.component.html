@@ -5,7 +5,7 @@
                 <div class="uk-width-expand">
                     <h3 class="uk-card-title uk-margin-remove-bottom">{{ detailedContractResponse.contractName }}</h3>
 
-                    <div *ngIf=" detailedContractResponse.currentUserRole.toLocaleLowerCase() === 'Criador'.toLocaleLowerCase()">
+                    <div *ngIf=" detailedContractResponse.currentUserRole.value === 1">
                         <p class="uk-margin-remove-top uk-margin-remove-bottom">
                             <button (click)="activateContract()" class="uk-button uk-button-primary uk-margin-left" type="button">
                                 Ativar contrato
@@ -16,11 +16,11 @@
                     <div uk-grid class="uk-margin-top">
 
                         <p class="uk-text-meta uk-margin-remove-top uk-width-1-2 uk-margin-bottom">
-                            Papel no contrato: {{ detailedContractResponse.currentUserRole }}
+                            Papel no contrato: {{ detailedContractResponse.currentUserRole.description }}
                         </p>
 
                         <p class="uk-text-meta uk-margin-remove-top uk-width-1-2 uk-margin-bottom">
-                            Status do contrato: {{ detailedContractResponse.contractState }}
+                            Status do contrato: {{ detailedContractResponse.contractState.description }}
                         </p>
 
                         <p class="uk-text-meta uk-margin-remove-top uk-width-1-2 uk-margin-bottom">
@@ -50,7 +50,7 @@
                     <h3>Participantes</h3>
                     <!-- This is a button toggling the modal with the default close button -->
                     <div
-                        *ngIf=" detailedContractResponse.currentUserRole.toLocaleLowerCase() === 'Criador'.toLocaleLowerCase()">
+                        *ngIf=" detailedContractResponse.currentUserRole.value === 1">
                         <p class="uk-margin-remove-top uk-margin-remove-bottom">
                             <button class="uk-button uk-button-primary uk-margin-left" type="button"
                                 uk-toggle="target: #modal-close-default">Novo participante</button>
@@ -96,12 +96,12 @@
 
                         <div class="uk-accordion-content uk-text-meta">
                             <button
-                                *ngIf=" detailedContractResponse.currentUserRole.toLocaleLowerCase() === 'Criador'.toLocaleLowerCase()"
+                                *ngIf=" detailedContractResponse.currentUserRole.value === 1"
                                 class="uk-button uk-button-default"
                                 (click)="removeParticipant(participant.accountId)">Remover</button>
 
-                            <p>Papel do participante: {{ participant.participantRole }}</p>
-                            <p>Status do participante: {{ participant.status }}</p>
+                            <p>Papel do participante: {{ participant.participantRole.description }}</p>
+                            <p>Status do participante: {{ participant.status.description }}</p>
                         </div>
                     </li>
                 </ul>
@@ -122,21 +122,21 @@
                             <p class="uk-accordion-title">{{ payment.month | date}}</p>
                             <div class="uk-accordion-content uk-text-meta">
                                 <p>Valor: {{ payment.rentPrice }}</p>
-                                <p>Status do participante: {{ payment.receiverPaymentStatus }}</p>
-                                <p>Status do participante: {{ payment.payerPaymentStatus }}</p>
+                                <p>Status do participante: {{ payment.receiverPaymentStatus.description }}</p>
+                                <p>Status do participante: {{ payment.payerPaymentStatus.description }}</p>
 
                                 <button (click)="executePayment(payment.month)"
-                                    *ngIf="payment.payerPaymentStatus.toLocaleLowerCase() === 'Sem status'.toLocaleLowerCase() &&  detailedContractResponse.currentUserRole.toLocaleLowerCase() === 'Pagador'.toLocaleLowerCase()"
+                                    *ngIf="payment.payerPaymentStatus.value === 0 &&  detailedContractResponse.currentUserRole.value === 3"
                                     class="uk-button uk-button-default">Efetuar
                                 </button>
 
                                 <button (click)="acceptPayment(payment.month)"
-                                    *ngIf="payment.payerPaymentStatus.toLocaleLowerCase() === 'Pagamento realizado'.toLocaleLowerCase() && detailedContractResponse.currentUserRole.toLocaleLowerCase() === 'Recebedor'.toLocaleLowerCase()"
+                                    *ngIf="payment.payerPaymentStatus.value === 1 && detailedContractResponse.currentUserRole.value === 2"
                                     class="uk-button uk-button-default">Aceitar
                                 </button>
 
                                 <button (click)="rejectPayment(payment.month)"
-                                    *ngIf="payment.payerPaymentStatus.toLocaleLowerCase() === 'Pagamento realizado'.toLocaleLowerCase() && detailedContractResponse.currentUserRole.toLocaleLowerCase() === 'Recebedor'.toLocaleLowerCase()"
+                                    *ngIf="payment.payerPaymentStatus.value === 1 && detailedContractResponse.currentUserRole.value === 2"
                                     class="uk-button uk-button-default">Recusar
                                 </button>
                             </div>
