@@ -17,6 +17,7 @@ import { CorporationService } from '../../services/corporation.service';
 })
 export class MonthlyBalancesComponent implements OnInit {
   public formProfit!: FormGroup;
+  public formParticipantBalanceDescription!: FormGroup;
   @Input() corporationResponse: CorporationDetailedQueryResult = new CorporationDetailedQueryResult();
   public paginationResult: PaginationResult = new PaginationResult();
   public busy: boolean = false;
@@ -29,6 +30,7 @@ export class MonthlyBalancesComponent implements OnInit {
 
   ngOnInit(): void {
     this.prepareFormProfit();
+    this.prepareFormParticipantBalanceDescription();
     this.sortMonthlyBalances();
   }
 
@@ -66,13 +68,16 @@ export class MonthlyBalancesComponent implements OnInit {
   }
 
   public addParticipantDescriptionToMonth(monthlyBalanceId: number): void {
-    let request = new AddParticipantDescriptionToMonth(this.corporationResponse.id, monthlyBalanceId, 'descrição teste');
+    this.busy = true;
+    let request = new AddParticipantDescriptionToMonth(this.corporationResponse.id, monthlyBalanceId, this.formParticipantBalanceDescription.value['description']);
 
     this.corporationService.addParticipantDescriptionToMonth(request)
       .subscribe((data: ResponseBase<any>) => {
         this.toastrUtils.DisplayNotification(data);
         this.realoadData();
       });
+
+      this.formParticipantBalanceDescription.reset();
   }
 
   private realoadData(): void {
@@ -94,6 +99,14 @@ export class MonthlyBalancesComponent implements OnInit {
       totalProfit: ['', Validators.compose([
         Validators.required,
         Validators.min(0.01)
+      ])]
+    })
+  }
+
+  private prepareFormParticipantBalanceDescription(): void {
+    this.formParticipantBalanceDescription = this.fb.group({
+      description: ['', Validators.compose([
+        Validators.required
       ])]
     })
   }

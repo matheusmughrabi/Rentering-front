@@ -68,7 +68,8 @@
                         <div *ngFor="let participantBalances of monthlyBalance.participantBalances">
                 <li>
                     <div class="uk-accordion-content uk-text-meta">
-                        <p>{{ participantBalances.participantName }} : {{ participantBalances.balance | currency: 'BRL'}}</p>
+                        <p>{{ participantBalances.participantName }} : {{ participantBalances.balance | currency:
+                            'BRL'}}</p>
                         <p>Status: {{ participantBalances.status.description }}</p>
                         <p>Comentário: {{ participantBalances.description }}</p>
                     </div>
@@ -89,10 +90,46 @@
                 Contestar
             </button>
 
-            <button *ngIf="monthlyBalance.currentUserBalanceStatus?.value == 1"
-                (click)="addParticipantDescriptionToMonth(monthlyBalance.id)" class="uk-button uk-button-default">
-                Descrição
-            </button>
+            <p class="uk-margin-remove-top uk-margin-remove-bottom">
+                <button
+                    class="uk-button uk-button-primary uk-margin-left" type="button"
+                    uk-toggle="target: #participant-balance-description-modal">
+                    <span class="uk-icon uk-margin-small-right" uk-icon="icon: plus"></span>
+                    Descrição
+                </button>
+            </p>
+        </div>  
+    </div>
+
+    <!-- This is the modal with the default close button -->
+    <div id="participant-balance-description-modal" uk-modal>
+        <div class="uk-modal-dialog uk-modal-body">
+            <button class="uk-modal-close-default" type="button" uk-close></button>
+            <div class="uk-flex">
+                <h2 class="uk-modal-title uk-margin-medium-right">Adicionar comentário</h2>
+                <app-loading *ngIf="busy" [ratio]="1"></app-loading>
+            </div>
+
+            <form [formGroup]="formParticipantBalanceDescription" class="uk-form-stacked">
+                <div class="uk-margin">
+                    <label class="uk-form-label" for="description">Comentário</label>
+                    <div class="uk-form-controls">
+                        <input class="uk-input" id="description" formControlName="description" type="text"
+                            placeholder="Novo comentário"
+                            [ngClass]="{'uk-form-danger': (!formParticipantBalanceDescription.controls.description.valid 
+                            && !formParticipantBalanceDescription.controls.description.pristine) }">
+                    </div>
+                </div>
+
+                <div class="uk-text-right">
+                    <button class="uk-button uk-button-default" [disabled]="formParticipantBalanceDescription.invalid"
+                        (click)="addParticipantDescriptionToMonth(monthlyBalance.id)"
+                        uk-toggle="target: #participant-balance-description-modal">
+                        Salvar
+                    </button>
+                </div>
+            </form>
+
         </div>
     </div>
     </li>
