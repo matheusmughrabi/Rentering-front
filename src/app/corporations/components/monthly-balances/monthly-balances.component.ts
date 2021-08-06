@@ -22,6 +22,8 @@ export class MonthlyBalancesComponent implements OnInit {
   public paginationResult: PaginationResult = new PaginationResult();
   public busy: boolean = false;
 
+  private monthId!: number;
+
   constructor(
     private fb: FormBuilder,
     private toastrUtils: ToastrUtils,
@@ -67,9 +69,13 @@ export class MonthlyBalancesComponent implements OnInit {
       });
   }
 
-  public addParticipantDescriptionToMonth(monthlyBalanceId: number): void {
+  public selectMonth(monthlyBalanceId: number){
+    this.monthId = monthlyBalanceId;
+  }
+
+  public addParticipantDescriptionToMonth(): void {
     this.busy = true;
-    let request = new AddParticipantDescriptionToMonth(this.corporationResponse.id, monthlyBalanceId, this.formParticipantBalanceDescription.value['description']);
+    let request = new AddParticipantDescriptionToMonth(this.corporationResponse.id, this.monthId, this.formParticipantBalanceDescription.value['description']);
 
     this.corporationService.addParticipantDescriptionToMonth(request)
       .subscribe((data: ResponseBase<any>) => {

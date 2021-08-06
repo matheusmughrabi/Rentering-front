@@ -90,19 +90,18 @@
                 Contestar
             </button>
 
-            <p class="uk-margin-remove-top uk-margin-remove-bottom">
-                <button
-                    class="uk-button uk-button-primary uk-margin-left" type="button"
-                    uk-toggle="target: #participant-balance-description-modal">
-                    <span class="uk-icon uk-margin-small-right" uk-icon="icon: plus"></span>
-                    Descrição
-                </button>
-            </p>
+            <button
+                (click)="selectMonth(monthlyBalance.id)" class="uk-button uk-button-default"
+                uk-toggle="target: #participant-balance-description-modal">
+                <span class="uk-icon uk-margin-small-right" uk-icon="icon: info"></span>
+                Comentar
+            </button>
         </div>  
     </div>
+    </li>
 
-    <!-- This is the modal with the default close button -->
-    <div id="participant-balance-description-modal" uk-modal>
+     <!-- This is the modal with the default close button -->
+     <div id="participant-balance-description-modal" uk-modal>
         <div class="uk-modal-dialog uk-modal-body">
             <button class="uk-modal-close-default" type="button" uk-close></button>
             <div class="uk-flex">
@@ -123,16 +122,15 @@
 
                 <div class="uk-text-right">
                     <button class="uk-button uk-button-default" [disabled]="formParticipantBalanceDescription.invalid"
-                        (click)="addParticipantDescriptionToMonth(monthlyBalance.id)"
+                        (click)="addParticipantDescriptionToMonth()"
                         uk-toggle="target: #participant-balance-description-modal">
                         Salvar
                     </button>
                 </div>
             </form>
-
         </div>
     </div>
-    </li>
+
     </ul>
 
     <div class="uk-text-center uk-margin-medium-top uk-margin-medium-bottom">
