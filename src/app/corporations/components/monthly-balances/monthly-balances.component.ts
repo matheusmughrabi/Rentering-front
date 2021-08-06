@@ -8,6 +8,8 @@ import { CorporationDetailedQueryResult } from '../../models/queryResults/corpor
 import { AcceptBalanceRequest } from '../../models/requests/acceptBalance.request';
 import { AddMonthRequest } from '../../models/requests/addMonth.request';
 import { AddParticipantDescriptionToMonth } from '../../models/requests/addParticipantDescriptionToMonth.request';
+import { CloseMonthRequest } from '../../models/requests/closeMonth.request';
+import { RegisterIncomeRequest } from '../../models/requests/registerIncome.request';
 import { RejectBalanceRequest } from '../../models/requests/rejectBalance.request';
 import { CorporationService } from '../../services/corporation.service';
 
@@ -18,6 +20,7 @@ import { CorporationService } from '../../services/corporation.service';
 export class MonthlyBalancesComponent implements OnInit {
   public formProfit!: FormGroup;
   public formParticipantBalanceDescription!: FormGroup;
+  public formRegisterIncome!: FormGroup;
   @Input() corporationResponse: CorporationDetailedQueryResult = new CorporationDetailedQueryResult();
   public paginationResult: PaginationResult = new PaginationResult();
   public busy: boolean = false;
@@ -33,6 +36,8 @@ export class MonthlyBalancesComponent implements OnInit {
   ngOnInit(): void {
     this.prepareFormProfit();
     this.prepareFormParticipantBalanceDescription();
+    this.prepareFormRegisterIncome();
+
     this.sortMonthlyBalances();
   }
 
@@ -41,8 +46,7 @@ export class MonthlyBalancesComponent implements OnInit {
     let request = new AddMonthRequest(
       this.corporationResponse.id, 
       this.formProfit.value['startDate'], 
-      this.formProfit.value['endDate'],
-      this.formProfit.value['totalProfit']);
+      this.formProfit.value['endDate']);
 
     this.corporationService.addMonth(request)
       .subscribe((data: ResponseBase<any>) => {
@@ -51,6 +55,36 @@ export class MonthlyBalancesComponent implements OnInit {
       });
 
     this.formProfit.reset();
+  }
+
+  public registerIncome(): void {
+    this.busy = true;
+
+    let request = new RegisterIncomeRequest(
+      this.corporationResponse.id, 
+      this.monthId, 
+      this.formRegisterIncome.value['title'], 
+      this.formRegisterIncome.value['description'],
+      this.formRegisterIncome.value['value']
+      );
+
+    this.corporationService.registerIncome(request)
+      .subscribe((data: ResponseBase<any>) => {
+        this.toastrUtils.DisplayNotification(data);
+        this.realoadData();
+      });
+
+    this.formRegisterIncome.reset();
+  }
+
+  public closeMonth(monthlyBalanceId: number): void {
+    let request = new CloseMonthRequest(this.corporationResponse.id, monthlyBalanceId);
+
+    this.corporationService.closeMonth(request)
+      .subscribe((data: ResponseBase<any>) => {
+        this.toastrUtils.DisplayNotification(data);
+        this.realoadData();
+      });
   }
 
   public acceptBalance(monthlyBalanceId: number): void {
@@ -108,11 +142,6 @@ export class MonthlyBalancesComponent implements OnInit {
 
       endDate: ['', Validators.compose([
         Validators.required
-      ])],
-
-      totalProfit: ['', Validators.compose([
-        Validators.required,
-        Validators.min(0.01)
       ])]
     })
   }
@@ -121,6 +150,23 @@ export class MonthlyBalancesComponent implements OnInit {
     this.formParticipantBalanceDescription = this.fb.group({
       description: ['', Validators.compose([
         Validators.required
+      ])]
+    })
+  }
+
+  private prepareFormRegisterIncome(): void {
+    this.formRegisterIncome = this.fb.group({
+      title: ['', Validators.compose([
+        Validators.required
+      ])],
+
+      description: ['', Validators.compose([
+        Validators.required
+      ])],
+
+      value: ['', Validators.compose([
+        Validators.required,
+        Validators.min(0.01)
       ])]
     })
   }

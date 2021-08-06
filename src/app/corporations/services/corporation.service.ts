@@ -18,6 +18,8 @@ import { BaseService } from 'src/app/shared/services/base.service';
 import { SingleQueryResult } from 'src/app/shared/queryResults/single.queryResult';
 import { ListQueryResult } from 'src/app/shared/queryResults/list.queryResult';
 import { AddParticipantDescriptionToMonth } from '../models/requests/addParticipantDescriptionToMonth.request';
+import { RegisterIncomeRequest } from '../models/requests/registerIncome.request';
+import { CloseMonthRequest } from '../models/requests/closeMonth.request';
 
 @Injectable({
   providedIn: 'root'
@@ -91,6 +93,20 @@ export class CorporationService extends BaseService {
 
   addMonth(data: AddMonthRequest): Observable<any> {
     const path = environment.UrlBase + 'corporation/add-month';
+
+    var response = this.http.put<any>(path, data, { headers: this.composeHeaders() });
+    return response;
+  }
+
+  registerIncome(data: RegisterIncomeRequest): Observable<any> {
+    const path = environment.UrlBase + 'corporation/register-income';
+
+    var response = this.http.put<any>(path, data, { headers: this.composeHeaders() });
+    return response;
+  }
+
+  closeMonth(data: CloseMonthRequest): Observable<any> {
+    const path = environment.UrlBase + 'corporation/close-month';
 
     var response = this.http.put<any>(path, data, { headers: this.composeHeaders() });
     return response;
