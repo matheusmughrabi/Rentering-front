@@ -30,4 +30,5 @@ export class ParticipantBalance{
     public participantName!: string;
     public balance!: number;
     public status!: EnumResult;
+    public description!: string;
 }

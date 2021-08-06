@@ -70,6 +70,7 @@
                     <div class="uk-accordion-content uk-text-meta">
                         <p>{{ participantBalances.participantName }} : {{ participantBalances.balance | currency: 'BRL'}}</p>
                         <p>Status: {{ participantBalances.status.description }}</p>
+                        <p>Comentário: {{ participantBalances.description }}</p>
                     </div>
                 </li>
         </div>
@@ -86,6 +87,11 @@
                 (click)="rejectBalance(monthlyBalance.id)" class="uk-button uk-button-default">
                 <span class="uk-icon uk-margin-small-right" uk-icon="icon: ban"></span>
                 Contestar
+            </button>
+
+            <button *ngIf="monthlyBalance.currentUserBalanceStatus?.value == 1"
+                (click)="addParticipantDescriptionToMonth(monthlyBalance.id)" class="uk-button uk-button-default">
+                Descrição
             </button>
         </div>
     </div>

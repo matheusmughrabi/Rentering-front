@@ -7,6 +7,7 @@ import { ToastrUtils } from 'src/app/shared/utils/toastr.utils';
 import { CorporationDetailedQueryResult } from '../../models/queryResults/corporationDetailed.queryResult';
 import { AcceptBalanceRequest } from '../../models/requests/acceptBalance.request';
 import { AddMonthRequest } from '../../models/requests/addMonth.request';
+import { AddParticipantDescriptionToMonth } from '../../models/requests/addParticipantDescriptionToMonth.request';
 import { RejectBalanceRequest } from '../../models/requests/rejectBalance.request';
 import { CorporationService } from '../../services/corporation.service';
 
@@ -64,11 +65,23 @@ export class MonthlyBalancesComponent implements OnInit {
       });
   }
 
+  public addParticipantDescriptionToMonth(monthlyBalanceId: number): void {
+    let request = new AddParticipantDescriptionToMonth(this.corporationResponse.id, monthlyBalanceId, 'descrição teste');
+
+    this.corporationService.addParticipantDescriptionToMonth(request)
+      .subscribe((data: ResponseBase<any>) => {
+        this.toastrUtils.DisplayNotification(data);
+        this.realoadData();
+      });
+  }
+
   private realoadData(): void {
     this.corporationService.getCorporationDetailed(this.corporationResponse.id)
       .subscribe((queryResult: SingleQueryResult<CorporationDetailedQueryResult>) => {
         this.corporationResponse = queryResult.data;
         this.busy = false;
+
+        this.sortMonthlyBalances();
       });
   }
 
