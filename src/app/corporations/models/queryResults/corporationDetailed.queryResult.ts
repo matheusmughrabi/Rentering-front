@@ -19,7 +19,8 @@ export class Participant {
 
 export class MonthlyBalance {
     public id!: number;
-    public month!: Date;
+    public startDate!: Date;
+    public endDate!: Date;
     public totalProfit!: number;
     public status!: EnumResult;
     public currentUserBalanceStatus!: EnumResult;

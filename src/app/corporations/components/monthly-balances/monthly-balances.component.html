@@ -16,16 +16,26 @@
         <div class="uk-modal-dialog uk-modal-body">
             <button class="uk-modal-close-default" type="button" uk-close></button>
             <div class="uk-flex">
-                <h2 class="uk-modal-title uk-margin-medium-right">Novo mês</h2>
+                <h2 class="uk-modal-title uk-margin-medium-right">Novo período</h2>
                 <app-loading *ngIf="busy" [ratio]="1"></app-loading>
             </div>
 
             <form [formGroup]="formProfit" class="uk-form-stacked">
                 <div class="uk-margin">
-                    <label class="uk-form-label" for="month">Mês</label>
+                    <label class="uk-form-label" for="startDate">Início</label>
                     <div class="uk-form-controls">
-                        <input class="uk-input" id="month" formControlName="month" type="date" placeholder="Novo mês"
-                            [ngClass]="{'uk-form-danger': (!formProfit.controls.month.valid && !formProfit.controls.month.pristine) }">
+                        <input class="uk-input" id="startDate" formControlName="startDate" type="date"
+                            placeholder="Início do período"
+                            [ngClass]="{'uk-form-danger': (!formProfit.controls.startDate.valid && !formProfit.controls.startDate.pristine) }">
+                    </div>
+                </div>
+
+                <div class="uk-margin">
+                    <label class="uk-form-label" for="endDate">Final</label>
+                    <div class="uk-form-controls">
+                        <input class="uk-input" id="endDate" formControlName="endDate" type="date"
+                            placeholder="Fim do período"
+                            [ngClass]="{'uk-form-danger': (!formProfit.controls.endDate.valid && !formProfit.controls.endDate.pristine) }">
                     </div>
                 </div>
 
@@ -60,7 +70,11 @@
                 itemsPerPage: 10, 
                 currentPage: paginationResult.page, 
                 totalItems: paginationResult.totalRecords }">
-                    <p class="uk-accordion-title">{{ monthlyBalance.month | date:'longDate' }}</p>
+
+                    <div class="uk-accordion-title">
+                        <p>De <i>{{ monthlyBalance.startDate | date:'longDate' }}</i> até <i>{{ monthlyBalance.endDate | date:'longDate' }}</i></p>
+                    </div>
+
                     <div class="uk-accordion-content uk-text-meta">
                         <p>Status do mês: {{ monthlyBalance.status.description }}</p>
                         <p>Total: {{ monthlyBalance.totalProfit }}</p>
@@ -90,18 +104,17 @@
                 Contestar
             </button>
 
-            <button
-                (click)="selectMonth(monthlyBalance.id)" class="uk-button uk-button-default"
+            <button (click)="selectMonth(monthlyBalance.id)" class="uk-button uk-button-default"
                 uk-toggle="target: #participant-balance-description-modal">
                 <span class="uk-icon uk-margin-small-right" uk-icon="icon: info"></span>
                 Comentar
             </button>
-        </div>  
+        </div>
     </div>
     </li>
 
-     <!-- This is the modal with the default close button -->
-     <div id="participant-balance-description-modal" uk-modal>
+    <!-- This is the modal with the default close button -->
+    <div id="participant-balance-description-modal" uk-modal>
         <div class="uk-modal-dialog uk-modal-body">
             <button class="uk-modal-close-default" type="button" uk-close></button>
             <div class="uk-flex">
@@ -114,8 +127,7 @@
                     <label class="uk-form-label" for="description">Comentário</label>
                     <div class="uk-form-controls">
                         <input class="uk-input" id="description" formControlName="description" type="text"
-                            placeholder="Novo comentário"
-                            [ngClass]="{'uk-form-danger': (!formParticipantBalanceDescription.controls.description.valid 
+                            placeholder="Novo comentário" [ngClass]="{'uk-form-danger': (!formParticipantBalanceDescription.controls.description.valid 
                             && !formParticipantBalanceDescription.controls.description.pristine) }">
                     </div>
                 </div>

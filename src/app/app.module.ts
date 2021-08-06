@@ -1,4 +1,7 @@
-import { NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
+import { registerLocaleData } from '@angular/common';
+import localePt from '@angular/common/locales/pt';
+
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -23,6 +26,8 @@ import { InvitationsPageComponent } from './corporations/pages/invitations-page/
 import { MonthlyBalancesComponent } from './corporations/components/monthly-balances/monthly-balances.component';
 import { ParticipantsComponent } from './corporations/components/participants/participants.component';
 import { LoadingComponent } from './shared/components/loading/loading.component';
+
+registerLocaleData(localePt, 'pt-BR');
 
 @NgModule({
   declarations: [
@@ -51,7 +56,9 @@ import { LoadingComponent } from './shared/components/loading/loading.component'
     NgxPaginationModule,  
     AppRoutingModule
   ],
-  providers: [],
+  providers: [
+    { provide: LOCALE_ID, useValue: 'pt-BR' }   
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

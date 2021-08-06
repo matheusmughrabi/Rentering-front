@@ -38,7 +38,11 @@ export class MonthlyBalancesComponent implements OnInit {
 
   public addMonth(): void {
     this.busy = true;
-    let request = new AddMonthRequest(this.corporationResponse.id, this.formProfit.value['month'], this.formProfit.value['totalProfit']);
+    let request = new AddMonthRequest(
+      this.corporationResponse.id, 
+      this.formProfit.value['startDate'], 
+      this.formProfit.value['endDate'],
+      this.formProfit.value['totalProfit']);
 
     this.corporationService.addMonth(request)
       .subscribe((data: ResponseBase<any>) => {
@@ -98,7 +102,11 @@ export class MonthlyBalancesComponent implements OnInit {
 
   private prepareFormProfit(): void {
     this.formProfit = this.fb.group({
-      month: ['', Validators.compose([
+      startDate: ['', Validators.compose([
+        Validators.required
+      ])],
+
+      endDate: ['', Validators.compose([
         Validators.required
       ])],
 
@@ -119,7 +127,7 @@ export class MonthlyBalancesComponent implements OnInit {
 
   private sortMonthlyBalances(): void {
     this.corporationResponse.monthlyBalances.sort((a, b) => {
-      if (a.month < b.month) {
+      if (a.startDate < b.startDate) {
         return 1;
       }
       else {
