@@ -36,13 +36,13 @@ export class CorporationsPageComponent implements OnInit {
           this.userCorporationsPaginated = queryResult;
 
           this.userCorporationsPaginated.data.sort((a, b) => {
-            if(a.name.toLocaleLowerCase() < b.name.toLocaleLowerCase()){
+            if(a.createDate < b.createDate){
               return 1;
             }
             else{
               return -1;
             }
-          })
+          });
 
           this.paginationResult.page = 1;
           this.paginationResult.recordsPerPage = 10;
