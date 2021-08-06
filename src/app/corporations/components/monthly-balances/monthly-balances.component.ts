@@ -8,6 +8,7 @@ import { CorporationDetailedQueryResult } from '../../models/queryResults/corpor
 import { AcceptBalanceRequest } from '../../models/requests/acceptBalance.request';
 import { AddMonthRequest } from '../../models/requests/addMonth.request';
 import { AddParticipantDescriptionToMonth } from '../../models/requests/addParticipantDescriptionToMonth.request';
+import { CloseMonthRequest } from '../../models/requests/closeMonth.request';
 import { RegisterIncomeRequest } from '../../models/requests/registerIncome.request';
 import { RejectBalanceRequest } from '../../models/requests/rejectBalance.request';
 import { CorporationService } from '../../services/corporation.service';
@@ -74,6 +75,16 @@ export class MonthlyBalancesComponent implements OnInit {
       });
 
     this.formRegisterIncome.reset();
+  }
+
+  public closeMonth(monthlyBalanceId: number): void {
+    let request = new CloseMonthRequest(this.corporationResponse.id, monthlyBalanceId);
+
+    this.corporationService.closeMonth(request)
+      .subscribe((data: ResponseBase<any>) => {
+        this.toastrUtils.DisplayNotification(data);
+        this.realoadData();
+      });
   }
 
   public acceptBalance(monthlyBalanceId: number): void {

@@ -90,6 +90,13 @@
             </button>
 
             <button
+            *ngIf="corporationResponse.isCurrentUserAdmin"
+                (click)="closeMonth(monthlyBalance.id)" class="uk-button uk-button-default uk-margin-small-right">
+                <span class="uk-icon uk-margin-small-right" uk-icon="icon: check"></span>
+                Realizar fechamento
+            </button>
+
+            <button
                 *ngIf="monthlyBalance.currentUserBalanceStatus?.value == 1 || monthlyBalance.currentUserBalanceStatus?.value == 3"
                 (click)="acceptBalance(monthlyBalance.id)" class="uk-button uk-button-default uk-margin-small-right">
                 <span class="uk-icon uk-margin-small-right" uk-icon="icon: check"></span>
