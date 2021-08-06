@@ -17,6 +17,7 @@ import { RejectBalanceRequest } from '../models/requests/rejectBalance.request';
 import { BaseService } from 'src/app/shared/services/base.service';
 import { SingleQueryResult } from 'src/app/shared/queryResults/single.queryResult';
 import { ListQueryResult } from 'src/app/shared/queryResults/list.queryResult';
+import { AddParticipantDescriptionToMonth } from '../models/requests/addParticipantDescriptionToMonth.request';
 
 @Injectable({
   providedIn: 'root'
@@ -104,6 +105,13 @@ export class CorporationService extends BaseService {
 
   rejectBalance(data: RejectBalanceRequest): Observable<any> {
     const path = environment.UrlBase + 'corporation/balance/reject';
+
+    var response = this.http.put<any>(path, data, { headers: this.composeHeaders() });
+    return response;
+  }
+
+  addParticipantDescriptionToMonth(data: AddParticipantDescriptionToMonth): Observable<any> {
+    const path = environment.UrlBase + 'corporation/participant-balance/description';
 
     var response = this.http.put<any>(path, data, { headers: this.composeHeaders() });
     return response;

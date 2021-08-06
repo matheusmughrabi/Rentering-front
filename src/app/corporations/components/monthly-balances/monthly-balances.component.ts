@@ -7,6 +7,7 @@ import { ToastrUtils } from 'src/app/shared/utils/toastr.utils';
 import { CorporationDetailedQueryResult } from '../../models/queryResults/corporationDetailed.queryResult';
 import { AcceptBalanceRequest } from '../../models/requests/acceptBalance.request';
 import { AddMonthRequest } from '../../models/requests/addMonth.request';
+import { AddParticipantDescriptionToMonth } from '../../models/requests/addParticipantDescriptionToMonth.request';
 import { RejectBalanceRequest } from '../../models/requests/rejectBalance.request';
 import { CorporationService } from '../../services/corporation.service';
 
@@ -16,9 +17,12 @@ import { CorporationService } from '../../services/corporation.service';
 })
 export class MonthlyBalancesComponent implements OnInit {
   public formProfit!: FormGroup;
+  public formParticipantBalanceDescription!: FormGroup;
   @Input() corporationResponse: CorporationDetailedQueryResult = new CorporationDetailedQueryResult();
   public paginationResult: PaginationResult = new PaginationResult();
   public busy: boolean = false;
+
+  private monthId!: number;
 
   constructor(
     private fb: FormBuilder,
@@ -28,12 +32,17 @@ export class MonthlyBalancesComponent implements OnInit {
 
   ngOnInit(): void {
     this.prepareFormProfit();
+    this.prepareFormParticipantBalanceDescription();
     this.sortMonthlyBalances();
   }
 
   public addMonth(): void {
     this.busy = true;
-    let request = new AddMonthRequest(this.corporationResponse.id, this.formProfit.value['month'], this.formProfit.value['totalProfit']);
+    let request = new AddMonthRequest(
+      this.corporationResponse.id, 
+      this.formProfit.value['startDate'], 
+      this.formProfit.value['endDate'],
+      this.formProfit.value['totalProfit']);
 
     this.corporationService.addMonth(request)
       .subscribe((data: ResponseBase<any>) => {
@@ -64,17 +73,40 @@ export class MonthlyBalancesComponent implements OnInit {
       });
   }
 
+  public selectMonth(monthlyBalanceId: number){
+    this.monthId = monthlyBalanceId;
+  }
+
+  public addParticipantDescriptionToMonth(): void {
+    this.busy = true;
+    let request = new AddParticipantDescriptionToMonth(this.corporationResponse.id, this.monthId, this.formParticipantBalanceDescription.value['description']);
+
+    this.corporationService.addParticipantDescriptionToMonth(request)
+      .subscribe((data: ResponseBase<any>) => {
+        this.toastrUtils.DisplayNotification(data);
+        this.realoadData();
+      });
+
+      this.formParticipantBalanceDescription.reset();
+  }
+
   private realoadData(): void {
     this.corporationService.getCorporationDetailed(this.corporationResponse.id)
       .subscribe((queryResult: SingleQueryResult<CorporationDetailedQueryResult>) => {
         this.corporationResponse = queryResult.data;
         this.busy = false;
+
+        this.sortMonthlyBalances();
       });
   }
 
   private prepareFormProfit(): void {
     this.formProfit = this.fb.group({
-      month: ['', Validators.compose([
+      startDate: ['', Validators.compose([
+        Validators.required
+      ])],
+
+      endDate: ['', Validators.compose([
         Validators.required
       ])],
 
@@ -85,9 +117,17 @@ export class MonthlyBalancesComponent implements OnInit {
     })
   }
 
+  private prepareFormParticipantBalanceDescription(): void {
+    this.formParticipantBalanceDescription = this.fb.group({
+      description: ['', Validators.compose([
+        Validators.required
+      ])]
+    })
+  }
+
   private sortMonthlyBalances(): void {
     this.corporationResponse.monthlyBalances.sort((a, b) => {
-      if (a.month < b.month) {
+      if (a.startDate < b.startDate) {
         return 1;
       }
       else {
