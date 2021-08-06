@@ -24,11 +24,11 @@ export class MonthlyBalancesComponent implements OnInit {
     private fb: FormBuilder,
     private toastrUtils: ToastrUtils,
     private corporationService: CorporationService) {
-    
   }
 
   ngOnInit(): void {
     this.prepareFormProfit();
+    this.sortMonthlyBalances();
   }
 
   public addMonth(): void {
@@ -41,7 +41,7 @@ export class MonthlyBalancesComponent implements OnInit {
         this.realoadData();
       });
 
-      this.formProfit.reset();
+    this.formProfit.reset();
   }
 
   public acceptBalance(monthlyBalanceId: number): void {
@@ -83,5 +83,16 @@ export class MonthlyBalancesComponent implements OnInit {
         Validators.min(0.01)
       ])]
     })
+  }
+
+  private sortMonthlyBalances(): void {
+    this.corporationResponse.monthlyBalances.sort((a, b) => {
+      if (a.month < b.month) {
+        return 1;
+      }
+      else {
+        return -1;
+      }
+    });
   }
 }

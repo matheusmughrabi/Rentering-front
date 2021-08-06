@@ -57,7 +57,7 @@
         <div *ngIf="corporationResponse.monthlyBalances.length > 0">
             <ul uk-accordion>
                 <li *ngFor="let monthlyBalance of corporationResponse.monthlyBalances | paginate: { 
-                itemsPerPage: 5, 
+                itemsPerPage: 10, 
                 currentPage: paginationResult.page, 
                 totalItems: paginationResult.totalRecords }">
                     <p class="uk-accordion-title">{{ monthlyBalance.month | date:'longDate' }}</p>
