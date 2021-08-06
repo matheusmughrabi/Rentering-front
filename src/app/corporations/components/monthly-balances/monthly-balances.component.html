@@ -39,15 +39,6 @@
                     </div>
                 </div>
 
-                <div class="uk-margin">
-                    <label class="uk-form-label" for="totalProfit">Valor total</label>
-                    <div class="uk-form-controls">
-                        <input class="uk-input" id="totalProfit" formControlName="totalProfit" type="number"
-                            placeholder="Valor total"
-                            [ngClass]="{'uk-form-danger': (!formProfit.controls.totalProfit.valid && !formProfit.controls.totalProfit.pristine) }">
-                    </div>
-                </div>
-
                 <div class="uk-text-right">
                     <button class="uk-button uk-button-default" [disabled]="formProfit.invalid" (click)="addMonth()"
                         uk-toggle="target: #modal-close-total-profit">Adicionar</button>
@@ -72,7 +63,8 @@
                 totalItems: paginationResult.totalRecords }">
 
                     <div class="uk-accordion-title">
-                        <p>De <i>{{ monthlyBalance.startDate | date:'longDate' }}</i> até <i>{{ monthlyBalance.endDate | date:'longDate' }}</i></p>
+                        <p>De <i>{{ monthlyBalance.startDate | date:'longDate' }}</i> até <i>{{ monthlyBalance.endDate |
+                                date:'longDate' }}</i></p>
                     </div>
 
                     <div class="uk-accordion-content uk-text-meta">
@@ -91,6 +83,12 @@
         </div>
 
         <div class="uk-margin-top">
+            <button *ngIf="corporationResponse.isCurrentUserAdmin" (click)="selectMonth(monthlyBalance.id)"
+                class="uk-button uk-button-default" uk-toggle="target: #register-income-modal">
+                <span class="uk-icon uk-margin-small-right" uk-icon="icon: info"></span>
+                Adicionar renda
+            </button>
+
             <button
                 *ngIf="monthlyBalance.currentUserBalanceStatus?.value == 1 || monthlyBalance.currentUserBalanceStatus?.value == 3"
                 (click)="acceptBalance(monthlyBalance.id)" class="uk-button uk-button-default uk-margin-small-right">
@@ -104,7 +102,8 @@
                 Contestar
             </button>
 
-            <button (click)="selectMonth(monthlyBalance.id)" class="uk-button uk-button-default"
+            <button *ngIf="monthlyBalance.currentUserBalanceStatus?.value != null"
+                (click)="selectMonth(monthlyBalance.id)" class="uk-button uk-button-default"
                 uk-toggle="target: #participant-balance-description-modal">
                 <span class="uk-icon uk-margin-small-right" uk-icon="icon: info"></span>
                 Comentar
@@ -136,6 +135,53 @@
                     <button class="uk-button uk-button-default" [disabled]="formParticipantBalanceDescription.invalid"
                         (click)="addParticipantDescriptionToMonth()"
                         uk-toggle="target: #participant-balance-description-modal">
+                        Salvar
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- This is the modal with the default close button -->
+    <div id="register-income-modal" uk-modal>
+        <div class="uk-modal-dialog uk-modal-body">
+            <button class="uk-modal-close-default" type="button" uk-close></button>
+            <div class="uk-flex">
+                <h2 class="uk-modal-title uk-margin-medium-right">Adicionar comentário</h2>
+                <app-loading *ngIf="busy" [ratio]="1"></app-loading>
+            </div>
+
+            <form [formGroup]="formRegisterIncome" class="uk-form-stacked">
+                <div class="uk-margin">
+                    <label class="uk-form-label" for="title">Título</label>
+                    <div class="uk-form-controls">
+                        <input class="uk-input" id="title" formControlName="title" type="text"
+                            placeholder="Novo comentário" [ngClass]="{'uk-form-danger': (!formRegisterIncome.controls.title.valid 
+                            && !formRegisterIncome.controls.title.pristine) }">
+                    </div>
+                </div>
+
+                <div class="uk-margin">
+                    <label class="uk-form-label" for="description">Descrição</label>
+                    <div class="uk-form-controls">
+                        <input class="uk-input" id="description" formControlName="description" type="text"
+                            placeholder="Novo comentário" [ngClass]="{'uk-form-danger': (!formRegisterIncome.controls.description.valid 
+                            && !formRegisterIncome.controls.description.pristine) }">
+                    </div>
+                </div>
+
+                <div class="uk-margin">
+                    <label class="uk-form-label" for="value">Valor</label>
+                    <div class="uk-form-controls">
+                        <input class="uk-input" id="value" formControlName="value" type="number" placeholder="Valor"
+                            [ngClass]="{'uk-form-danger': (!formRegisterIncome.controls.value.valid 
+                            && !formRegisterIncome.controls.value.pristine) }">
+                    </div>
+                </div>
+
+                <div class="uk-text-right">
+                    <button class="uk-button uk-button-default" [disabled]="formRegisterIncome.invalid"
+                        (click)="registerIncome()" uk-toggle="target: #register-income-modal">
                         Salvar
                     </button>
                 </div>
