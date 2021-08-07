@@ -1,0 +1,60 @@
+<div class="uk-container uk-margin-top uk-width-2-3@l">
+    <div class="uk-card uk-card-default uk-margin-bottom">
+        <div class="uk-card-header">
+            <div class="uk-grid-small uk-flex-middle" uk-grid>
+                <div class="uk-width-expand">
+                    <h3 class="uk-card-title uk-margin-remove-bottom">Detalhes do período</h3>
+
+                    <div class="uk-flex">
+                        <div uk-grid class="uk-margin-top">
+                            <p class="uk-text-meta uk-margin-remove-topuk-margin-bottom">
+                                Data de início: {{ periodDetailsResponse.startDate | date }}
+                            </p>
+
+                            <p class="uk-text-meta uk-margin-remove-top uk-margin-bottom">
+                                Data de término: {{ periodDetailsResponse.endDate | date }}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+            <div class="uk-card-body">
+
+                <div>
+                    <h3>Balanço financeiro</h3>
+                    <h4>Lucro total: {{ periodDetailsResponse.totalProfit | currency:'BRL' }}</h4>
+    
+                    <ul uk-accordion *ngFor="let income of periodDetailsResponse.incomes">
+                        <li>
+                            <p class="uk-accordion-title uk-text-default">{{ income.title }}</p>
+                
+                            <div class="uk-accordion-content uk-text-meta">
+                                <p>Descriçao: {{ income.description }}</p>
+                                <p> Valor: {{ income.value }}</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3>Participantes</h3>
+    
+                    <ul uk-accordion *ngFor="let participantBalance of periodDetailsResponse.participantBalances">
+                        <li>
+                            <p class="uk-accordion-title uk-text-default">{{ participantBalance.fullName }}</p>
+                
+                            <div class="uk-accordion-content uk-text-meta">
+                                <p>Total ganho:{{ participantBalance.balance }}</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="uk-card-footer">
+                <a routerLink="/corporacao/detalhes/{{corporationId}}" class="uk-button">Voltar</a>
+            </div>
+        </div>
+    </div>

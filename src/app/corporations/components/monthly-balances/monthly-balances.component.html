@@ -62,20 +62,6 @@
                 currentPage: paginationResult.page, 
                 totalItems: paginationResult.totalRecords }">
 
-                    <button (click)="loadDetails(monthlyBalance.id)" class="uk-button uk-button-default"
-                        uk-toggle="target: #period-details-modal">
-                        <span class="uk-icon uk-margin-small-right" uk-icon="icon: info"></span>
-                        Detalhes
-                    </button>
-
-                    <div id="period-details-modal" uk-modal>
-                        <div class="uk-modal-dialog uk-modal-body">
-                            <button class="uk-modal-close-default" type="button" uk-close></button>
-                            <app-period-details *ngIf="shouldLoad && monthlyBalanceToLoad == monthlyBalance.id"
-                                [monthlyBalanceId]="monthlyBalance.id"></app-period-details>
-                        </div>
-                    </div>
-
                     <div class="uk-accordion-title">
                         <p>De <i>{{ monthlyBalance.startDate | date:'longDate' }}</i> até <i>{{ monthlyBalance.endDate |
                                 date:'longDate' }}</i></p>
@@ -83,7 +69,7 @@
 
                     <div class="uk-accordion-content uk-text-meta">
                         <p>Status do mês: {{ monthlyBalance.status.description }}</p>
-                        <p>Total: {{ monthlyBalance.totalProfit }}</p>
+                        <p>Total: {{ monthlyBalance.totalProfit | currency:'BRL'  }}</p>
 
                         <div *ngFor="let participantBalances of monthlyBalance.participantBalances">
                 <li>
@@ -97,6 +83,12 @@
         </div>
 
         <div class="uk-margin-top">
+            <a routerLink="/corporacao/detalhes/periodo/{{corporationResponse.id}}/{{monthlyBalance.id}}"
+                class="uk-button uk-button-default">
+                <span class="uk-icon uk-margin-small-right" uk-icon="icon: info"></span>
+                Detalhes
+            </a>
+
             <button *ngIf="corporationResponse.isCurrentUserAdmin" (click)="selectMonth(monthlyBalance.id)"
                 class="uk-button uk-button-default" uk-toggle="target: #register-income-modal">
                 <span class="uk-icon uk-margin-small-right" uk-icon="icon: info"></span>
