@@ -44,11 +44,6 @@ export class MonthlyBalancesComponent implements OnInit {
     this.sortMonthlyBalances();
   }
 
-  public loadDetails(monthlyBalanceId: number){
-    this.shouldLoad = true;
-    this.monthlyBalanceToLoad = monthlyBalanceId;
-  }
-
   public addMonth(): void {
     this.busy = true;
     let request = new AddMonthRequest(

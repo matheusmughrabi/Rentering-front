@@ -1,0 +1,18 @@
+<h2>Detalhes do período</h2>
+
+<h3>Período</h3>
+<p>Data de início: {{ periodDetailsResponse.startDate }}</p>
+<p>Data de início: {{ periodDetailsResponse.endDate }}</p>
+
+<h3>Entradas</h3>
+<div *ngFor="let income of periodDetailsResponse.incomes">
+    <p>Título: {{ income.title }} || Descriçao: {{ income.description }} || Valor: {{ income.value }} ||</p>
+</div>
+
+<h2>Lucro total</h2>
+<p>{{ periodDetailsResponse.totalProfit }}</p>
+
+<h2>Participantes</h2>
+<div *ngFor = "let participantBalance of periodDetailsResponse.participantBalances">
+    <p>Título: {{ participantBalance.fullName }} || Lucro: {{ participantBalance.balance }}</p>
+</div>

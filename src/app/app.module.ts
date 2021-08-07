@@ -26,8 +26,7 @@ import { InvitationsPageComponent } from './corporations/pages/invitations-page/
 import { MonthlyBalancesComponent } from './corporations/components/monthly-balances/monthly-balances.component';
 import { ParticipantsComponent } from './corporations/components/participants/participants.component';
 import { LoadingComponent } from './shared/components/loading/loading.component';
-import { PeriodDetailsComponent } from './corporations/components/period-details/period-details.component';
-
+import { PeriodDetailsPageComponent } from './corporations/pages/period-details-page/period-details-page.component';
 registerLocaleData(localePt, 'pt-BR');
 
 @NgModule({
@@ -47,7 +46,7 @@ registerLocaleData(localePt, 'pt-BR');
     MonthlyBalancesComponent,
     ParticipantsComponent,
     LoadingComponent,
-    PeriodDetailsComponent
+    PeriodDetailsPageComponent
   ],
   imports: [
     BrowserModule,
