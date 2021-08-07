@@ -69,7 +69,7 @@
 
                     <div class="uk-accordion-content uk-text-meta">
                         <p>Status do mês: {{ monthlyBalance.status.description }}</p>
-                        <p>Total: {{ monthlyBalance.totalProfit }}</p>
+                        <p>Total: {{ monthlyBalance.totalProfit | currency:'BRL'  }}</p>
 
                         <div *ngFor="let participantBalances of monthlyBalance.participantBalances">
                 <li>

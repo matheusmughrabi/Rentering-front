@@ -10,6 +10,7 @@ import { CorporationService } from '../../services/corporation.service';
 })
 export class PeriodDetailsPageComponent implements OnInit {
   public periodDetailsResponse!: PeriodDetailedQueryResult;
+  public corporationId!: number;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -17,16 +18,17 @@ export class PeriodDetailsPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadCorporation();
+    this.corporationId = this.getCorporationIdFromRouteParam();
   }
 
   private loadCorporation(): void {
-    this.corporationService.getPeriodDetailed(this.getCorporationIdFromRouteParam())
+    this.corporationService.getPeriodDetailed(this.getMonthlyBalanceIdFromRouteParam())
       .subscribe((queryResult: SingleQueryResult<PeriodDetailedQueryResult>) => {
         this.periodDetailsResponse = queryResult.data;
       });
   }
 
-  private getCorporationIdFromRouteParam(): number {
+  private getMonthlyBalanceIdFromRouteParam(): number {
     let monthlyBalanceId!: number;
 
     this.activatedRoute.params.subscribe(paramsId => {
@@ -34,5 +36,15 @@ export class PeriodDetailsPageComponent implements OnInit {
     });
 
     return monthlyBalanceId;
+  }
+
+  private getCorporationIdFromRouteParam(): number {
+    let corporationId!: number;
+
+    this.activatedRoute.params.subscribe(paramsId => {
+      corporationId = paramsId.id;
+    });
+
+    return corporationId;
   }
 }
