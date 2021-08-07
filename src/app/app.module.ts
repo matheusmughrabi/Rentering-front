@@ -26,6 +26,7 @@ import { InvitationsPageComponent } from './corporations/pages/invitations-page/
 import { MonthlyBalancesComponent } from './corporations/components/monthly-balances/monthly-balances.component';
 import { ParticipantsComponent } from './corporations/components/participants/participants.component';
 import { LoadingComponent } from './shared/components/loading/loading.component';
+import { PeriodDetailsComponent } from './corporations/components/period-details/period-details.component';
 
 registerLocaleData(localePt, 'pt-BR');
 
@@ -45,7 +46,8 @@ registerLocaleData(localePt, 'pt-BR');
     InvitationsPageComponent,
     MonthlyBalancesComponent,
     ParticipantsComponent,
-    LoadingComponent
+    LoadingComponent,
+    PeriodDetailsComponent
   ],
   imports: [
     BrowserModule,

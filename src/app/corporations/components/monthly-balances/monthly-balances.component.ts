@@ -18,12 +18,15 @@ import { CorporationService } from '../../services/corporation.service';
   templateUrl: './monthly-balances.component.html'
 })
 export class MonthlyBalancesComponent implements OnInit {
+  @Input() corporationResponse: CorporationDetailedQueryResult = new CorporationDetailedQueryResult();
+  
   public formProfit!: FormGroup;
   public formParticipantBalanceDescription!: FormGroup;
   public formRegisterIncome!: FormGroup;
-  @Input() corporationResponse: CorporationDetailedQueryResult = new CorporationDetailedQueryResult();
   public paginationResult: PaginationResult = new PaginationResult();
   public busy: boolean = false;
+  public shouldLoad: boolean = false;
+  public monthlyBalanceToLoad!: number;
 
   private monthId!: number;
 
@@ -39,6 +42,11 @@ export class MonthlyBalancesComponent implements OnInit {
     this.prepareFormRegisterIncome();
 
     this.sortMonthlyBalances();
+  }
+
+  public loadDetails(monthlyBalanceId: number){
+    this.shouldLoad = true;
+    this.monthlyBalanceToLoad = monthlyBalanceId;
   }
 
   public addMonth(): void {

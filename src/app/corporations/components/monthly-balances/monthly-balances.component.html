@@ -62,6 +62,20 @@
                 currentPage: paginationResult.page, 
                 totalItems: paginationResult.totalRecords }">
 
+                    <button (click)="loadDetails(monthlyBalance.id)" class="uk-button uk-button-default"
+                        uk-toggle="target: #period-details-modal">
+                        <span class="uk-icon uk-margin-small-right" uk-icon="icon: info"></span>
+                        Detalhes
+                    </button>
+
+                    <div id="period-details-modal" uk-modal>
+                        <div class="uk-modal-dialog uk-modal-body">
+                            <button class="uk-modal-close-default" type="button" uk-close></button>
+                            <app-period-details *ngIf="shouldLoad && monthlyBalanceToLoad == monthlyBalance.id"
+                                [monthlyBalanceId]="monthlyBalance.id"></app-period-details>
+                        </div>
+                    </div>
+
                     <div class="uk-accordion-title">
                         <p>De <i>{{ monthlyBalance.startDate | date:'longDate' }}</i> até <i>{{ monthlyBalance.endDate |
                                 date:'longDate' }}</i></p>
@@ -89,9 +103,8 @@
                 Adicionar renda
             </button>
 
-            <button
-            *ngIf="corporationResponse.isCurrentUserAdmin"
-                (click)="closeMonth(monthlyBalance.id)" class="uk-button uk-button-default uk-margin-small-right">
+            <button *ngIf="corporationResponse.isCurrentUserAdmin" (click)="closeMonth(monthlyBalance.id)"
+                class="uk-button uk-button-default uk-margin-small-right">
                 <span class="uk-icon uk-margin-small-right" uk-icon="icon: check"></span>
                 Realizar fechamento
             </button>
