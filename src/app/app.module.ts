@@ -28,6 +28,8 @@ import { ParticipantsComponent } from './corporations/components/participants/pa
 import { LoadingComponent } from './shared/components/loading/loading.component';
 import { PeriodDetailsPageComponent } from './corporations/pages/period-details-page/period-details-page.component';
 import { LicensePageComponent } from './accounts/pages/license-page/license-page.component';
+import { ProfilePageComponent } from './accounts/pages/profile-page/profile-page.component';
+import { UserInfoComponent } from './accounts/components/user-info/user-info.component';
 registerLocaleData(localePt, 'pt-BR');
 
 @NgModule({
@@ -48,7 +50,9 @@ registerLocaleData(localePt, 'pt-BR');
     ParticipantsComponent,
     LoadingComponent,
     PeriodDetailsPageComponent,
-    LicensePageComponent
+    LicensePageComponent,
+    ProfilePageComponent,
+    UserInfoComponent
   ],
   imports: [
     BrowserModule,

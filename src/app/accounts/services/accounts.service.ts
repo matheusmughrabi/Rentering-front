@@ -38,4 +38,3 @@ export class AccountsService extends BaseService {
         return response;
     }
 }
-
