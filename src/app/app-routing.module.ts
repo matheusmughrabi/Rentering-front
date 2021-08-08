@@ -15,6 +15,7 @@ import { InvitationsPageComponent } from './corporations/pages/invitations-page/
 import { PeriodDetailsPageComponent } from './corporations/pages/period-details-page/period-details-page.component';
 import { LicensePageComponent } from './accounts/pages/license-page/license-page.component';
 import { ProfilePageComponent } from './accounts/pages/profile-page/profile-page.component';
+import { LicensePaymentPageComponent } from './accounts/pages/license-payment-page/license-payment-page.component';
 
 const routes: Routes = [
   {path: 'login', component: LoginPageComponent, canActivate: [LoginGuard]},
@@ -28,7 +29,8 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     children: [
       {path: '', component: ProfilePageComponent},
-      {path: 'licencas', component: LicensePageComponent}
+      {path: 'licencas', component: LicensePageComponent},
+      {path: 'licencas/pagamento', component: LicensePaymentPageComponent}
     ]
   },
 

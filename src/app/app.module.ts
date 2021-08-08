@@ -30,6 +30,7 @@ import { PeriodDetailsPageComponent } from './corporations/pages/period-details-
 import { LicensePageComponent } from './accounts/pages/license-page/license-page.component';
 import { ProfilePageComponent } from './accounts/pages/profile-page/profile-page.component';
 import { UserInfoComponent } from './accounts/components/user-info/user-info.component';
+import { LicensePaymentPageComponent } from './accounts/pages/license-payment-page/license-payment-page.component';
 registerLocaleData(localePt, 'pt-BR');
 
 @NgModule({
@@ -52,7 +53,8 @@ registerLocaleData(localePt, 'pt-BR');
     PeriodDetailsPageComponent,
     LicensePageComponent,
     ProfilePageComponent,
-    UserInfoComponent
+    UserInfoComponent,
+    LicensePaymentPageComponent
   ],
   imports: [
     BrowserModule,
