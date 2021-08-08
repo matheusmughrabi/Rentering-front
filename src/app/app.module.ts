@@ -27,6 +27,7 @@ import { MonthlyBalancesComponent } from './corporations/components/monthly-bala
 import { ParticipantsComponent } from './corporations/components/participants/participants.component';
 import { LoadingComponent } from './shared/components/loading/loading.component';
 import { PeriodDetailsPageComponent } from './corporations/pages/period-details-page/period-details-page.component';
+import { LicensePageComponent } from './accounts/pages/license-page/license-page.component';
 registerLocaleData(localePt, 'pt-BR');
 
 @NgModule({
@@ -46,7 +47,8 @@ registerLocaleData(localePt, 'pt-BR');
     MonthlyBalancesComponent,
     ParticipantsComponent,
     LoadingComponent,
-    PeriodDetailsPageComponent
+    PeriodDetailsPageComponent,
+    LicensePageComponent
   ],
   imports: [
     BrowserModule,

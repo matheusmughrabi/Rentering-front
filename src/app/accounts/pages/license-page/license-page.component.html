@@ -1,0 +1,18 @@
+<form [formGroup]="formLicense" class="uk-form-stacked">
+    <div class="uk-margin">
+        <label class="uk-form-label" for="license">Nova licença</label>
+        <div class="uk-form-controls">
+            <input class="uk-input" formControlName="license" type="text"
+                placeholder="Licença"
+                [ngClass]="{'uk-form-danger': (!formLicense.controls.license.valid && !formLicense.controls.license.pristine) }">
+        </div>
+    </div>
+
+    <div class="uk-text-right">
+        <button class="uk-button uk-button-default" [disabled]="formLicense.invalid"
+            (click)="changeLicense()">
+            Salvar
+        </button>
+    </div>
+</form>
+

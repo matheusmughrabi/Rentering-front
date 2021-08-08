@@ -7,6 +7,7 @@ import { ResponseBase } from "src/app/shared/models/responseBase";
 import { RegisterRequest } from "src/app/accounts/models/requests/register.request";
 import { UserInfoQueryResult } from "../models/queryResults/userInfo.queryResult";
 import { BaseService } from "src/app/shared/services/base.service";
+import { ChangeLicenseRequest } from "../models/requests/changeLicense.request";
 
 @Injectable({
     providedIn: 'root'
@@ -27,6 +28,13 @@ export class AccountsService extends BaseService {
         const path = environment.UrlBase + 'Accounts/Register';
 
         var response = this.http.post<ResponseBase<UserInfoQueryResult>>(path, createAccountRequest);
+        return response;
+    }
+
+    changeLicense(changeLicenseRequest: ChangeLicenseRequest) {
+        const path = environment.UrlBase + 'Accounts/change-license';
+
+        var response = this.http.put<ResponseBase<any>>(path, changeLicenseRequest, { headers: this.composeHeaders() });
         return response;
     }
 }

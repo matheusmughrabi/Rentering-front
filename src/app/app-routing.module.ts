@@ -13,12 +13,22 @@ import { CorporationsPageComponent } from './corporations/pages/corporations-pag
 import { CorporationDetailsPagesComponent } from './corporations/pages/corporation-details-pages/corporation-details-pages.component';
 import { InvitationsPageComponent } from './corporations/pages/invitations-page/invitations-page.component';
 import { PeriodDetailsPageComponent } from './corporations/pages/period-details-page/period-details-page.component';
+import { LicensePageComponent } from './accounts/pages/license-page/license-page.component';
 
 const routes: Routes = [
   {path: 'login', component: LoginPageComponent, canActivate: [LoginGuard]},
   {path: 'signup', component: SignupPageComponent, canActivate: [LoginGuard]},
 
   { path: '',   redirectTo: '/contratos', pathMatch: 'full' },
+
+  {
+    path: 'perfil',
+    component: FramePageComponent,
+    canActivate: [AuthGuard],
+    children: [
+      {path: 'licencas', component: LicensePageComponent}
+    ]
+  },
 
   {
     path: 'contratos',
