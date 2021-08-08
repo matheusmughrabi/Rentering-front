@@ -7,9 +7,9 @@ import { ResponseBase } from "src/app/shared/models/responseBase";
 import { RegisterRequest } from "src/app/accounts/models/requests/register.request";
 import { UserInfoQueryResult } from "../models/queryResults/userInfo.queryResult";
 import { BaseService } from "src/app/shared/services/base.service";
-import { ChangeLicenseRequest } from "../models/requests/changeLicense.request";
 import { SingleQueryResult } from "src/app/shared/queryResults/single.queryResult";
 import { LicenseDetailsQueryResult } from "../models/queryResults/licenseDetails.queryResult";
+import { PayLicenseRequest } from "../models/requests/payLicense.request.";
 
 @Injectable({
     providedIn: 'root'
@@ -38,10 +38,10 @@ export class AccountsService extends BaseService {
         return response;
     }
 
-    changeLicense(changeLicenseRequest: ChangeLicenseRequest) {
-        const path = environment.UrlBase + 'Accounts/change-license';
+    payLicense(payLicenseRequest: PayLicenseRequest) {
+        const path = environment.UrlBase + 'Accounts/pay-license';
 
-        var response = this.http.put<ResponseBase<any>>(path, changeLicenseRequest, { headers: this.composeHeaders() });
+        var response = this.http.put<ResponseBase<any>>(path, payLicenseRequest, { headers: this.composeHeaders() });
         return response;
     }
 }
