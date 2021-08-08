@@ -8,6 +8,8 @@ import { RegisterRequest } from "src/app/accounts/models/requests/register.reque
 import { UserInfoQueryResult } from "../models/queryResults/userInfo.queryResult";
 import { BaseService } from "src/app/shared/services/base.service";
 import { ChangeLicenseRequest } from "../models/requests/changeLicense.request";
+import { SingleQueryResult } from "src/app/shared/queryResults/single.queryResult";
+import { LicenseDetailsQueryResult } from "../models/queryResults/licenseDetails.queryResult";
 
 @Injectable({
     providedIn: 'root'
@@ -16,6 +18,11 @@ export class AccountsService extends BaseService {
     constructor(http: HttpClient) {
         super(http);
     }
+
+    getLicense(id: number): Observable<SingleQueryResult<LicenseDetailsQueryResult>> {
+        return this.http.get<SingleQueryResult<LicenseDetailsQueryResult>>(environment.UrlBase + `Accounts/license-details/${id}`, 
+        { headers: this.composeHeaders() });
+      }
 
     login(loginRequest: LoginRequest): Observable<ResponseBase<UserInfoQueryResult>> {
         const path = environment.UrlBase + 'Accounts/Login';

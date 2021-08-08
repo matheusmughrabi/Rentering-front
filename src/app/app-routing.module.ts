@@ -30,7 +30,7 @@ const routes: Routes = [
     children: [
       {path: '', component: ProfilePageComponent},
       {path: 'licencas', component: LicensePageComponent},
-      {path: 'licencas/pagamento', component: LicensePaymentPageComponent}
+      {path: 'licencas/pagamento/:licenseNumber', component: LicensePaymentPageComponent}
     ]
   },
 
