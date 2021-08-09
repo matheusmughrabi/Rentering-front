@@ -25,7 +25,7 @@ export class LicensePaymentPageComponent implements OnInit {
 
   payLicense(): void {
     var request = new PayLicenseRequest();
-    request.license = this.licenseResponse.id;
+    request.license = this.licenseResponse.code;
 
     this.accountsService.payLicense(request)
       .subscribe((data: ResponseBase<any>) => {

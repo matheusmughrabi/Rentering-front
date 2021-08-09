@@ -1,7 +1,6 @@
-import { EnumResult } from "src/app/shared/enums/enumResult.model";
-
 export class LicenseDetailsQueryResult {
-    public id!: number;
-    public license!: EnumResult;
+    public code!: number;
+    public name!: string;
+    public description!: string;
     public price!: number;
 } 
