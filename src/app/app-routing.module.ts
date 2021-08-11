@@ -12,12 +12,27 @@ import { PendingInvitationsPageComponent } from './contracts/pages/pending-invit
 import { CorporationsPageComponent } from './corporations/pages/corporations-page/corporations-page.component';
 import { CorporationDetailsPagesComponent } from './corporations/pages/corporation-details-pages/corporation-details-pages.component';
 import { InvitationsPageComponent } from './corporations/pages/invitations-page/invitations-page.component';
+import { PeriodDetailsPageComponent } from './corporations/pages/period-details-page/period-details-page.component';
+import { LicensePageComponent } from './accounts/pages/license-page/license-page.component';
+import { ProfilePageComponent } from './accounts/pages/profile-page/profile-page.component';
+import { LicensePaymentPageComponent } from './accounts/pages/license-payment-page/license-payment-page.component';
 
 const routes: Routes = [
   {path: 'login', component: LoginPageComponent, canActivate: [LoginGuard]},
   {path: 'signup', component: SignupPageComponent, canActivate: [LoginGuard]},
 
   { path: '',   redirectTo: '/contratos', pathMatch: 'full' },
+
+  {
+    path: 'perfil',
+    component: FramePageComponent,
+    canActivate: [AuthGuard],
+    children: [
+      {path: '', component: ProfilePageComponent},
+      {path: 'licencas', component: LicensePageComponent},
+      {path: 'licencas/pagamento/:licenseNumber', component: LicensePaymentPageComponent}
+    ]
+  },
 
   {
     path: 'contratos',
@@ -38,6 +53,7 @@ const routes: Routes = [
     children: [
       {path: '', component: CorporationsPageComponent},
       {path: 'detalhes/:id', component: CorporationDetailsPagesComponent},
+      {path: 'detalhes/periodo/:id/:monthlyBalanceId', component: PeriodDetailsPageComponent},
       {path: 'convites', component: InvitationsPageComponent}
     ]
   }

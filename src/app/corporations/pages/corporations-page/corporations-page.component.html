@@ -73,7 +73,7 @@
                                     <a class="uk-link-reset" routerLink="/corporacao/detalhes/{{corporation.id}}">{{
                                         corporation.admin }}</a>
                                 </td>
-                                <td class="uk-text-truncate">01/01/2021</td>
+                                <td class="uk-text-truncate">{{ corporation.createDate | date}}</td>
                             </tr>
                         </tbody>
                     </table>

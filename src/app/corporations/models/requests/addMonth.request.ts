@@ -1,11 +1,11 @@
 export class AddMonthRequest{
-    constructor(corporationId: number, month: Date, totalProfit: number) {
+    constructor(corporationId: number, startDate: Date, endDate: Date) {
         this.corporationId = corporationId;
-        this.month = month;
-        this.totalProfit = totalProfit;
+        this.startDate = startDate;
+        this.endDate = endDate;
     }
 
     public corporationId!: number;
-    public month!: Date;
-    public totalProfit!: number;
+    public startDate!: Date;
+    public endDate!: Date;
 }
