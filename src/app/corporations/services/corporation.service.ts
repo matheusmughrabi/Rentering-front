@@ -17,6 +17,10 @@ import { RejectBalanceRequest } from '../models/requests/rejectBalance.request';
 import { BaseService } from 'src/app/shared/services/base.service';
 import { SingleQueryResult } from 'src/app/shared/queryResults/single.queryResult';
 import { ListQueryResult } from 'src/app/shared/queryResults/list.queryResult';
+import { AddParticipantDescriptionToMonth } from '../models/requests/addParticipantDescriptionToMonth.request';
+import { RegisterIncomeRequest } from '../models/requests/registerIncome.request';
+import { CloseMonthRequest } from '../models/requests/closeMonth.request';
+import { PeriodDetailedQueryResult } from '../models/queryResults/periodDetailed.queryResult';
 
 @Injectable({
   providedIn: 'root'
@@ -39,6 +43,11 @@ export class CorporationService extends BaseService {
 
   getCorporationDetailed(id: number): Observable<SingleQueryResult<CorporationDetailedQueryResult>> {
     return this.http.get<SingleQueryResult<CorporationDetailedQueryResult>>(environment.UrlBase + `corporation/detailed/${id}`, 
+    { headers: this.composeHeaders() });
+  }
+
+  getPeriodDetailed(id: number): Observable<SingleQueryResult<PeriodDetailedQueryResult>> {
+    return this.http.get<SingleQueryResult<PeriodDetailedQueryResult>>(environment.UrlBase + `corporation/period/detailed/${id}`, 
     { headers: this.composeHeaders() });
   }
 
@@ -95,6 +104,20 @@ export class CorporationService extends BaseService {
     return response;
   }
 
+  registerIncome(data: RegisterIncomeRequest): Observable<any> {
+    const path = environment.UrlBase + 'corporation/register-income';
+
+    var response = this.http.put<any>(path, data, { headers: this.composeHeaders() });
+    return response;
+  }
+
+  closeMonth(data: CloseMonthRequest): Observable<any> {
+    const path = environment.UrlBase + 'corporation/close-month';
+
+    var response = this.http.put<any>(path, data, { headers: this.composeHeaders() });
+    return response;
+  }
+
   acceptBalance(data: AcceptBalanceRequest): Observable<any> {
     const path = environment.UrlBase + 'corporation/balance/accept';
 
@@ -104,6 +127,13 @@ export class CorporationService extends BaseService {
 
   rejectBalance(data: RejectBalanceRequest): Observable<any> {
     const path = environment.UrlBase + 'corporation/balance/reject';
+
+    var response = this.http.put<any>(path, data, { headers: this.composeHeaders() });
+    return response;
+  }
+
+  addParticipantDescriptionToMonth(data: AddParticipantDescriptionToMonth): Observable<any> {
+    const path = environment.UrlBase + 'corporation/participant-balance/description';
 
     var response = this.http.put<any>(path, data, { headers: this.composeHeaders() });
     return response;

@@ -1,0 +1,20 @@
+<div class="uk-container uk-margin-top uk-width-2-3@l">
+    <div class="uk-card uk-card-default uk-card-body">
+
+        <div class="uk-flex">
+            <div class="uk-width-1-4">
+                <ul class="uk-nav-default uk-nav-parent-icon" uk-nav>
+                    <li class="uk-nav-header">Perfil</li>
+                    <li><a (click)="selectPage(1)"><span class="uk-margin-small-right" uk-icon="icon: user"></span> Usuário</a></li>
+                    <li><a (click)="selectPage(1)"><span class="uk-margin-small-right" uk-icon="icon: lock"></span> Alterar senha</a></li>
+                    <li class="uk-nav-divider"></li>
+                    <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: trash"></span> Item</a></li>
+                </ul>
+            </div>
+
+            <app-user-info *ngIf="selectedPage === 1"></app-user-info>
+            
+        </div>
+
+    </div>
+</div>

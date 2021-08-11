@@ -35,6 +35,15 @@ export class CorporationsPageComponent implements OnInit {
         (queryResult: ListQueryResult<UserCorporationQueryResult>) => {
           this.userCorporationsPaginated = queryResult;
 
+          this.userCorporationsPaginated.data.sort((a, b) => {
+            if(a.createDate < b.createDate){
+              return 1;
+            }
+            else{
+              return -1;
+            }
+          });
+
           this.paginationResult.page = 1;
           this.paginationResult.recordsPerPage = 10;
           this.paginationResult.totalRecords = queryResult.data.length;

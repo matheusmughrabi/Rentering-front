@@ -1,4 +1,7 @@
-import { NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
+import { registerLocaleData } from '@angular/common';
+import localePt from '@angular/common/locales/pt';
+
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -23,6 +26,12 @@ import { InvitationsPageComponent } from './corporations/pages/invitations-page/
 import { MonthlyBalancesComponent } from './corporations/components/monthly-balances/monthly-balances.component';
 import { ParticipantsComponent } from './corporations/components/participants/participants.component';
 import { LoadingComponent } from './shared/components/loading/loading.component';
+import { PeriodDetailsPageComponent } from './corporations/pages/period-details-page/period-details-page.component';
+import { LicensePageComponent } from './accounts/pages/license-page/license-page.component';
+import { ProfilePageComponent } from './accounts/pages/profile-page/profile-page.component';
+import { UserInfoComponent } from './accounts/components/user-info/user-info.component';
+import { LicensePaymentPageComponent } from './accounts/pages/license-payment-page/license-payment-page.component';
+registerLocaleData(localePt, 'pt-BR');
 
 @NgModule({
   declarations: [
@@ -40,7 +49,12 @@ import { LoadingComponent } from './shared/components/loading/loading.component'
     InvitationsPageComponent,
     MonthlyBalancesComponent,
     ParticipantsComponent,
-    LoadingComponent
+    LoadingComponent,
+    PeriodDetailsPageComponent,
+    LicensePageComponent,
+    ProfilePageComponent,
+    UserInfoComponent,
+    LicensePaymentPageComponent
   ],
   imports: [
     BrowserModule,
@@ -51,7 +65,9 @@ import { LoadingComponent } from './shared/components/loading/loading.component'
     NgxPaginationModule,  
     AppRoutingModule
   ],
-  providers: [],
+  providers: [
+    { provide: LOCALE_ID, useValue: 'pt-BR' }   
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
